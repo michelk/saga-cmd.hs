@@ -1,0 +1,18 @@
+name:                saga-cmd-wrapper
+version:             0.0.0.1
+synopsis:            Wrapping saga_cmd
+-- description:         
+homepage:            https://github.com/michelk/sagaCmdWrapper
+license:             GPL-3
+license-file:        LICENSE
+author:              Michel Kuhlmann
+maintainer:          michel.kuhlmann@tkconsult.ch
+-- copyright:           
+category:            System
+build-type:          Simple
+cabal-version:       >=1.8
+
+library
+  -- exposed-modules:     
+  -- other-modules:       
+  build-depends:       base ==4.6.*

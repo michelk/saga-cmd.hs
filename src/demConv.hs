@@ -65,6 +65,9 @@ myConvDB p = [
    ,("xyz-grid"    , "contour"     , xyzGridToFilledGrid >>= gridContour)
    ,("grid"        , "contour"     , gridFillGaps >>= gridContour)
    ,("grid-filled" , "contour"     , gridContour)
+   ,("xyz-grid"    , "tif"         , xyzGridToFilledGrid >>= gridTif)
+   ,("grid"        , "tif"         , gridFillGaps >>= gridTif)
+   ,("grid-filled" , "tif"         , gridTif)
     ]
   where
     sep                 = xyzSep p
@@ -76,5 +79,4 @@ main = do
     args <- getArgs
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
-    let f = dispatchReaderWriter (from opts) (to opts)
-    TIO.interact f
+    putStr "heho"

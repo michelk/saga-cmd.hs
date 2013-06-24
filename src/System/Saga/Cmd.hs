@@ -1,33 +1,169 @@
 module System.Saga.Cmd where
-import Shelly
-import Prelude hiding (FilePath)
-import Data.Text.Lazy as LT
-default (LT.Text)
+import System.Cmd 
+import GHC.IO.Exception
+import System.FilePath.Posix (dropExtension)
 
 -- | Actual Program to do the work
-progName :: FilePath
-progName = "/usr/bin" </> "saga_cmd"
+progName :: String
+progName = "saga_cmd"
 
 -- | Wrapper around saga
 saga ::
-      Text                  -- ^ Library name
-    -> Text                  -- ^ Module name  -- 
-    -> [(Text,Text)]         -- ^ Parameter key-value (except of input)
-    -> String                -- ^ Parameter input-key
-    -> FilePath                -- ^ Input-file
-    -> ShIO FilePath         -- ^ Output-file
-saga lib mod params fKey inF = do
-    result <- run progName [lib, mod]
-    return ("." </> outF )
+       String               -- ^ Library name
+    -> String               -- ^ Module name  
+    -> [(String,String)]    -- ^ Parameter key-value (except of input)
+    -> IO ExitCode          -- ^ Output-file
+saga lib mod params = 
+    system $ unwords [
+        progName
+       ,lib
+       ,mod
+       ,unwords $ renderParams params
+       ]
   where
-    renderParams = Prelude.map renderPara
+    renderParams = map renderPara
     renderPara (k,v) = "-" ++ k ++ " " ++ v
-    outF = replace (toTextIgnore inF) (pack " ") (pack "_")
 
--- | Read an XyzGrid 
-readXyzGrid ::
-      Double                    -- ^ Cellsize of grid
-    -> Text                      -- ^ Seperator
-    -> FilePath                  -- ^ Input File
-    -> ShIO FilePath
-readXyzGrid cs sep f = saga ""
+-- | Convert a xyz-grid to saga-grid 
+xyzGridToGrid ::
+       Double                   -- ^ Cellsize of grid
+    -> String                   -- ^ Seperator
+    -> FilePath                 -- ^ Input file-path
+    -> IO FilePath              -- ^ Output file-path
+xyzGridToGrid cs sep f = do
+    result <-
+        saga "libio_grid" "6"
+        [
+         ("GRID", outF)
+        ,("CELLSIZE", show cs)
+        ,("SEPARATOR", sepStr)
+        ,("FILENAME", f)
+        ]
+    case result of
+        ExitSuccess   -> return outF
+        ExitFailure _ -> error  "saga_cmd failed"
+    where
+      outF = appendFileName f "_grid.sgrd"
+      sepStr = dispSep sep
+
+-- | Create a grid based on scatterd xyz-points
+xyzToGrid :: 
+       Double                   -- ^ Cellsize of grid
+    -> String                   -- ^ Seperator
+    -> FilePath                 -- ^ Input file-path
+    -> IO FilePath              -- ^ Output file-path
+xyzToGrid cs sep f = do
+    result <- 
+        saga "libio_grid" "6"
+        [("FILENAME", f)
+         ,("GRID", outF)
+         ,("CELLSIZE", show cs)
+         ,("SEPARATOR", sepStr)]
+    case result of
+        ExitSuccess   -> return outF
+        ExitFailure _ -> error  "saga_cmd failed"
+    where
+      outF = appendFileName f "_grid.sgrd"
+      sepStr = dispSep sep
+-- | fill Gaps in a grid 
+gridFillGaps ::
+    FilePath                    -- ^ Input-grid
+    -> IO FilePath              -- ^ Output-grid
+gridFillGaps f = do
+    result <-
+        saga "libgrid_spline" "5"
+        [
+            ("GRIDPOINTS",f)
+           ,("TARGET",outF)
+        ]
+    case result of
+        ExitSuccess   -> return outF
+        ExitFailure _ -> error  "saga_cmd failed"
+    where
+      outF = appendFileName f "_filled.sgrd"
+
+-- | Create a hillshade of grid
+gridHillshade ::
+    FilePath                    -- ^ Input-grid
+    -> IO FilePath              -- ^ Ouput-grid
+gridHillshade f = do
+    result <-
+        saga "libta_lighting" "0"
+        [
+            ("ELEVATION", f)
+           ,("SHADE", outF)
+        ]
+    case result of
+        ExitSuccess   -> return outF
+        ExitFailure _ -> error  "saga_cmd failed"
+    where
+      outF = appendFileName f "_hillshade.sgrd"
+
+-- | Create contour-lines of a grid
+gridContour :: 
+    Double                -- ^ vertical distance between contour-lines
+    -> FilePath           -- ^ Input-grid
+    -> IO FilePath        -- ^ Ouput-grid
+gridContour d f = do
+    result <-
+        saga "libshapes_grid" "5"
+        [
+            ("INPUT", f)
+           ,("CONTOUR", outF)
+        ]
+    case result of
+        ExitSuccess   -> return outF
+        ExitFailure _ -> error  "saga_cmd failed"
+    where
+      outF = appendFileName f "_contour.shp"
+
+-- | Laplacian filter (edge-detection)
+gridFilterLaplace :: 
+       FilePath                 -- ^ Input-grid
+    -> IO FilePath              -- ^ Ouput-grid
+gridFilterLaplace f = do
+    result <-
+        saga "libgrid_filter" "5"
+        [
+            ("GRID", f)
+           ,("OUTPUT", outF)
+        ]
+    case result of
+        ExitSuccess   -> return outF
+        ExitFailure _ -> error  "saga_cmd failed"
+    where
+      outF = appendFileName f "_laplace.sgrd"
+
+-- | grid Curvature
+gridCurvature :: 
+       FilePath                 -- ^ Input-grid
+    -> IO FilePath              -- ^ Ouput-grid
+gridCurvature f = do
+    result <-
+        saga "libta_morphometry" "0"
+        [
+            ("ELEVATION", f)
+           ,("CURV", outF)
+        ]
+    case result of
+        ExitSuccess   -> return outF
+        ExitFailure _ -> error  "saga_cmd failed"
+    where
+      outF = appendFileName f "_curv.sgrd"
+
+-- | Utility function to append to basename of a file-name
+appendFileName :: FilePath -> String -> FilePath
+appendFileName f s = (dropExtension f) ++ s
+
+-- | Dispatch on field seperator
+dispSep :: String -> String
+dispSep s = case s of
+    "space"     -> "space"
+    "Space"     -> "space"
+    " "         -> "space"
+    "\t"        -> "tabulator"
+    "tab"       -> "tabulator"
+    "Tab"       -> "tabulator"
+    "Tabulator" -> "tabulator"
+    ";"         -> ";"
+    ","         -> ","

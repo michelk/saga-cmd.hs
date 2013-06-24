@@ -74,7 +74,8 @@ gridFillGaps f = do
         saga "libgrid_spline" "5"
         [
             ("GRIDPOINTS",f)
-           ,("TARGET",outF)
+           ,("TARGET","grid")
+           ,("USER_GRID",outF)
         ]
     case result of
         ExitSuccess   -> return outF
@@ -150,6 +151,23 @@ gridCurvature f = do
         ExitFailure _ -> error  "saga_cmd failed"
     where
       outF = appendFileName f "_curv.sgrd"
+
+-- | grid Curvature
+gridTif :: 
+       FilePath                 -- ^ Input-grid
+    -> IO FilePath              -- ^ Ouput-grid
+gridTif f = do
+    result <-
+        saga "libio_gdal" "2"
+        [
+            ("GRIDS", f)
+           ,("FILE", outF)
+        ]
+    case result of
+        ExitSuccess   -> return outF
+        ExitFailure _ -> error  "saga_cmd failed"
+    where
+      outF = appendFileName f ".tif"
 
 -- | Utility function to append to basename of a file-name
 appendFileName :: FilePath -> String -> FilePath

@@ -3,6 +3,7 @@ module Main where
 import System.Console.CmdArgs
 import System.Saga.Cmd
 import Control.Monad (when)
+import Data.Text (split, pack, unpack, Text)
 import System.Environment (getArgs, withArgs)
 
 _PROGRAM_NAME    = "demConv"
@@ -62,20 +63,38 @@ myConvDB :: Params -> ConvDB
 myConvDB p = [
     ("xyz-grid"    , "grid"        , xyzGridToGrid cs sep)
    ,("xyz-grid"    , "grid-filled" , xyzGridToFilledGrid)
-   ,("xyz-grid"    , "hillshade"   , xyzGridToFilledGrid >>= gridHillshade)
-   ,("grid"        , "hillshade"   , gridFillGaps >>= gridHillshade)
+   ,("xyz-grid"    , "hillshade"   , xyzGridToHillShade)
+   ,("grid"        , "hillshade"   , gridToHillShade )
    ,("grid-filled" , "hillshade"   , gridHillshade)
-   ,("xyz-grid"    , "contour"     , xyzGridToFilledGrid >>= gridContour)
-   ,("grid"        , "contour"     , gridFillGaps >>= gridContour)
-   ,("grid-filled" , "contour"     , gridContour)
-   ,("xyz-grid"    , "tif"         , xyzGridToFilledGrid >>= gridTif)
-   ,("grid"        , "tif"         , gridFillGaps >>= gridTif)
+   ,("xyz-grid"    , "contour"     , xyzGridToContour)
+   ,("grid"        , "contour"     , gridToContour)
+   ,("grid-filled" , "contour"     , gridContour d)
+   ,("xyz-grid"    , "tif"         , xyzGridToTif)
+   ,("grid"        , "tif"         , gridToTif)
    ,("grid-filled" , "tif"         , gridTif)
     ]
   where
-    sep                 = xyzSep p
-    cs                  = xyzCellSize p
-    xyzGridToFilledGrid = xyzToGrid cs sep >>= gridFillGaps
+    sep                   = xyzSep p
+    cs                    = xyzCellSize p
+    d                     = contourDiff p
+    xyzGridToFilledGrid f = xyzToGrid cs sep f >>= gridFillGaps
+    xyzGridToHillShade f  = xyzGridToFilledGrid f >>= gridHillshade
+    gridToHillShade f     = gridFillGaps f >>= gridHillshade
+    xyzGridToContour f    = xyzGridToFilledGrid f >>= gridContour d
+    gridToContour f       = gridFillGaps f >>= gridContour d
+    xyzGridToTif f        = xyzGridToFilledGrid f >>= gridTif
+    gridToTif f           = gridFillGaps f >>= gridTif
+
+parseParamCmdString :: String -> [(String,String)]
+parseParamCmdString s = map parseAssign $ splitStr ':' s
+  where
+    parseAssign :: String -> (String,String)
+    parseAssign s = let k:v:[] = splitStr '=' s in (k,v)
+      
+
+-- | split a String on a certain delimiter
+splitStr :: Char -> String -> [String]
+splitStr c s = map unpack $ split (== c) (pack s)
 
 main :: IO ()
 main = do

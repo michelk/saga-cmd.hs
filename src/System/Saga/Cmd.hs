@@ -65,7 +65,7 @@ xyzToGrid cs sep f = do
     where
       outF = appendFileName f "_grid.sgrd"
       sepStr = dispSep sep
--- | fill Gaps in a grid 
+-- | Fill Gaps in a grid 
 gridFillGaps ::
     FilePath                    -- ^ Input-grid
     -> IO FilePath              -- ^ Output-grid
@@ -75,10 +75,11 @@ gridFillGaps f = do
         [
             ("GRIDPOINTS",f)
            ,("TARGET","grid")
-           ,("USER_GRID",outF)
+           ,("GRID_GRID",f)
+           ,("USER_GRID",outF) -- TODO: This behaves strange 
         ]
     case result of
-        ExitSuccess   -> return outF
+        ExitSuccess   -> return f
         ExitFailure _ -> error  "saga_cmd failed"
     where
       outF = appendFileName f "_filled.sgrd"
@@ -111,6 +112,7 @@ gridContour d f = do
         [
             ("INPUT", f)
            ,("CONTOUR", outF)
+           ,("ZSTEP", show d)
         ]
     case result of
         ExitSuccess   -> return outF
@@ -169,9 +171,28 @@ gridTif f = do
     where
       outF = appendFileName f ".tif"
 
+-- | triangulation of raster-data
+gridTin :: 
+       String                   -- ^ Method to use ('Mark Highest Neighbour', 'Opposite Neighbours', 'Flow Direction', 'Flow Direction (up and down)', 'Peucker & Douglas')
+    -> FilePath                 -- ^ Input-grid
+    -> IO FilePath              -- ^ Ouput-grid
+gridTin m f = do
+    result <-
+        saga "libtin_tools" "1"
+        [
+            ("GRID", f)
+           ,("TIN", outF)
+           ,("METHOD", m)
+        ]
+    case result of
+        ExitSuccess   -> return outF
+        ExitFailure _ -> error  "saga_cmd failed"
+    where
+      outF = appendFileName f ".tin"
+
 -- | Utility function to append to basename of a file-name
 appendFileName :: FilePath -> String -> FilePath
-appendFileName f s = (dropExtension f) ++ s
+appendFileName f s = dropExtension f ++ s
 
 -- | Dispatch on field seperator
 dispSep :: String -> String

@@ -1,6 +1,7 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 module Main where
 import System.Console.CmdArgs
+import System.Saga.Cmd
 import Control.Monad (when)
 import System.Environment (getArgs, withArgs)
 
@@ -24,6 +25,7 @@ data Params = Params {
     xyzSep      :: String       -- ^ Seperator, when reading xyz-data
    ,xyzCellSize :: Double       -- ^ target grid-cell-size
    ,contourDiff :: Double -- ^ difference in elevation between contour-lines
+   ,tinMethod   :: String -- ^ Method for triangulation
    } deriving (Show)
 
 -- | Conversion Data-base
@@ -52,6 +54,7 @@ defaultParams = Params {
     xyzSep      = "space"
    ,xyzCellSize = 1.0
    ,contourDiff = 1.0               
+   ,tinMethod   = "Opposite Neighbours"
    }
 
 -- | Convsersion data-base

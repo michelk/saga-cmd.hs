@@ -1,4 +1,4 @@
-module System.Saga.Cmd where
+module Math.Geometry.Saga.Cmd where
 import System.Cmd 
 import GHC.IO.Exception
 import System.FilePath.Posix (dropExtension)
@@ -75,8 +75,7 @@ gridFillGaps f = do
         [
             ("GRIDPOINTS",f)
            ,("TARGET","grid")
-           ,("GRID_GRID",f)
-           ,("USER_GRID",outF) -- TODO: This behaves strange 
+           ,("GRID_GRID",outF)
         ]
     case result of
         ExitSuccess   -> return f

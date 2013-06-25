@@ -8,12 +8,12 @@ license-file:        LICENSE
 author:              Michel Kuhlmann
 maintainer:          michel.kuhlmann@tkconsult.ch
 -- copyright:           
-category:            System
+category:            Math
 build-type:          Simple
 cabal-version:       >=1.8
 
 library
-  exposed-modules:     System.Saga.Cmd
+  exposed-modules:     Math.Geometry.Saga.Cmd
   -- other-modules:       
   build-depends:       base,
                        filepath,
@@ -21,12 +21,14 @@ library
   hs-source-dirs:      src
   
 
-executable demConv 
-  main-is:           demConv.hs
-  -- other-modules:       
-  build-depends:     base,
-                     filepath, 
-                     cmdargs,
-                     process,
-                     saga-cmd-wrapper
-  hs-source-dirs:    src
+--executable demConv 
+--  main-is:           demConv.hs
+--  -- other-modules:       
+--  build-depends:     base,
+--                     filepath, 
+--                     cmdargs,
+--                     process,
+--                     text,
+--                     unordered-containers,
+--                     saga-cmd-wrapper
+--  hs-source-dirs:    src

@@ -22,7 +22,7 @@ Usage
 ### Haskell Library
 You could either use the haskell-library directly.  Eg.
 
-    ghci> :m System.Saga.Cmd
+    ghci> :m Math.Geometry.Saga.Cmd
     ghci> xyzGridToGrid 1 "space" "dem.xyz"
 
 ### demConv
@@ -34,8 +34,13 @@ Or you could use `demConv`. Eg
 Development
 -----------
 
-### Finding the library and module to add
+In order to extend functionality
 
+* find library and module
+* write wrapper-function
+* add default parameters and conversion-function in `demConv`
+
+### Finding the library and module to add
 When extending the library, the first thing to do is finding the library and
 module you want to add. 
 
@@ -50,3 +55,6 @@ Eg looking for xyz-import/export
     ### libio_grid: 5   :Export Grid to XYZ
     ### libio_grid: 6   :Import Grid from XYZ
 
+### Add wrapper-function in `Math.Geometry.Saga.Cmd`
+
+### Adjust parameters in `demConv`

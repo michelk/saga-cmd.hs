@@ -17,7 +17,8 @@ library
   -- other-modules:       
   build-depends:       base,
                        filepath,
-                       process
+                       process,
+                       directory
   hs-source-dirs:      src
   
 

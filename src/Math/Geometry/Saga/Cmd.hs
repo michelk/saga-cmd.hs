@@ -1,7 +1,8 @@
 module Math.Geometry.Saga.Cmd where
 import System.Cmd 
 import GHC.IO.Exception
-import System.FilePath.Posix (dropExtension)
+import System.Directory (copyFile)
+import System.FilePath.Posix (dropExtension, replaceExtension)
 
 -- | Actual Program to do the work
 progName :: String
@@ -65,11 +66,13 @@ xyzToGrid cs sep f = do
     where
       outF = appendFileName f "_grid.sgrd"
       sepStr = dispSep sep
+
 -- | Fill Gaps in a grid 
 gridFillGaps ::
     FilePath                    -- ^ Input-grid
     -> IO FilePath              -- ^ Output-grid
 gridFillGaps f = do
+    copyGrid f outF
     result <-
         saga "libgrid_spline" "5"
         [
@@ -188,6 +191,14 @@ gridTin m f = do
         ExitFailure _ -> error  "saga_cmd failed"
     where
       outF = appendFileName f ".tin"
+
+-- | Copy a grid data-set
+copyGrid :: FilePath -> FilePath -> IO ()
+copyGrid f t = mapM_ cp ["sgrd", "sdat", "mgrd"]
+   where
+     cp ext = copyFile (replaceExtension f ext) (replaceExtension t ext)
+    
+
 
 -- | Utility function to append to basename of a file-name
 appendFileName :: FilePath -> String -> FilePath

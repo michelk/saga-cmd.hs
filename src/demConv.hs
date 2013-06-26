@@ -126,7 +126,7 @@ adjustDefaultParams pCmd pDef = if False `elem` validParas
     then
         error $ "Invalid parameters on the command-line specified. Valid are \n" ++
          unwords (M.keys pDef)
-    else pDef `M.union` pCmd
+    else pCmd `M.union` pDef 
   where
     validParas :: [Bool]
     validParas = map  (`M.member` pDef) (M.keys pCmd)

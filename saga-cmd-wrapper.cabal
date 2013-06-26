@@ -1,5 +1,5 @@
 name:                saga-cmd-wrapper
-version:             0.0.0.1
+version:             0.0.1.0
 synopsis:            Wrapping saga_cmd
 -- description:         
 homepage:            https://github.com/michelk/sagaCmdWrapper

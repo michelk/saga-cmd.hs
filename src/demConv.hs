@@ -5,20 +5,20 @@ import Math.Geometry.Saga.Cmd
 import Control.Monad (when)
 import Data.Text (split, pack, unpack, Text)
 import qualified Data.HashMap.Lazy as M
-import Data.Maybe (fromJust)
+import Data.Maybe (fromJust, fromMaybe)
 import Text.Printf (printf)
 import System.Environment (getArgs, withArgs)
 
 _PROGRAM_NAME    = "demConv"
-_PROGRAM_VERSION = "0.0.0.1"
+_PROGRAM_VERSION = "0.0.1.0"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
 _COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
 _PROGRAM_ABOUT   = "Convert Digital Elevation Models (DEM) to diffent formats"
 _PROGRAM_DETAILS = lines ( "Possible from-to-combinations:\n"
-                   ++ (renderFromToKeys $ createConvDB defaultParams)
+                   ++ renderFromToKeys (createConvDB defaultParams) 
                    ++ "\n\n"
                    ++ "Default parameters:\n"
-                   ++ (renderStringPairs $ M.toList defaultParams))
+                   ++ renderStringPairs (M.toList defaultParams))
 
 main :: IO ()
 main = do
@@ -26,13 +26,13 @@ main = do
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
     let cmdPars = parseParamCmdString $ parameters opts
-        pars    = adjustDefaultParams (cmdPars) defaultParams
+        pars    = adjustDefaultParams cmdPars defaultParams
         convDB  = createConvDB pars
-        convFun = case M.lookup (from opts, to opts) convDB of
-            Just f -> f
-            Nothing -> error $ "from-to-combination not supported."
-                       ++ "Currently supported: \n"
-                       ++ (renderFromToKeys convDB)
+        convFun = fromMaybe
+          (error $
+              "from-to-combination not supported." ++
+              "Currently supported: \n" ++ renderFromToKeys convDB)
+          (M.lookup (from opts, to opts) convDB)
     result <- convFun (file opts)
     putStrLn ("Created file " ++ result)
 
@@ -122,14 +122,14 @@ adjustDefaultParams ::
        Params                   -- ^ parameters given on the command-line
     -> Params                   -- ^ default parameters
     -> Params                   -- ^ adjusted paramters
-adjustDefaultParams pCmd pDef = case any (==False) validParas of
-    True ->
+adjustDefaultParams pCmd pDef = if False `elem` validParas 
+    then
         error $ "Invalid parameters on the command-line specified. Valid are \n" ++
-         (unwords (M.keys pDef))
-    _    -> M.union pDef pCmd
+         unwords (M.keys pDef)
+    else pDef `M.union` pCmd
   where
     validParas :: [Bool]
-    validParas = map  (\x -> M.member x pDef) (M.keys pCmd)
+    validParas = map  (`M.member` pDef) (M.keys pCmd)
 
 
 -- | Split a String on a certain delimiter
@@ -142,11 +142,11 @@ renderFromToKeys db = twoCol "from" "to" ++ renderStringPairs (M.keys db)
 
 -- Render a list of string-tuple in two columns
 renderStringPairs :: [(String, String)] -> String
-renderStringPairs ps = concatMap renderPair ps
+renderStringPairs = concatMap renderPair 
   where
     renderPair :: (String, String) -> String
     renderPair (k,v) = twoCol k v
     
 -- | render two strings in two columns
 twoCol :: String -> String -> String
-twoCol a b = printf "\t%10s  %10s\n" a b 
+twoCol = printf "\t%10s  %10s\n"

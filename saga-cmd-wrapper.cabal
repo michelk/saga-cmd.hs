@@ -22,14 +22,15 @@ library
   hs-source-dirs:      src
   
 
---executable demConv 
---  main-is:           demConv.hs
---  -- other-modules:       
---  build-depends:     base,
---                     filepath, 
---                     cmdargs,
---                     process,
---                     text,
---                     unordered-containers,
---                     saga-cmd-wrapper
---  hs-source-dirs:    src
+executable demConv 
+  main-is:           demConv.hs
+  -- other-modules:       
+  build-depends:     base,
+                     filepath, 
+                     cmdargs,
+                     process,
+                     text,
+                     unordered-containers,
+                     directory,
+                     saga-cmd-wrapper
+  hs-source-dirs:    src

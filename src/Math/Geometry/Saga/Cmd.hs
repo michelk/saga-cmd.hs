@@ -77,7 +77,7 @@ gridFillGaps f = do
         saga "libgrid_spline" "5"
         [
             ("GRIDPOINTS",f)
-           ,("TARGET","grid")
+           ,("TARGET","1")
            ,("GRID_GRID",outF)
         ]
     case result of
@@ -105,15 +105,19 @@ gridHillshade f = do
 
 -- | Create contour-lines of a grid
 gridContour :: 
-    Double                -- ^ vertical distance between contour-lines
+       Double             -- ^ minimum value
+    -> Double             -- ^ maximum value
+    -> Double                -- ^ vertical distance between contour-lines
     -> FilePath           -- ^ Input-grid
     -> IO FilePath        -- ^ Ouput-grid
-gridContour d f = do
+gridContour min max d f = do
     result <-
         saga "libshapes_grid" "5"
         [
             ("INPUT", f)
            ,("CONTOUR", outF)
+           ,("ZMIN", show min)
+           ,("ZMIN", show max)
            ,("ZSTEP", show d)
         ]
     case result of

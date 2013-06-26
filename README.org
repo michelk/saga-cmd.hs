@@ -31,26 +31,26 @@ You could either use the haskell-library directly.  Eg.
 
 ** demConv
 
-Or you could use demConv. Eg
+Or you could use =demConv=. Eg
 
 #+BEGIN_SRC sh
     demnConv --from xyz --to hillshade --parameters xyzCellSize=1:xyzSep=tab
 #+END_SRC
 
-*** Usage demConv
-#+BEGIN_SRC emacs-lisp :exports none :results silent
+*** Usage =demConv=
+#+BEGIN_SRC emacs-lisp :exports none :results silent :exports none
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((sh . t)
      (emacs-lisp . t)))
 #+END_SRC 
 - 
-#+BEGIN_SRC sh :results output
+#+BEGIN_SRC sh :results verbatim
     demConv
 #+END_SRC
 
-#+RESULTS:
-#+begin_example
+
+#+BEGIN_SRC sh 
 demConv version 0.0.1.0, GPL licensed; written by Michel Kuhlmann 2013
 
 demConv [OPTIONS] [DEM-file]
@@ -87,8 +87,7 @@ Default parameters:
 	 tinMethod  Opposite Neighbours
 	    xyzSep       space
 	contourMin           0
-#+end_example
-
+#+END_SRC
  
 * Development
 

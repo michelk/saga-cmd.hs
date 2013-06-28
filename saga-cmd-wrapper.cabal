@@ -30,7 +30,7 @@ executable demConv
                      cmdargs,
                      process,
                      text,
-                     unordered-containers,
+                     containers,
                      directory,
                      saga-cmd-wrapper
   hs-source-dirs:    src

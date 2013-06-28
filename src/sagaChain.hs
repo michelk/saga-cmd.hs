@@ -4,7 +4,7 @@ import System.Console.CmdArgs
 import Math.Geometry.Saga.Cmd
 import Control.Monad (when)
 import Data.Text (split, pack, unpack, Text)
-import qualified Data.HashMap.Lazy as M
+import qualified Data.Map as M
 import Data.Maybe (fromJust, fromMaybe)
 import Text.Printf (printf)
 import System.Environment (getArgs, withArgs)
@@ -14,7 +14,7 @@ _PROGRAM_VERSION = "0.0.1.0"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
 _COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
 _PROGRAM_ABOUT   = "Convert Digital Elevation Models (DEM) to diffent formats"
-_PROGRAM_DETAILS = lines ( "Possible from-to-combinations:\n"
+_PROGRAM_DETAILS = lines ( "Supported from-to-combinations:\n"
                    ++ renderFromToKeys (createConvDB defaultParams) 
                    ++ "\n\n"
                    ++ "Default parameters:\n"
@@ -39,12 +39,12 @@ main = do
 -- | Default conversion-parameters
 defaultParams :: Params
 defaultParams = M.fromList [
-    ("xyzSep"      , "space")
-   ,("xyzCellSize" , "1")
-   ,("contourMin"  , "0")
-   ,("contourMax"  , "10000")
-   ,("contourStep" , "1")
-   ,("tinMethod"   ,  "Opposite Neighbours")
+    ("sep"       , "space")                -- ^ xyz-seperator
+   ,("cs"        , "1")                    -- ^ xyz-cellsize
+   ,("min"       , "0")                    -- ^ contour-minimum-value
+   ,("max"       , "10000")                -- ^ contour-maximum-value
+   ,("d"         , "1")                    -- ^ contour-step
+   ,("tinMethod" ,  "Opposite Neighbours") -- ^ method for triangulation
    ]
 
 -- | Convsersion data-base
@@ -57,22 +57,22 @@ createConvDB p = M.fromList [
    ,(("grid-filled" , "hillshade"   ), gridHillshade)
    ,(("xyz-grid"    , "contour"     ), xyzGridToContour)
    ,(("grid"        , "contour"     ), gridToContour)
-   ,(("grid-filled" , "contour"     ), gridContour cntrMin cntrMin cntrStep)
+   ,(("grid-filled" , "contour"     ), gridContour pMin pMax d)
    ,(("xyz-grid"    , "tif"         ), xyzGridToTif)
    ,(("grid"        , "tif"         ), gridToTif)
    ,(("grid-filled" , "tif"         ), gridTif)
     ]
   where
-    sep                   = lkp p "xyzSep"
-    cs,cntrStep,cntrMin,cntrMax :: Double
-    (cs:cntrStep:cntrMin:cntrMax:[]) = 
-      map (read . lkp p) ["xyzCellSize","contourStep", "contourMin", "contourMax"]
+    sep                   = lkp p "sep"
+    cs,d,pMin,pMax :: Double
+    (cs:d:pMin:pMax:[]) = 
+      map (read . lkp p) ["cs","d", "min", "max"]
     xyzGridToFilledGrid f = xyzToGrid cs sep f >>= gridFillGaps
     xyzGridToHillShade f  = xyzGridToFilledGrid f >>= gridHillshade
     gridToHillShade f     = gridFillGaps f >>= gridHillshade
     xyzGridToContour f    = 
-      xyzGridToFilledGrid f >>= gridContour cntrMin cntrMin cntrStep
-    gridToContour f       = gridFillGaps f >>= gridContour cntrMin cntrMin cntrStep
+      xyzGridToFilledGrid f >>= gridContour pMin pMax d
+    gridToContour f       = gridFillGaps f >>= gridContour pMin pMax d
     xyzGridToTif f        = xyzGridToFilledGrid f >>= gridTif
     gridToTif f           = gridFillGaps f >>= gridTif
 
@@ -85,20 +85,18 @@ data Opt = Opt
     , file       :: FilePath    -- ^ Command-line arguments
     } deriving (Show, Data, Typeable)
 
--- | Parameters to use for the diffenrent conversion-steps
-type Params = M.HashMap String String
 
 -- | Conversion Data-base
-type ConvDB = M.HashMap (String,String) (String -> IO String)
+type ConvDB = M.Map (String,String) (String -> IO String)
 
 -- | Defaults for command-line options.
 defaultOpts :: Opt
 defaultOpts = Opt
     { 
-      from        = def &= help "Source-format; currently: xyz,xyz-grid,grid"
-    , to          = def &= help "Target-format; currently: contour,hillshade,grid-filled"
-    , parameters  = def &= help "Parameters to pass into the different conversion steps"
-    , file        = def &= args &= typ "DEM-file"
+      from        = def &= help "Source-format"
+    , to          = def &= help "Target-format"
+    , parameters  = def &= help "Parameters to pass into the different conversion steps, delimited by ':'(eg cs=0.5:d=0.5)"
+    , file        = def &= args &= typ "DEM-input-file"
     } &=
     program _PROGRAM_NAME &=
     help _PROGRAM_ABOUT &=

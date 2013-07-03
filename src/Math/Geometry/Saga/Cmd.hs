@@ -3,6 +3,7 @@ import Math.Geometry.Saga.Types
 import Math.Geometry.Saga.Utils
 import System.Cmd (system)
 import GHC.IO.Exception
+import Data.Map (elems)
 
 -- | Actual Program to do the work
 progName :: String
@@ -20,7 +21,7 @@ doSaga (SagaCmd lib mod extOut (kIn, kOut) ps pre post) fIn = do
        ExitFailure _ -> error "saga_cmd failed"
    where
      outF = appendFileName fIn extOut
-     ps' = map (\(a,b,c) -> (b,c)) ps ++ [(kIn,fIn),(kOut,outF)]
+     ps' = elems ps ++ [(kIn,fIn),(kOut,outF)]
               
 
 -- | Wrapper around saga

@@ -13,17 +13,23 @@ build-type:          Simple
 cabal-version:       >=1.8
 
 library
-  exposed-modules:     Math.Geometry.Saga.Cmd
+  exposed-modules:     Math.Geometry.Saga.Types
+                       Math.Geometry.Saga.Cmd
+                       Math.Geometry.Saga.Chain
+                       Math.Geometry.Saga.Data
+                       Math.Geometry.Saga.Utils
+                       Math.Geometry.Saga.LUT
   -- other-modules:       
   build-depends:       base,
                        filepath,
                        process,
+                       containers,
                        directory
   hs-source-dirs:      src
   
 
-executable demConv 
-  main-is:           demConv.hs
+executable sagaChain
+  main-is:           sagaChain.hs
   -- other-modules:       
   build-depends:     base,
                      filepath, 
@@ -32,5 +38,12 @@ executable demConv
                      text,
                      containers,
                      directory,
+                     saga-cmd-wrapper
+  hs-source-dirs:    src
+
+executable sagaGenLUT
+  main-is:           sagaGenLUT.hs
+  -- other-modules:       
+  build-depends:     base,
                      saga-cmd-wrapper
   hs-source-dirs:    src

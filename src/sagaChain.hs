@@ -1,7 +1,9 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 module Main where
 import System.Console.CmdArgs
-import Math.Geometry.Saga.Cmd
+import Math.Geometry.Saga.Types
+import Math.Geometry.Saga.Chain
+import Math.Geometry.Saga.Data
 import Control.Monad (when)
 import Data.Text (split, pack, unpack, Text)
 import qualified Data.Map as M
@@ -14,11 +16,7 @@ _PROGRAM_VERSION = "0.0.1.0"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
 _COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
 _PROGRAM_ABOUT   = "Convert Digital Elevation Models (DEM) to diffent formats"
-_PROGRAM_DETAILS = lines ( "Supported from-to-combinations:\n"
-                   ++ renderFromToKeys (createConvDB defaultParams) 
-                   ++ "\n\n"
-                   ++ "Default parameters:\n"
-                   ++ renderStringPairs (M.toList defaultParams))
+
 
 main :: IO ()
 main = do
@@ -26,55 +24,12 @@ main = do
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
     let cmdPars = parseParamCmdString $ parameters opts
-        pars    = adjustDefaultParams cmdPars defaultParams
-        convDB  = createConvDB pars
-        convFun = fromMaybe
-          (error $
-              "from-to-combination not supported." ++
-              "Currently supported: \n" ++ renderFromToKeys convDB)
-          (M.lookup (from opts, to opts) convDB)
-    result <- convFun (file opts)
-    putStrLn ("Created file " ++ result)
-
--- | Default conversion-parameters
-defaultParams :: Params
-defaultParams = M.fromList [
-    ("sep"       , "space")                -- ^ xyz-seperator
-   ,("cs"        , "1")                    -- ^ xyz-cellsize
-   ,("min"       , "0")                    -- ^ contour-minimum-value
-   ,("max"       , "10000")                -- ^ contour-maximum-value
-   ,("d"         , "1")                    -- ^ contour-step
-   ,("tinMethod" ,  "Opposite Neighbours") -- ^ method for triangulation
-   ]
-
--- | Convsersion data-base
-createConvDB :: Params -> ConvDB
-createConvDB p = M.fromList [
-    (("xyz-grid"    , "grid"        ), xyzGridToGrid cs sep)
-   ,(("xyz-grid"    , "grid-filled" ), xyzGridToFilledGrid)
-   ,(("xyz-grid"    , "hillshade"   ), xyzGridToHillShade)
-   ,(("grid"        , "hillshade"   ), gridToHillShade )
-   ,(("grid-filled" , "hillshade"   ), gridHillshade)
-   ,(("xyz-grid"    , "contour"     ), xyzGridToContour)
-   ,(("grid"        , "contour"     ), gridToContour)
-   ,(("grid-filled" , "contour"     ), gridContour pMin pMax d)
-   ,(("xyz-grid"    , "tif"         ), xyzGridToTif)
-   ,(("grid"        , "tif"         ), gridToTif)
-   ,(("grid-filled" , "tif"         ), gridTif)
-    ]
-  where
-    sep                   = lkp p "sep"
-    cs,d,pMin,pMax :: Double
-    (cs:d:pMin:pMax:[]) = 
-      map (read . lkp p) ["cs","d", "min", "max"]
-    xyzGridToFilledGrid f = xyzToGrid cs sep f >>= gridFillGaps
-    xyzGridToHillShade f  = xyzGridToFilledGrid f >>= gridHillshade
-    gridToHillShade f     = gridFillGaps f >>= gridHillshade
-    xyzGridToContour f    = 
-      xyzGridToFilledGrid f >>= gridContour pMin pMax d
-    gridToContour f       = gridFillGaps f >>= gridContour pMin pMax d
-    xyzGridToTif f        = xyzGridToFilledGrid f >>= gridTif
-    gridToTif f           = gridFillGaps f >>= gridTif
+        cmdPars :: CmdPars
+        chain :: [String]
+        chain = fromMaybe (error "from-to-combination not supported")
+                          (M.lookup (from opts, to opts) sChainDB)
+    result <- doCmdChain sCmdDB chain cmdPars (file opts)
+    putStrLn ("Succussfully created " ++ result ) 
 
 -- | Data structure for command line options.
 data Opt = Opt
@@ -84,10 +39,6 @@ data Opt = Opt
     , parameters :: String -- ^ Parameters to pass into the different conversion steps
     , file       :: FilePath    -- ^ Command-line arguments
     } deriving (Show, Data, Typeable)
-
-
--- | Conversion Data-base
-type ConvDB = M.Map (String,String) (String -> IO String)
 
 -- | Defaults for command-line options.
 defaultOpts :: Opt
@@ -100,16 +51,10 @@ defaultOpts = Opt
     } &=
     program _PROGRAM_NAME &=
     help _PROGRAM_ABOUT &=
-    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT) &=
-    details _PROGRAM_DETAILS
-
-
--- | lookup a certain key in  in 'Params'
-lkp :: Params -> String ->  String
-lkp p' s = fromJust $ M.lookup s p'
+    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT) 
 
 -- | Parse the command-line string specifying parameters
-parseParamCmdString :: String -> Params
+parseParamCmdString :: String -> CmdPars
 parseParamCmdString = M.fromList . map parseAssign . splitStr ':'
   where
     parseAssign :: String -> (String,String)
@@ -117,9 +62,9 @@ parseParamCmdString = M.fromList . map parseAssign . splitStr ':'
 
 -- | Overwrite the default Parameters
 adjustDefaultParams ::
-       Params                   -- ^ parameters given on the command-line
-    -> Params                   -- ^ default parameters
-    -> Params                   -- ^ adjusted paramters
+       CmdPars               -- ^ parameters given on the command-line
+    -> CmdPars               -- ^ default parameters
+    -> CmdPars               -- ^ adjusted paramters
 adjustDefaultParams pCmd pDef = if False `elem` validParas 
     then
         error $ "Invalid parameters on the command-line specified. Valid are \n" ++
@@ -129,13 +74,12 @@ adjustDefaultParams pCmd pDef = if False `elem` validParas
     validParas :: [Bool]
     validParas = map  (`M.member` pDef) (M.keys pCmd)
 
-
 -- | Split a String on a certain delimiter
 splitStr :: Char -> String -> [String]
 splitStr c s = map unpack $ split (== c) (pack s)
 
 -- | Render the keys of a 'ConvDB'
-renderFromToKeys :: ConvDB -> String
+--renderFromToKeys :: ConvDB -> String
 renderFromToKeys db = twoCol "from" "to" ++ renderStringPairs (M.keys db)
 
 -- Render a list of string-tuple in two columns

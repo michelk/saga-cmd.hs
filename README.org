@@ -1,0 +1,77 @@
+* heading                                                  :noexport:ARCHIVE:
+#+TITLE: Wrapping =saga_cmd= to chain GIS-Data conversion
+#+AUTHOR: Michel Kuhlmann *TK Consult AG*
+
+#+BEGIN_SRC emacs-lisp :results silent :exports none
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (dot . t)
+     (sh . t)))
+#+END_SRC  
+  
+* Description
+  Haskell Library to wrap =saga_cmd=. This is /Work In Progress/
+ 
+  Currently there is one executable, =sagaChain= , which lets you
+  chain =saga_cmd=-commands.
+
+  These combinations are currently supported, where columns are
+  sources and rows destinations:
+
+  | to\form     | las | xyz-grid | grid | grid-filled |
+  |-------------+-----+----------+------+-------------+
+  | grid        | X   | X        |      |             |
+  | grid-filled | X   | X        | X    |             |
+  | hillshade   | X   | X        | x    | X           |
+  | contour     | X   | X        | X    | X           |
+
+  where
+  - grid        :: A Grid which could contain gaps
+  - grid-filled :: A Grid with interpolated values
+  - hillshade   :: Analytical hillshade
+  - contour     :: Iso-value-lines 
+
+* Prerequisites
+** Install Saga And haskell-platform
+
+#+BEGIN_SRC sh
+  sudo aptitude install haskell-platform
+  sudo aptitude install saga
+#+END_SRC
+
+** Install library
+
+#+BEGIN_SRC sh
+    git clone https://www.github.com/michelk/saga-cmd-wrapper.hs.git
+    cd saga-cmd-wrapper.hs
+    cabal update && cabal install
+#+END_SRC
+
+* Usage =sagaChain=
+=sagaChain= lets you chain =saga_cmd= commands. The program needs the
+follwing specification:
+- source-format
+- destination-format
+- parameters to use for conversion
+- input-file
+
+  
+For example 
+
+#+BEGIN_SRC sh :results verbatim :eval no-export
+    sagaChain --from xyz-grid --to hillshade --parameters xyzSep=tabulator:xyzCellSize=0.5
+#+END_SRC
+
+* Development
+
+In order to extend functionality
+
+- find library and module
+- write wrapper-function
+- add default parameters and conversion-function in demConv.hs
+* Supported saga-modules
+  The following table lists the saga-modules which are already
+  implemented
+  
+  | Name | Library | Module | OutExt | InKey | OutKey | 

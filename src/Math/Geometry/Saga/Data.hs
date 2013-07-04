@@ -25,7 +25,7 @@ sCmdDB = M.fromList [
           }
      )
     ,("gridHillShade", SagaCmd {
-           sLib = "libta_ligthning", sMod = "0"
+           sLib = "libta_lighting", sMod = "0"
           ,sOutExt = "_hillshade.sgrd" , sInOutKey = ("ELEVATION","SHADE")
           ,sParas = M.fromList []
           ,sPre = nthn, sPost = nthn

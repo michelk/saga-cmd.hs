@@ -1,6 +1,6 @@
 module Math.Geometry.Saga.LUT (bgrColTable)
 where 
-import Data.List (zip5)
+import Data.List (zip5, intercalate)
 import Text.Printf (printf)
 
 -- | Red-blue-green-colors
@@ -8,23 +8,24 @@ type RGB = (Int, Int, Int)
 
 -- | Create a color lookup-table based on minimum and maximum values
 bgrColTable :: Double -> Double -> String
-bgrColTable  minV maxV = unlines $ map renderRec recs
+bgrColTable  minV maxV = hd ++ unlines (map renderRec recs')
     where 
         d = maxV - minV
-        s = round2Digit (d/fromIntegral n)
+        s = d/fromIntegral n
         minVs = take n [minV, (minV + s) ..]
         maxVs = take n [(minV + s), (minV + 2*s) ..]
         n :: Int
         n = 100
         nms = take n $ map (\x -> "Class " ++ show x) [1..] 
         recs = zip5 bgr100 nms nms minVs maxVs
-        renderRec (col,nm,desc,k,j)= printf "%7i %s %s %10.2f %10.2f" 
+        recs' = (8388864 :: Int, "Class 0", "Class 0", 0 :: Double, minV) : 
+                 recs  ++ 
+                 [(391 ::Int , "Class 101", "Class 101", maxV, 10000 :: Double)]
+        renderRec (col,nm,desc,k,j)= printf "%7i\t%s\t%s\t%10.7f\t%10.7f" 
             col (quote nm) (quote desc) k j
         quote s = "\"" ++ s ++ "\""
+        hd = intercalate "\t" ["COLOR","NAME","DESCRIPTION","MINIMUM", "MAXIMUM"] ++ "\n"
         
-round2Digit :: Double -> Double
-round2Digit x = fromIntegral (round (x * 100)) /100
-
 
 -- | Convert a RGB-color to BGR-color
 rgbToBgr ::  RGB -> Int

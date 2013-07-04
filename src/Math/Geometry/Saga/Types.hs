@@ -16,10 +16,9 @@ data SagaCmd = SagaCmd {
     }
 
 -- | Parameter-Map in a 'SagaCmd'
-type ParaMap = M.Map 
-                     String -- ^ Parameter-name accessor from the cmd-line
-                     (String    -- ^ Parameter-name called in saga_cmd
-                     ,String)   -- ^ Default-value to use
+type ParaMap = 
+  M.Map String          -- ^ Parameter-name accessor from the cmd-line
+        (String,String) -- ^ Parameter-name called in saga_cmd( Default-value
                
 -- | Data-base for implemeted saga-modules
 type CmdDB = M.Map

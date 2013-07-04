@@ -12,7 +12,7 @@ doCmdChain ::    CmdDB          -- ^ Module data-base
               -> CmdPars        -- ^ command-line parameters
               -> FilePath       -- ^ Input-file
               -> IO FilePath    -- ^ Output-file
-doCmdChain db chain pars fIn = foldr (flip (>>=)) (return fIn) fs
+doCmdChain db chain pars fIn = foldl (>>=) (return fIn) fs
   where
     fs :: [FilePath -> IO FilePath]
     fs = map (lkpFunDB db pars) chain
@@ -34,5 +34,14 @@ lkpFunDB db pars k = doSaga cmd
 adjustParas :: ParaMap          -- ^ parameters specified in 'SagaCmd'
                -> CmdPars       -- ^ parameters given on the cmd-line
                -> ParaMap       -- ^ adjusted parameters
-adjustParas sPars cmdPars = undefined
+adjustParas sPars cmdPars = foldr update' sPars (M.toList cmdPars')
+  where
+    cKeys = M.keys cmdPars
+    sKeys = M.keys sPars
+    cKeys' =                    -- ^ filter cmd-keys not relevant
+      filter (`elem` sKeys) cKeys 
+    
+    cmdPars' =                  -- ^ only relevant parameters kept
+      foldr (\x acc -> M.delete x acc) cmdPars cKeys' 
+    update' (k,v) par = M.adjust (\(name,_) -> (name,v)) k par
 

@@ -55,7 +55,8 @@ defaultOpts = Opt
 
 -- | Parse the command-line string specifying parameters
 parseParamCmdString :: String -> CmdPars
-parseParamCmdString = M.fromList . map parseAssign . splitStr ':'
+parseParamCmdString "" = M.empty
+parseParamCmdString s = M.fromList . map parseAssign . splitStr ':' $ s
   where
     parseAssign :: String -> (String,String)
     parseAssign s = let k:v:[] = splitStr '=' s in (k,v)

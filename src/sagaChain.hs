@@ -4,6 +4,7 @@ import System.Console.CmdArgs
 import Math.Geometry.Saga.Types
 import Math.Geometry.Saga.Chain
 import Math.Geometry.Saga.Data
+import Math.Geometry.Saga.Utils
 import Control.Monad (when)
 import Data.Text (split, pack, unpack, Text)
 import qualified Data.Map as M
@@ -16,6 +17,11 @@ _PROGRAM_VERSION = "0.0.1.0"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
 _COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
 _PROGRAM_ABOUT   = "Convert Digital Elevation Models (DEM) to diffent formats"
+_PROGRAM_DETAILS = lines ("Possible from-to-combinations:\n"
+                          ++ fromTos
+                          ++ "\n\n"
+                          ++ "Default parameters:\n"
+                          ++ defaultParams )
 
 
 main :: IO ()
@@ -46,12 +52,14 @@ defaultOpts = Opt
     { 
       from        = def &= help "Source-format"
     , to          = def &= help "Target-format"
-    , parameters  = def &= help "Parameters to pass into the different conversion steps, delimited by ':'(eg cs=0.5:d=0.5)"
+    , parameters  = def &= help "Parameters to pass into the different conversion steps, delimited by ':'(eg xyzCellSize=0.5:xyzSep=tabulator)"
     , file        = def &= args &= typ "DEM-input-file"
     } &=
     program _PROGRAM_NAME &=
     help _PROGRAM_ABOUT &=
-    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT) 
+    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT) &=
+    details _PROGRAM_DETAILS
+
 
 -- | Parse the command-line string specifying parameters
 parseParamCmdString :: String -> CmdPars
@@ -93,3 +101,10 @@ renderStringPairs = concatMap renderPair
 -- | render two strings in two columns
 twoCol :: String -> String -> String
 twoCol = printf "\t%10s  %10s\n"
+
+defaultParams :: String
+defaultParams =
+  renderStringPairs . concat . map defaultCmdPars $ (M.elems sCmdDB)
+
+fromTos :: String
+fromTos = renderStringPairs (M.keys sChainDB)

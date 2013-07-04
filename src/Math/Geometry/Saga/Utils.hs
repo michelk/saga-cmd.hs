@@ -4,9 +4,9 @@ import qualified Data.Map  as M
 import System.FilePath.Posix (dropExtension, replaceExtension)
 import System.Directory (copyFile)
 
--- defaultCmdPars :: SagaCmd -> CmdPars
--- defaultCmdPars (SagaCmd _ _ _ _ ps _ _) =
---     M.fromList $ map (\(pCmd,_,pDef) -> (pCmd,pDef)) ps 
+defaultCmdPars :: SagaCmd -> [(String,String)]
+defaultCmdPars (SagaCmd _ _ _ _ ps _ _) =
+    map (\(k,(_,v)) -> (k,v)) (M.toList ps)
 
 -- | Copy a grid data-set
 copyGrid :: FilePath -> FilePath -> IO ()

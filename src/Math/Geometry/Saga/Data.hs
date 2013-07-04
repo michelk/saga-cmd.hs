@@ -31,6 +31,13 @@ sCmdDB = M.fromList [
           ,sPre = nthn, sPost = nthn
           }
      )
+    ,("gridContour", SagaCmd {
+           sLib = "libta_lighting", sMod = "0"
+          ,sOutExt = "_hillshade.sgrd" , sInOutKey = ("ELEVATION","SHADE")
+          ,sParas = M.fromList []
+          ,sPre = nthn, sPost = nthn
+          }
+     )
     ]
   where
     nthn _ = return ()

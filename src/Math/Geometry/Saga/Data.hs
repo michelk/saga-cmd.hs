@@ -32,9 +32,27 @@ sCmdDB = M.fromList [
           }
      )
     ,("gridContour", SagaCmd {
-           sLib = "libta_lighting", sMod = "0"
-          ,sOutExt = "_hillshade.sgrd" , sInOutKey = ("ELEVATION","SHADE")
-          ,sParas = M.fromList []
+           sLib = "libshapes_grid", sMod = "5"
+          ,sOutExt = "_contour.sgrd" , sInOutKey = ("INPUT","CONTOUR")
+          ,sParas = M.fromList [
+               ("contourMin" , ("ZMIN"  , "0"))
+              ,("contourMax" , ("ZMAX" , "10000"))
+              ,("contourStep" ,("ZSTEP" , "1"))
+              ]
+          ,sPre = nthn, sPost = nthn
+          }
+     )
+    ,("lasToPtCld", SagaCmd {
+           sLib = "libio_shapes_las", sMod = "1"
+          ,sOutExt = ".pcl" , sInOutKey = ("POINTS","FILE")
+          ,sParas = M.fromList [ ]
+          ,sPre = nthn, sPost = nthn
+          }
+     )
+    ,("ptCldToGrid", SagaCmd {
+           sLib = "libpointcloud_tools", sMod = "4"
+          ,sOutExt = ".sgrd" , sInOutKey = ("POINTS","GRID")
+          ,sParas = M.fromList [ ]
           ,sPre = nthn, sPost = nthn
           }
      )

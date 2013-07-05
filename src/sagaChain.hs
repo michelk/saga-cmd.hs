@@ -11,7 +11,7 @@ import qualified Data.Map as M
 import Data.Maybe (fromJust, fromMaybe)
 import System.Environment (getArgs, withArgs)
 
-_PROGRAM_NAME    = "demConv"
+_PROGRAM_NAME    = "sagaChain"
 _PROGRAM_VERSION = "0.0.1.0"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
 _COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"

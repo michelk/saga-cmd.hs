@@ -41,6 +41,15 @@ executable sagaChain
                      saga-cmd-wrapper
   hs-source-dirs:    src
 
+executable sagaTopo
+  main-is:           sagaTopo.hs
+  -- other-modules:       
+  build-depends:     base,
+                     filepath, 
+                     cmdargs,
+                     saga-cmd-wrapper
+  hs-source-dirs:    src
+
 executable sagaGenLUT
   main-is:           sagaGenLUT.hs
   -- other-modules:       

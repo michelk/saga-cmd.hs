@@ -7,6 +7,7 @@
    'org-babel-load-languages
    '((emacs-lisp . t)
      (dot . t)
+     (haskell . t)
      (sh . t)))
 #+END_SRC  
   
@@ -31,22 +32,29 @@
   - grid-filled :: A Grid with interpolated values
   - hillshade   :: Analytical hillshade
   - contour     :: Iso-value-lines 
+                   
+* Installation
+** Saga And haskell-platform
 
-* Prerequisites
-** Install Saga And haskell-platform
+   #+BEGIN_SRC sh
+     sudo aptitude install haskell-platform
+     sudo aptitude install saga
+   #+END_SRC
 
-#+BEGIN_SRC sh
-  sudo aptitude install haskell-platform
-  sudo aptitude install saga
-#+END_SRC
+** saga-cmd-wrapper
 
-** Install library
-
-#+BEGIN_SRC sh
-    git clone https://www.github.com/michelk/saga-cmd-wrapper.hs.git
-    cd saga-cmd-wrapper.hs
-    cabal update && cabal install
-#+END_SRC
+   #+BEGIN_SRC sh
+       git clone https://www.github.com/michelk/saga-cmd-wrapper.hs.git
+       cd saga-cmd-wrapper.hs
+       cabal update && cabal install
+   #+END_SRC
+   
+   The exectuables are usually installed into =$HOME/.cabal/bin=; to
+   use them you have to put them into your search path. Put this into
+   your =$HOME/.bashrc=:
+   #+BEGIN_SRC sh
+     export PATH="$PATH:$HOME/.cabal/bin"
+   #+END_SRC
 
 * Usage =sagaChain=
 =sagaChain= lets you chain =saga_cmd= commands. The program needs the

@@ -9,7 +9,6 @@ import Control.Monad (when)
 import Data.Text (split, pack, unpack, Text)
 import qualified Data.Map as M
 import Data.Maybe (fromJust, fromMaybe)
-import Text.Printf (printf)
 import System.Environment (getArgs, withArgs)
 
 _PROGRAM_NAME    = "demConv"
@@ -87,20 +86,6 @@ adjustDefaultParams pCmd pDef = if False `elem` validParas
 splitStr :: Char -> String -> [String]
 splitStr c s = map unpack $ split (== c) (pack s)
 
--- | Render the keys of a 'ConvDB'
---renderFromToKeys :: ConvDB -> String
-renderFromToKeys db = twoCol "from" "to" ++ renderStringPairs (M.keys db)
-
--- Render a list of string-tuple in two columns
-renderStringPairs :: [(String, String)] -> String
-renderStringPairs = concatMap renderPair 
-  where
-    renderPair :: (String, String) -> String
-    renderPair (k,v) = twoCol k v
-    
--- | render two strings in two columns
-twoCol :: String -> String -> String
-twoCol = printf "\t%10s  %10s\n"
 
 defaultParams :: String
 defaultParams =

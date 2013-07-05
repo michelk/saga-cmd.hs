@@ -3,6 +3,7 @@ import Math.Geometry.Saga.Types
 import qualified Data.Map  as M
 import System.FilePath.Posix (dropExtension, replaceExtension)
 import System.Directory (copyFile)
+import Text.Printf (printf)
 
 defaultCmdPars :: SagaCmd -> [(String,String)]
 defaultCmdPars (SagaCmd _ _ _ _ ps _ _) =
@@ -19,14 +20,25 @@ appendFileName :: FilePath -> String -> FilePath
 appendFileName f s = dropExtension f ++ s
 
 -- | Dispatch on field seperator
-dispSep :: String -> String
-dispSep s = case s of
-    "space"     -> "space"
-    "Space"     -> "space"
-    " "         -> "space"
-    "\t"        -> "tabulator"
-    "tab"       -> "tabulator"
-    "Tab"       -> "tabulator"
-    "Tabulator" -> "tabulator"
-    ";"         -> ";"
-    ","         -> ","
+-- dispSep :: String -> String
+-- dispSep s = case s of
+--     "space"     -> "space"
+--     "Space"     -> "space"
+--     " "         -> "space"
+--     "\t"        -> "tabulator"
+--     "tab"       -> "tabulator"
+--     "Tab"       -> "tabulator"
+--     "Tabulator" -> "tabulator"
+--     ";"         -> ";"
+--     ","         -> ","
+
+-- Render a list of string-tuple in two columns
+renderStringPairs :: [(String, String)] -> String
+renderStringPairs = concatMap renderPair 
+  where
+    renderPair :: (String, String) -> String
+    renderPair (k,v) = twoCol k v
+    
+-- | render two strings in two columns
+twoCol :: String -> String -> String
+twoCol = printf "\t%10s  %10s\n"

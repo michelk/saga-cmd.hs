@@ -1,5 +1,7 @@
 #+TITLE: Wrapping =saga_cmd= to chain GIS-Data conversion
 #+AUTHOR: Michel Kuhlmann *TK Consult AG*
+#+OPTIONS: toc:nil
+
 #+BEGIN_SRC emacs-lisp :results silent :exports none
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -10,27 +12,10 @@
 #+END_SRC  
   
 * Description
-  Haskell Library to wrap =saga_cmd=. This is /Work In Progress/
+  Haskell Library to wrap =saga_cmd=. 
+
+  This is /Work In Progress/
  
-  Currently there is one executable, =sagaChain= , which lets you
-  chain =saga_cmd=-commands.
-
-  These combinations are currently supported, where columns are
-  sources and rows destinations:
-
-  | to\form     | las | xyz-grid | grid | grid-filled |
-  |-------------+-----+----------+------+-------------+
-  | grid        | X   | X        |      |             |
-  | grid-filled | X   | X        | X    |             |
-  | hillshade   | X   | X        | x    | X           |
-  | contour     | X   | X        | X    | X           |
-
-  where
-  - grid        :: A Grid which could contain gaps
-  - grid-filled :: A Grid with interpolated values
-  - hillshade   :: Analytical hillshade
-  - contour     :: Iso-value-lines 
-                   
 * Installation
 ** Saga And haskell-platform
 *** Linux
@@ -41,8 +26,8 @@
 *** Windows with Cygwin
     - Get the [[http://www.haskell.org/platform/][haskell-platform]]
     - Install Saga with [[http://trac.osgeo.org/osgeo4w/][OSGeo4W]]
-    - Put =saga_cmd= in the search path: add =PATH="$PATH:/cygdrive/c/Program
-      Files (x86)/SAGA-GIS"= to your =$HOME/.bashrc=
+    - Put =saga_cmd= in the search path: add ~PATH="$PATH:/cygdrive/c/Program
+      Files (x86)/SAGA-GIS"~ to your =$HOME/.bashrc=
 ** saga-cmd-wrapper library
 
    #+BEGIN_SRC sh
@@ -66,6 +51,23 @@
    - destination-format
    - parameters to use for conversion
    - input-file
+     
+     These combinations are currently supported, where columns are
+     sources and rows destinations:
+     
+     | to\form     | las | xyz-grid | grid | grid-filled |
+     |-------------+-----+----------+------+-------------+
+     | grid        | X   | X        |      |             |
+     | grid-filled | X   | X        | X    |             |
+     | hillshade   | X   | X        | x    | X           |
+     | contour     | X   | X        | X    | X           |
+     
+     where
+  - grid        :: A Grid which could contain gaps
+  - grid-filled :: A Grid with interpolated values
+  - hillshade   :: Analytical hillshade
+  - contour     :: Iso-value-lines 
+                   
 
 #+BEGIN_SRC sh :results verbatim :eval no-export
     sagaChain --from xyz-grid --to hillshade --parameters xyzSep=tabulator:xyzCellSize=0.5

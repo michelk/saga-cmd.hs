@@ -20,8 +20,9 @@ This is *Work In Progress*
 
 -   Install Saga with [OSGeo4W](http://trac.osgeo.org/osgeo4w/)
 
--   Put `saga_cmd` in the search path: add ~PATH="$PATH:/cygdrive/c/Program
-    Files (x86)/SAGA-GIS"~ to your `$HOME/.bashrc`
+-   Put `saga_cmd` in the search path: add this line to you `$HOME/.bashrc`
+    
+        export PATH="$PATH:/cygdrive/c/Program Files (x86)/SAGA-GIS
 
 ## saga-cmd-wrapper library
 

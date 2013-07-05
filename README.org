@@ -26,8 +26,11 @@
 *** Windows with Cygwin
     - Get the [[http://www.haskell.org/platform/][haskell-platform]]
     - Install Saga with [[http://trac.osgeo.org/osgeo4w/][OSGeo4W]]
-    - Put =saga_cmd= in the search path: add ~PATH="$PATH:/cygdrive/c/Program
-      Files (x86)/SAGA-GIS"~ to your =$HOME/.bashrc=
+    - Put =saga_cmd= in the search path: add this line to you =$HOME/.bashrc=
+      #+BEGIN_SRC sh
+        export PATH="$PATH:/cygdrive/c/Program Files (x86)/SAGA-GIS
+      #+END_SRC
+
 ** saga-cmd-wrapper library
 
    #+BEGIN_SRC sh

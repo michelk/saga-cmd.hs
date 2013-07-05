@@ -1,7 +1,5 @@
-* heading                                                  :noexport:ARCHIVE:
 #+TITLE: Wrapping =saga_cmd= to chain GIS-Data conversion
 #+AUTHOR: Michel Kuhlmann *TK Consult AG*
-
 #+BEGIN_SRC emacs-lisp :results silent :exports none
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -60,16 +58,14 @@
      export PATH="$PATH:$HOME/.cabal/bin"
    #+END_SRC
 
-* Usage =sagaChain=
-=sagaChain= lets you chain =saga_cmd= commands. The program needs the
-follwing specification:
-- source-format
-- destination-format
-- parameters to use for conversion
-- input-file
-
-  
-For example 
+* Usage 
+** =sagaChain=
+   =sagaChain= lets you chain =saga_cmd= commands. The program needs the
+   follwing specification:
+   - source-format
+   - destination-format
+   - parameters to use for conversion
+   - input-file
 
 #+BEGIN_SRC sh :results verbatim :eval no-export
     sagaChain --from xyz-grid --to hillshade --parameters xyzSep=tabulator:xyzCellSize=0.5
@@ -82,8 +78,3 @@ In order to extend functionality
 - find library and module
 - write wrapper-function
 - add default parameters and conversion-function in demConv.hs
-* Supported saga-modules
-  The following table lists the saga-modules which are already
-  implemented
-  
-  | Name | Library | Module | OutExt | InKey | OutKey | 

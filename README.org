@@ -35,13 +35,17 @@
                    
 * Installation
 ** Saga And haskell-platform
-
+*** Linux
    #+BEGIN_SRC sh
      sudo aptitude install haskell-platform
      sudo aptitude install saga
    #+END_SRC
-
-** saga-cmd-wrapper
+*** Windows with Cygwin
+    - Get the [[http://www.haskell.org/platform/][haskell-platform]]
+    - Install Saga with [[http://trac.osgeo.org/osgeo4w/][OSGeo4W]]
+    - Put =saga_cmd= in the search path: add =PATH="$PATH:/cygdrive/c/Program
+      Files (x86)/SAGA-GIS"= to your =$HOME/.bashrc=
+** saga-cmd-wrapper library
 
    #+BEGIN_SRC sh
        git clone https://www.github.com/michelk/saga-cmd-wrapper.hs.git

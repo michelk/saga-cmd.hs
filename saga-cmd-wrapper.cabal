@@ -47,6 +47,9 @@ executable sagaTopo
   build-depends:     base,
                      filepath, 
                      cmdargs,
+                     directory,
+                     containers,
+                     process,
                      saga-cmd-wrapper
   hs-source-dirs:    src
 

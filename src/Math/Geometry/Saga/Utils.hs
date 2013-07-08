@@ -2,7 +2,7 @@ module Math.Geometry.Saga.Utils where
 import Math.Geometry.Saga.Types
 import qualified Data.Map  as M
 import System.FilePath.Posix (dropExtension, replaceExtension)
-import System.Directory (copyFile)
+import System.Directory (copyFile, renameFile)
 import Text.Printf (printf)
 
 defaultCmdPars :: SagaCmd -> [(String,String)]
@@ -15,6 +15,12 @@ copyGrid f t = mapM_ cp ["sgrd", "sdat", "mgrd"]
    where
      cp ext = copyFile (replaceExtension f ext) (replaceExtension t ext)
     
+-- | Move a grid data-set
+moveGrid :: FilePath -> FilePath -> IO ()
+moveGrid f t = mapM_ cp ["sgrd", "sdat", "mgrd"]
+   where
+     cp ext = renameFile (replaceExtension f ext) (replaceExtension t ext)
+   
 -- | Utility function to append to basename of a file-name
 appendFileName :: FilePath -> String -> FilePath
 appendFileName f s = dropExtension f ++ s

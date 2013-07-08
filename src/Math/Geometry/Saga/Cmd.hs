@@ -1,9 +1,11 @@
 module Math.Geometry.Saga.Cmd where
-import Math.Geometry.Saga.Types
-import Math.Geometry.Saga.Utils
-import System.Cmd (system)
-import GHC.IO.Exception
-import Data.Map (elems)
+import           Data.Map (elems)
+import qualified Data.Map as M
+import           Data.Maybe (fromMaybe)
+import           GHC.IO.Exception
+import           Math.Geometry.Saga.Types
+import           Math.Geometry.Saga.Utils
+import           System.Cmd (system)
 
 -- | Actual Program to do the work
 progName :: String
@@ -22,7 +24,6 @@ doSaga (SagaCmd lib mod extOut (kIn, kOut) ps pre post) fIn = do
    where
      outF = appendFileName fIn extOut
      ps' = elems ps ++ [(kIn,fIn),(kOut,outF)]
-              
 
 -- | Wrapper around saga
 saga ::
@@ -41,157 +42,31 @@ saga lib mod params =
     renderParams = map renderPara
     renderPara (k,v) = "-" ++ k ++ " " ++ v
 
--- -- | Convert a xyz-grid to saga-grid 
--- xyzGridToGrid ::
---        Double                   -- ^ Cellsize of grid
---     -> String                   -- ^ Seperator
---     -> FilePath                 -- ^ Input file-path
---     -> IO FilePath              -- ^ Output file-path
--- xyzGridToGrid cs sep f = do
---     r <-
---         saga "libio_grid" "6"
---         [
---          ("GRID", outF)
---         ,("CELLSIZE", show cs)
---         ,("SEPARATOR", sepStr)
---         ,("FILENAME", f)
---         ]
---     dispatchResult outF  r
---     where
---       sepStr = dispSep sep
---       outF = appendFileName f "_grid.sgrd"
--- 
---       
--- -- | Create a grid based on scatterd xyz-points
--- xyzToGrid :: 
---        Double                   -- ^ Cellsize of grid
---     -> String                   -- ^ Seperator
---     -> FilePath                 -- ^ Input file-path
---     -> IO FilePath              -- ^ Output file-path
--- xyzToGrid cs sep f = do
---     r <- 
---         saga "libio_grid" "6"
---         [("FILENAME", f)
---          ,("GRID", outF)
---          ,("CELLSIZE", show cs)
---          ,("SEPARATOR", sepStr)]
---     dispatchResult outF r
---     where
---       sepStr = dispSep sep
---       outF = appendFileName f "_grid.sgrd"
--- 
--- -- | Fill Gaps in a grid 
--- gridFillGaps ::
---     FilePath                    -- ^ Input-grid
---     -> IO FilePath              -- ^ Output-grid
--- gridFillGaps f = do
---     copyGrid f outF
---     r <-
---         saga "libgrid_spline" "5"
---         [
---             ("GRIDPOINTS",f)
---            ,("TARGET","1")
---            ,("GRID_GRID",outF)
---         ]
---     dispatchResult outF r
---     where
---       outF = appendFileName f "_filled.sgrd"
--- 
--- -- | Create a hillshade of grid
--- gridHillshade ::
---     FilePath                    -- ^ Input-grid
---     -> IO FilePath              -- ^ Ouput-grid
--- gridHillshade f = do
---     r <-
---         saga "libta_lighting" "0"
---         [
---             ("ELEVATION", f)
---            ,("SHADE", outF)
---         ]
---     dispatchResult outF r
---     where
---       outF = appendFileName f "_hillshade.sgrd"
--- 
--- -- | Create contour-lines of a grid
--- gridContour :: 
---        Double             -- ^ minimum value
---     -> Double             -- ^ maximum value
---     -> Double                -- ^ vertical distance between contour-lines
---     -> FilePath           -- ^ Input-grid
---     -> IO FilePath        -- ^ Ouput-grid
--- gridContour min max d f = do
---     r <-
---         saga "libshapes_grid" "5"
---         [
---             ("INPUT", f)
---            ,("CONTOUR", outF)
---            ,("ZMIN", show min)
---            ,("ZMIN", show max)
---            ,("ZSTEP", show d)
---         ]
---     dispatchResult outF r
---     where
---       outF = appendFileName f "_contour.shp"
--- 
--- -- | Laplacian filter (edge-detection)
--- gridFilterLaplace :: 
---        FilePath                 -- ^ Input-grid
---     -> IO FilePath              -- ^ Ouput-grid
--- gridFilterLaplace f = do
---     r <-
---         saga "libgrid_filter" "5"
---         [
---             ("GRID", f)
---            ,("OUTPUT", outF)
---         ]
---     dispatchResult outF r
---     where
---       outF = appendFileName f "_laplace.sgrd"
--- 
--- -- | grid Curvature
--- gridCurvature :: 
---        FilePath                 -- ^ Input-grid
---     -> IO FilePath              -- ^ Ouput-grid
--- gridCurvature f = do
---     r <-
---         saga "libta_morphometry" "0"
---         [
---             ("ELEVATION", f)
---            ,("CURV", outF)
---         ]
---     dispatchResult outF r
---     where
---       outF = appendFileName f "_curv.sgrd"
--- 
--- -- | grid Curvature
--- gridTif :: 
---        FilePath                 -- ^ Input-grid
---     -> IO FilePath              -- ^ Ouput-grid
--- gridTif f = do
---     r <-
---         saga "libio_gdal" "2"
---         [
---             ("GRIDS", f)
---            ,("FILE", outF)
---         ]
---     dispatchResult outF r
---     where
---       outF = appendFileName f ".tif"
--- 
--- -- | triangulation of raster-data
--- gridTin :: 
---        String                   -- ^ Method to use ('Mark Highest Neighbour', 'Opposite Neighbours', 'Flow Direction', 'Flow Direction (up and down)', 'Peucker & Douglas')
---     -> FilePath                 -- ^ Input-grid
---     -> IO FilePath              -- ^ Ouput-grid
--- gridTin m f = do
---     r <-
---         saga "libtin_tools" "1"
---         [
---             ("GRID", f)
---            ,("TIN", outF)
---            ,("METHOD", m)
---         ]
---     dispatchResult outF r
---     where
---       outF = appendFileName f ".tin"
 
+-- | Lookup a conversion function based on a module-name and parameters
+lkpFunDB ::    CmdDB                   -- ^ module-data-base
+            -> CmdPars                 -- ^ parameters
+            -> String                  -- ^ module-name
+            -> (FilePath -> IO String) -- ^ Conversion-function
+lkpFunDB db pars k = doSaga cmd
+  where
+    SagaCmd lib mod ext ks prs pre post = fromMaybe
+          (error $ k ++ " : Conversion function not supported")
+          (M.lookup k db)
+    cmd = SagaCmd lib mod ext ks prs' pre post
+    prs' = adjustParas prs pars
+
+-- | Overwrite default parameters with parameters given on the command-line
+adjustParas :: ParaMap          -- ^ parameters specified in 'SagaCmd'
+               -> CmdPars       -- ^ parameters given on the cmd-line
+               -> ParaMap       -- ^ adjusted parameters
+adjustParas sPars cmdPars = foldr update' sPars (M.toList cmdPars')
+  where
+    cKeys = M.keys cmdPars
+    sKeys = M.keys sPars
+    cKeys' =                    -- ^ filter cmd-keys not relevant
+      filter (`elem` sKeys) cKeys 
+    
+    cmdPars' =                  -- ^ only relevant parameters kept
+      foldr (\x acc -> M.delete x acc) cmdPars cKeys' 
+    update' (k,v) par = M.adjust (\(name,_) -> (name,v)) k par

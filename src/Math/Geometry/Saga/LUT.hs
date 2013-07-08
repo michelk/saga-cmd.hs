@@ -7,7 +7,7 @@ import Text.Printf (printf)
 type RGB = (Int, Int, Int)
 
 -- | Create a color lookup-table based on minimum and maximum values
-bgrColTable :: Double -> Double -> String
+bgrColTable :: Float -> Float -> String
 bgrColTable  minV maxV = hd ++ unlines (map renderRec recs')
     where 
         d = maxV - minV
@@ -18,9 +18,9 @@ bgrColTable  minV maxV = hd ++ unlines (map renderRec recs')
         n = 100
         nms = take n $ map (\x -> "Class " ++ show x) [1..] 
         recs = zip5 bgr100 nms nms minVs maxVs
-        recs' = (8388864 :: Int, "Class 0", "Class 0", 0 :: Double, minV) : 
+        recs' = (8388864 :: Int, "Class 0", "Class 0", 0 :: Float, minV) : 
                  recs  ++ 
-                 [(391 ::Int , "Class 101", "Class 101", maxV, 10000 :: Double)]
+                 [(391 ::Int , "Class 101", "Class 101", maxV, 10000 :: Float)]
         renderRec (col,nm,desc,k,j)= printf "%7i\t%s\t%s\t%10.7f\t%10.7f" 
             col (quote nm) (quote desc) k j
         quote s = "\"" ++ s ++ "\""

@@ -52,10 +52,3 @@ executable sagaTopo
                      process,
                      saga-cmd-wrapper
   hs-source-dirs:    src
-
-executable sagaGenLUT
-  main-is:           sagaGenLUT.hs
-  -- other-modules:       
-  build-depends:     base,
-                     saga-cmd-wrapper
-  hs-source-dirs:    src

@@ -26,13 +26,33 @@ main = do
     args <- getArgs
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
-    r <- sgrdToTopo (file opts) (output opts) (min opts) (max opts)
+
+    r <- case (min opts, max opts) of
+      (0.0, 0.0) -> sgrdToTopo (file opts) (output opts) Nothing Nothing
+      _          -> sgrdToTopo (file opts) (output opts)
+                        (Just $ min opts) (Just $ max opts)
     putStrLn ("Successfully created" ++ r)
     
 -- | Convert a grid-file into a topo graphic map
-sgrdToTopo :: FilePath -> FilePath -> Float -> Float -> IO FilePath
-sgrdToTopo fIn fOut min max = do
-  hsF <- hsFun fIn              -- ^ filepath to hillshade
+sgrdToTopo :: FilePath -> FilePath -> Maybe Float -> Maybe Float -> IO FilePath
+sgrdToTopo fIn fOut Nothing Nothing = do
+  hsF <- gridToHillshade fIn              -- ^ filepath to hillshade
+  sOut <- doSaga SagaCmd {
+                      sLib = "libio_grid_image"
+                     ,sMod = "0"
+                     ,sOutExt = ".tif"
+                     ,sInOutKey = ("GRID", "FILE")
+                     ,sParas = M.fromList [
+                       ("tifShade",("SHADE", hsF))
+                       ]
+                     ,sPre = \_ -> return ()
+                     ,sPost = \_ -> return ()}
+          fIn
+  renameFile sOut fOut
+  return fOut
+
+sgrdToTopo fIn fOut (Just min) (Just max) = do
+  hsF <- gridToHillshade fIn              -- ^ filepath to hillshade
   writeFile _COLOR_FILE (bgrColTable min max) -- color-lookup-table
   sOut <- doSaga SagaCmd {
                       sLib = "libio_grid_image"
@@ -48,8 +68,10 @@ sgrdToTopo fIn fOut min max = do
           fIn
   renameFile sOut fOut
   return fOut
-  where
-    hsFun = lkpFunDB sCmdDB (M.fromList []) "gridHillShade"
+
+-- | Create a hillshade from grid
+gridToHillshade :: FilePath -> IO FilePath
+gridToHillshade = lkpFunDB sCmdDB (M.fromList []) "gridHillShade"
 
 -- | Convert a grid-file into contour-lines
 sgrdToContour :: FilePath -> FilePath -> Float ->Float -> Float -> IO FilePath

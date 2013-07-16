@@ -2,10 +2,9 @@
 module Main where
 import System.Console.CmdArgs
 import Math.Geometry.Saga.Types
-import Math.Geometry.Saga.Chain
 import Math.Geometry.Saga.Data
 import Math.Geometry.Saga.Utils
-import Control.Monad (when)
+import Math.Geometry.Saga.Cmd
 import Data.Text (split, pack, unpack, Text)
 import qualified Data.Map as M
 import Data.Maybe (fromJust, fromMaybe)
@@ -16,11 +15,6 @@ _PROGRAM_VERSION = "0.0.1.0"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
 _COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
 _PROGRAM_ABOUT   = "Convert Digital Elevation Models (DEM) to diffent formats"
-_PROGRAM_DETAILS = lines ("Possible from-to-combinations:\n"
-                          ++ fromTos
-                          ++ "\n\n"
-                          ++ "Default parameters:\n"
-                          ++ defaultParams )
 
 
 main :: IO ()
@@ -29,11 +23,9 @@ main = do
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
     let cmdPars = parseParamCmdString $ parameters opts
-        cmdPars :: CmdPars
-        chain :: [String]
         chain = fromMaybe (error "from-to-combination not supported")
                           (M.lookup (from opts, to opts) sChainDB)
-    result <- doCmdChain sCmdDB chain cmdPars (file opts)
+    result <- doCmdChain chain cmdPars (file opts)
     putStrLn ("Succussfully created " ++ result ) 
 
 -- | Data structure for command line options.
@@ -56,9 +48,7 @@ defaultOpts = Opt
     } &=
     program _PROGRAM_NAME &=
     help _PROGRAM_ABOUT &=
-    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT) &=
-    details _PROGRAM_DETAILS
-
+    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT) 
 
 -- | Parse the command-line string specifying parameters
 parseParamCmdString :: String -> CmdPars
@@ -85,11 +75,6 @@ adjustDefaultParams pCmd pDef = if False `elem` validParas
 -- | Split a String on a certain delimiter
 splitStr :: Char -> String -> [String]
 splitStr c s = map unpack $ split (== c) (pack s)
-
-
-defaultParams :: String
-defaultParams =
-  renderStringPairs . concat . map defaultCmdPars $ (M.elems sCmdDB)
 
 fromTos :: String
 fromTos = renderStringPairs (M.keys sChainDB)

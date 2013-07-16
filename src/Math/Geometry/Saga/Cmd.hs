@@ -1,10 +1,11 @@
 module Math.Geometry.Saga.Cmd where
 import           Data.Map (elems)
 import qualified Data.Map as M
-import           Data.Maybe (fromMaybe)
+import           Data.Maybe (fromMaybe, fromJust)
 import           GHC.IO.Exception
 import           Math.Geometry.Saga.Types
 import           Math.Geometry.Saga.Utils
+import           Math.Geometry.Saga.Data
 import           System.Cmd (system)
 
 -- | Actual Program to do the work
@@ -12,18 +13,20 @@ progName :: String
 progName = "saga_cmd"
 
  -- | Call saga with a specific configuration
-doSaga :: SagaCmd -> FilePath -> IO String
-doSaga (SagaCmd lib mod extOut (kIn, kOut) ps pre post) fIn = do
-   pre fIn
-   r <- saga lib mod ps'
+doSaga :: SagaCmd -> IO FilePath
+doSaga (SagaCmd lib mod (kIn, kOut) ps maybePre maybePost fOut fIn) = do
+   pre fIn fOut
+   r <- saga lib mod (elems ps ++ [(kIn,fIn),(kOut,fOut)])
    case r of
        ExitSuccess -> do
-           post outF
-           return outF
+           post fIn fOut
+           return fOut
        ExitFailure _ -> error "saga_cmd failed"
    where
-     outF = appendFileName fIn extOut
-     ps' = elems ps ++ [(kIn,fIn),(kOut,outF)]
+     pre  = fromMaybe nthn maybePre
+     post = fromMaybe nthn maybePost
+     nthn _ _ =  return ()
+                
 
 -- | Wrapper around saga
 saga ::
@@ -43,19 +46,13 @@ saga lib mod params =
     renderPara (k,v) = "-" ++ k ++ " " ++ v
 
 
--- | Lookup a conversion function based on a module-name and parameters
-lkpFunDB ::    CmdDB                   -- ^ module-data-base
-            -> CmdPars                 -- ^ parameters
-            -> String                  -- ^ module-name
-            -> (FilePath -> IO String) -- ^ Conversion-function
-lkpFunDB db pars k = doSaga cmd
+-- | adjust default parameters with the ones given on the command-line
+adjustSagaCmdParas :: SagaCmd -> CmdPars -> SagaCmd
+adjustSagaCmdParas (SagaCmd lib mod ks prs pre post fIn fOut) pars = 
+  SagaCmd lib mod ks prs' pre post fIn fOut
   where
-    SagaCmd lib mod ext ks prs pre post = fromMaybe
-          (error $ k ++ " : Conversion function not supported")
-          (M.lookup k db)
-    cmd = SagaCmd lib mod ext ks prs' pre post
     prs' = adjustParas prs pars
-
+  
 -- | Overwrite default parameters with parameters given on the command-line
 adjustParas :: ParaMap          -- ^ parameters specified in 'SagaCmd'
                -> CmdPars       -- ^ parameters given on the cmd-line
@@ -66,7 +63,23 @@ adjustParas sPars cmdPars = foldr update' sPars (M.toList cmdPars')
     sKeys = M.keys sPars
     cKeys' =                    -- ^ filter cmd-keys not relevant
       filter (`elem` sKeys) cKeys 
-    
     cmdPars' =                  -- ^ only relevant parameters kept
-      foldr (\x acc -> M.delete x acc) cmdPars cKeys' 
-    update' (k,v) par = M.adjust (\(name,_) -> (name,v)) k par
+      foldr M.delete cmdPars cKeys' 
+    update' (k,v) = M.adjust (\(name,_) -> (name,v)) k
+
+-- | Execute a 'CmdChain'
+doCmdChain :: [ChainSagaIoCmd] -> CmdPars -> FilePath -> IO FilePath
+doCmdChain chain pars fIn = 
+  foldl (\fOut f -> do
+            fIn' <- fOut
+            fOut >>= convert f fIn') (return fIn) chain'
+  where
+     outExts = map snd chain
+     cmds :: [SagaIoCmd]
+     cmds = map fst chain
+     outFs :: [String]
+     outFs = scanl appendFileName fIn outExts
+     chain' :: [FilePath -> SagaCmd]
+     chain' = map (\(f,ext) -> f ext) $ zip  cmds outFs
+     convert :: (FilePath -> SagaCmd) -> FilePath -> (FilePath -> IO FilePath)
+     convert ioCmd fIn = (\fIn -> doSaga (ioCmd fIn))

@@ -15,7 +15,6 @@ cabal-version:       >=1.8
 library
   exposed-modules:     Math.Geometry.Saga.Types
                        Math.Geometry.Saga.Cmd
-                       Math.Geometry.Saga.Chain
                        Math.Geometry.Saga.Data
                        Math.Geometry.Saga.Utils
                        Math.Geometry.Saga.LUT
@@ -41,14 +40,3 @@ executable sagaChain
                      saga-cmd-wrapper
   hs-source-dirs:    src
 
-executable sagaTopo
-  main-is:           sagaTopo.hs
-  -- other-modules:       
-  build-depends:     base,
-                     filepath, 
-                     cmdargs,
-                     directory,
-                     containers,
-                     process,
-                     saga-cmd-wrapper
-  hs-source-dirs:    src

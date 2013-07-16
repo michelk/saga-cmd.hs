@@ -11,6 +11,7 @@ import           Prelude hiding (min,max)
 import           System.Console.CmdArgs
 import           System.Directory (renameFile)
 import           System.Environment (getArgs, withArgs)
+import           System.Posix.Temp (mkdtemp)
 
 _PROGRAM_NAME    = "sagaTopo"
 _PROGRAM_VERSION = "0.0.0.1"
@@ -26,7 +27,6 @@ main = do
     args <- getArgs
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
-
     r <- case (min opts, max opts) of
       (0.0, 0.0) -> sgrdToTopo (file opts) (output opts) Nothing Nothing
       _          -> sgrdToTopo (file opts) (output opts)
@@ -36,46 +36,26 @@ main = do
 -- | Convert a grid-file into a topo graphic map
 sgrdToTopo :: FilePath -> FilePath -> Maybe Float -> Maybe Float -> IO FilePath
 sgrdToTopo fIn fOut Nothing Nothing = do
-  hsF <- gridToHillshade fIn              -- ^ filepath to hillshade
-  sOut <- doSaga SagaCmd {
-                      sLib = "libio_grid_image"
-                     ,sMod = "0"
-                     ,sOutExt = ".tif"
-                     ,sInOutKey = ("GRID", "FILE")
-                     ,sParas = M.fromList [
-                       ("tifShade",("SHADE", hsF))
-                       ]
-                     ,sPre = \_ -> return ()
-                     ,sPost = \_ -> return ()}
-          fIn
-  renameFile sOut fOut
-  return fOut
+  hsF <- mkdtemp "hillshade"
+  doSaga $ gridHillShade fIn hsF
+  doSaga $ SagaCmd "libio_grid_image" "0" ("GRID", "FILE")
+          (M.fromList [
+              ("tifShade",("SHADE", hsF))
+              ])
+          Nothing Nothing
+          fIn fOut
 
-sgrdToTopo fIn fOut (Just min) (Just max) = do
-  hsF <- gridToHillshade fIn              -- ^ filepath to hillshade
+sgrdToTopo fIn fOut (Just min) (Just max) = do 
+  hsF <- mkdtemp "hillshade"
+  doSaga $ gridHillShade fIn hsF
   writeFile _COLOR_FILE (bgrColTable min max) -- color-lookup-table
-  sOut <- doSaga SagaCmd {
-                      sLib = "libio_grid_image"
-                     ,sMod = "0"
-                     ,sOutExt = ".tif"
-                     ,sInOutKey = ("GRID", "FILE")
-                     ,sParas = M.fromList [
-                       ("tifShade",("SHADE", hsF))
-                       ,("tifLut", ("LUT", _COLOR_FILE))
-                       ]
-                     ,sPre = \_ -> return ()
-                     ,sPost = \_ -> return ()}
-          fIn
-  renameFile sOut fOut
-  return fOut
-
--- | Create a hillshade from grid
-gridToHillshade :: FilePath -> IO FilePath
-gridToHillshade = lkpFunDB sCmdDB (M.fromList []) "gridHillShade"
-
--- | Convert a grid-file into contour-lines
-sgrdToContour :: FilePath -> FilePath -> Float ->Float -> Float -> IO FilePath
-sgrdToContour fIn fOut min max d = undefined
+  doSaga $ SagaCmd "libio_grid_image" "0" ("GRID", "FILE")
+          (M.fromList [
+              ("tifShade",("SHADE", hsF))
+             ,("tifLut", ("LUT", _COLOR_FILE))
+              ])
+          Nothing Nothing
+          fIn fOut
 
 -- | Data structure for command line options.
 data Opt = Opt

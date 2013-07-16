@@ -80,6 +80,18 @@
 
 In order to extend functionality
 
-- find library and module
-- write wrapper-function
-- add default parameters and conversion-function in demConv.hs
+- find the wanted library and module
+- create wrapper function
+- define output extension 
+- add chains
+
+** Find the module
+#+BEGIN_SRC sh
+  cd saga-cmd-wrapper/do
+  ./search <keyword> 
+#+END_SRC
+
+** Wrapper function and chain definition
+   - edit =src/Math/Geometry/Saga/Data.hs=
+   - add chain
+   - add wrapper function

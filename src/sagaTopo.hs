@@ -1,6 +1,7 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 -- | Program to 
 module Main where
+import           Control.Monad (when)
 import qualified Data.Map as M
 import           Math.Geometry.Saga.Cmd
 import           Math.Geometry.Saga.Data
@@ -9,7 +10,6 @@ import           Math.Geometry.Saga.Types
 import           Prelude hiding (min,max)
 import           System.Console.CmdArgs
 import           System.Environment (getArgs, withArgs)
-import           System.Posix.Temp (mkdtemp)
 
 _PROGRAM_NAME, _PROGRAM_VERSION, _PROGRAM_INFO, _PROGRAM_ABOUT, _COPYRIGHT :: String
 _PROGRAM_NAME    = "sagaTopo"
@@ -26,35 +26,34 @@ main = do
     cArgs <- getArgs
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null cArgs then withArgs ["--help"] else id) (cmdArgs defaultOpts)
+    when (output opts == "") (fail "Please specify an output-tif")
     r <- case (min opts, max opts) of
       (0.0, 0.0) -> sgrdToTopo (file opts) (output opts) Nothing Nothing
       _          -> sgrdToTopo (file opts) (output opts)
                         (Just $ min opts) (Just $ max opts)
-    putStrLn ("Successfully created" ++ r)
+    putStrLn ("Successfully created " ++ r)
     
 -- | Convert a grid-file into a topo graphic map
 sgrdToTopo :: FilePath -> FilePath -> Maybe Float -> Maybe Float -> IO FilePath
 sgrdToTopo fIn fOut Nothing Nothing = do
-  hsF <- mkdtemp "hillshade"
-  doSaga $ gridHillShade fIn hsF
+  let hsF = "temp_hillshade.sgrd"
+  doSaga $ gridHillShade hsF fIn 
   doSaga $ SagaCmd "libio_grid_image" "0" ("GRID", "FILE")
           (M.fromList [
-              ("tifShade",("SHADE", hsF))
+              ("a",("SHADE", hsF))
               ])
-          Nothing Nothing
-          fIn fOut
+          Nothing Nothing fOut fIn 
 
 sgrdToTopo fIn fOut (Just min') (Just max') = do 
-  hsF <- mkdtemp "hillshade"
-  doSaga $ gridHillShade fIn hsF
+  let hsF = "temp_hillshade.sgrd"
+  doSaga $ gridHillShade hsF fIn 
   writeFile _COLOR_FILE (bgrColTable min' max') -- color-lookup-table
   doSaga $ SagaCmd "libio_grid_image" "0" ("GRID", "FILE")
           (M.fromList [
-              ("tifShade",("SHADE", hsF))
-             ,("tifLut", ("LUT", _COLOR_FILE))
+              ("a",("SHADE", hsF))
+             ,("b", ("LUT", _COLOR_FILE))
               ])
-          Nothing Nothing
-          fIn fOut
+          Nothing Nothing fOut fIn 
 
 -- | Data structure for command line options.
 data Opt = Opt

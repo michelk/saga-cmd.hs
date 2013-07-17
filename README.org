@@ -79,7 +79,8 @@
 
    #+BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
      digraph chains {
-         node [shape = ellipse];
+         graph [rankdir = LR]; 
+         node [shape = ellipse, fontsize = 8];
 
          las [label = "LAS"];
          grd [label = "Grid"];
@@ -89,12 +90,12 @@
          hls [label = "Hillshade"];
          pt [label = "PointCloud"]
 
-         xyzGrid [shape = record, label = "{xyzGridToGrid|d (CELLSIZE)\nsep (SEPERATOR)}", fontsize = 10]
-         lasPt [shape = record, label = "{lasToPtCld |}", fontsize = 10]
-         ptGrd [shape = record, label = "{ptCldToGrid|}", fontsize = 10]
-         grdFl [shape = record, label = "{gridFillGaps| gridFillTarget (TARGET)}", fontsize = 10]
-         grdHl [shape = record, label = "{gridHillShade|}", fontsize = 10]
-         grdCtl [shape = record, label = "{gridContour| min (ZMIN)\nmax (ZMAX)\nd (ZSTEP)}", fontsize = 10]
+         xyzGrid [shape = record, label = "xyzGridToGrid|{d\nsep|CELLSIZE\nSEPERATOR}"]
+         lasPt [shape = record, label = "lasToPtCld |"]
+         ptGrd [shape = record, label = "ptCldToGrid|"]
+         grdFl [shape = record, label = "gridFillGaps| {grdFlT |TARGET}"]
+         grdHl [shape = record, label = "gridHillShade|"]
+         grdCtl [shape = record, label = "gridContour| {min\nmax\nd |ZMIN\nZMAX\nZSTEP}"]
 
          las -> lasPt -> pt -> ptGrd -> grd;
          xyz -> xyzGrid -> grd ;

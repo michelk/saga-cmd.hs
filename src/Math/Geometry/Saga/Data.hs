@@ -32,7 +32,7 @@ ptCldToGrid =
 
 gridFillGaps =
   SagaCmd "libgrid_spline" "5" ("GRIDPOINTS","GRID_GRID")
-  (M.fromList [("gridFillTarget", ("TARGET", "1"))])
+  (M.fromList [("grdFlT", ("TARGET", "1"))])
   (Just copyGrid)
   Nothing
 

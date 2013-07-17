@@ -187,7 +187,7 @@ Edit `src/Math/Geometry/Saga/Data.hs`
     
     -   Adjust dot-diagram
 
--   Export it to markdown ("M-x org-md-export-to-markdown=)
+-   Export it to markdown (`M-x org-md-export-to-markdown`)
 
 # ToDo
 

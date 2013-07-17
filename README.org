@@ -147,7 +147,7 @@
    - Edit =README.org=
      + Add entry in matrix
      + Adjust dot-diagram
-   - Export it to markdown ("M-x org-md-export-to-markdown=)
+   - Export it to markdown (=M-x org-md-export-to-markdown=)
 
 * ToDo
   - extend library-commands

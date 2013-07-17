@@ -59,20 +59,6 @@ parseParamCmdString s = M.fromList . map parseAssign . splitStr ':' $ s
     parseAssign :: String -> (String,String)
     parseAssign s = let k:v:[] = splitStr '=' s in (k,v)
 
--- | Overwrite the default Parameters
-adjustDefaultParams ::
-       CmdPars               -- ^ parameters given on the command-line
-    -> CmdPars               -- ^ default parameters
-    -> CmdPars               -- ^ adjusted paramters
-adjustDefaultParams pCmd pDef = if False `elem` validParas 
-    then
-        error $ "Invalid parameters on the command-line specified. Valid are \n" ++
-         unwords (M.keys pDef)
-    else pCmd `M.union` pDef 
-  where
-    validParas :: [Bool]
-    validParas = map  (`M.member` pDef) (M.keys pCmd)
-
 -- | Split a String on a certain delimiter
 splitStr :: Char -> String -> [String]
 splitStr c s = map unpack $ split (== c) (pack s)

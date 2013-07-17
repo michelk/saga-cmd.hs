@@ -26,15 +26,15 @@ doSaga (SagaCmd lib mod (kIn, kOut) ps maybePre maybePost fOut fIn) = do
      pre  = fromMaybe nthn maybePre
      post = fromMaybe nthn maybePost
      nthn _ _ =  return ()
-                
+
 
 -- | Wrapper around saga
 saga ::
        String                   -- ^ Library name
-    -> String                   -- ^ Module name  
+    -> String                   -- ^ Module name
     -> [(String,String)]        -- ^ Parameter key-value
     -> IO ExitCode              -- ^ Output-file
-saga lib mod params = 
+saga lib mod params =
     system $ unwords [
         progName
        ,lib
@@ -47,29 +47,24 @@ saga lib mod params =
 
 
 -- | adjust default parameters with the ones given on the command-line
-adjustSagaCmdParas :: SagaCmd -> CmdPars -> SagaCmd
-adjustSagaCmdParas (SagaCmd lib mod ks prs pre post fIn fOut) pars = 
-  SagaCmd lib mod ks prs' pre post fIn fOut
+adjustSagaCmdParas :: CmdPars ->  SagaCmd -> SagaCmd
+adjustSagaCmdParas cmdPrs (SagaCmd lib mod ks libPrs pre post fOut fIn) =
+  SagaCmd lib mod ks prs' pre post fOut fIn
   where
-    prs' = adjustParas prs pars
-  
+    prs' = adjustParas libPrs cmdPrs
+
 -- | Overwrite default parameters with parameters given on the command-line
 adjustParas :: ParaMap          -- ^ parameters specified in 'SagaCmd'
                -> CmdPars       -- ^ parameters given on the cmd-line
                -> ParaMap       -- ^ adjusted parameters
-adjustParas sPars cmdPars = foldr update' sPars (M.toList cmdPars')
+adjustParas libPrs cmdPrs = M.mapWithKey lkp m
   where
-    cKeys = M.keys cmdPars
-    sKeys = M.keys sPars
-    cKeys' =                    -- ^ filter cmd-keys not relevant
-      filter (`elem` sKeys) cKeys 
-    cmdPars' =                  -- ^ only relevant parameters kept
-      foldr M.delete cmdPars cKeys' 
-    update' (k,v) = M.adjust (\(name,_) -> (name,v)) k
+    m  = M.union cmdPrs $ M.map snd libPrs
+    lkp k v = (fst . fromJust $ M.lookup k libPrs, v)
 
 -- | Execute a 'CmdChain'
 doCmdChain :: [ChainSagaIoCmd] -> CmdPars -> FilePath -> IO FilePath
-doCmdChain chain pars fIn = 
+doCmdChain chain pars fIn =
   foldl (\fOut f -> do
             fIn' <- fOut
             fOut >>= convert f fIn') (return fIn) chain'
@@ -82,4 +77,4 @@ doCmdChain chain pars fIn =
      chain' :: [FilePath -> SagaCmd]
      chain' = map (\(f,ext) -> f ext) $ zip  cmds outFs
      convert :: (FilePath -> SagaCmd) -> FilePath -> (FilePath -> IO FilePath)
-     convert ioCmd fIn = (\fIn -> doSaga (ioCmd fIn))
+     convert ioCmd fIn = (\fIn -> doSaga (adjustSagaCmdParas pars (ioCmd fIn)))

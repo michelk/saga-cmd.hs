@@ -17,8 +17,8 @@ xyzGridToGrid, gridFillGaps, gridHillShade, gridContour, lasToPtCld, gridTopo ::
 xyzGridToGrid =
   SagaCmd "libio_grid" "6" ("FILENAME","GRID")
   (M.fromList [
-       ("d" , ("CELLSIZE"  , "1"))
-      ,("sep"      , ("SEPARATOR" , "space"))
+       ("cs",  ("CELLSIZE"  , "1"))
+      ,("sep", ("SEPARATOR" , "space"))
       ])
   Nothing Nothing
 

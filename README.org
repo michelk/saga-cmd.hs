@@ -118,7 +118,7 @@
    For example
 
    #+BEGIN_SRC sh :results verbatim :eval no-export
-       sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:d=0.5
+       sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:d=0.5 dem.xyz
    #+END_SRC
 ** =sagaTopo=
    Wrapper-program to create topographic maps from =sgrd=-files

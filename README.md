@@ -34,8 +34,8 @@ This is *Work In Progress*
 
 ## saga-cmd-wrapper library
 
-    git clone https://www.github.com/michelk/saga-cmd-wrapper.hs.git
-    cd saga-cmd-wrapper.hs
+    git clone https://www.github.com/michelk/bindings-saga-cmd.hs.git
+    cd bindings-saga-cmd.hs
     cabal update && cabal install
 
 The exectuables are usually installed into `$HOME/.cabal/bin`; to
@@ -140,7 +140,7 @@ follwing specification:
     
     For example
     
-        sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:d=0.5
+        sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:d=0.5 dem.xyz
 
 ## `sagaTopo`
 

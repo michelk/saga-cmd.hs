@@ -1,8 +1,8 @@
-name:                bindings-saga_cmd
+name:                bindings-saga-cmd
 version:             0.0.1.0
 synopsis:            Wrapping saga_cmd
 -- description:         
-homepage:            https://github.com/michelk/bindings-saga_cmd
+homepage:            https://github.com/michelk/bindings-saga-cmd
 license:             GPL-3
 license-file:        LICENSE
 author:              Michel Kuhlmann
@@ -37,7 +37,7 @@ executable sagaPipe
                      text,
                      containers,
                      directory,
-                     bindings-saga_cmd
+                     bindings-saga-cmd
   hs-source-dirs:    src
 
 executable sagaTopo
@@ -51,5 +51,5 @@ executable sagaTopo
                      containers,
                      directory,
                      unix,
-                     bindings-saga_cmd
+                     bindings-saga-cmd
   hs-source-dirs:    src

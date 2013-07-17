@@ -45,11 +45,11 @@
 ** saga-cmd-wrapper library
 
    #+BEGIN_SRC sh
-       git clone https://www.github.com/michelk/saga-cmd-wrapper.hs.git
-       cd saga-cmd-wrapper.hs
+       git clone https://www.github.com/michelk/bindings-saga-cmd.hs.git
+       cd bindings-saga-cmd.hs
        cabal update && cabal install
    #+END_SRC
-   
+
    The exectuables are usually installed into =$HOME/.cabal/bin=; to
    use them you have to put them into your search path. Put this into
    your =$HOME/.bashrc=:

@@ -1,8 +1,8 @@
-name:                saga-cmd-wrapper
+name:                bindings-saga_cmd
 version:             0.0.1.0
 synopsis:            Wrapping saga_cmd
 -- description:         
-homepage:            https://github.com/michelk/sagaCmdWrapper
+homepage:            https://github.com/michelk/bindings-saga_cmd
 license:             GPL-3
 license-file:        LICENSE
 author:              Michel Kuhlmann
@@ -13,18 +13,18 @@ build-type:          Simple
 cabal-version:       >=1.8
 
 library
-  exposed-modules:     Math.Geometry.Saga.Types
-                       Math.Geometry.Saga.Cmd
-                       Math.Geometry.Saga.Data
-                       Math.Geometry.Saga.Utils
-                       Math.Geometry.Saga.LUT
-  -- other-modules:       
-  build-depends:       base,
-                       filepath,
-                       process,
-                       containers,
-                       directory
-  hs-source-dirs:      src
+  exposed-modules:   Math.Geometry.Saga.Types
+                     Math.Geometry.Saga.Cmd
+                     Math.Geometry.Saga.Data
+                     Math.Geometry.Saga.Utils
+                     Math.Geometry.Saga.LUT
+  -- other-modules:     
+  build-depends:     base,
+                     filepath,
+                     process,
+                     containers,
+                     directory
+  hs-source-dirs:    src
   
 
 executable sagaChain
@@ -37,7 +37,7 @@ executable sagaChain
                      text,
                      containers,
                      directory,
-                     saga-cmd-wrapper
+                     bindings-saga_cmd
   hs-source-dirs:    src
 
 executable sagaTopo
@@ -51,5 +51,5 @@ executable sagaTopo
                      containers,
                      directory,
                      unix,
-                     saga-cmd-wrapper
+                     bindings-saga_cmd
   hs-source-dirs:    src

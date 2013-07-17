@@ -1,9 +1,0 @@
-digraph chains {
-    rankdir = LR;
-    "las" -> "grid" ;
-    "xyz-grid" -> "grid"; 
-    "grid" -> "grid-filled"; 
-    "grid-filled" -> "hillshade"; 
-    "grid-filled" -> "contour"; 
-    "grid-filled" -> "tif-gdal"; 
-}

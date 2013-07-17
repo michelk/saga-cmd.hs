@@ -9,13 +9,18 @@
      (dot . t)
      (haskell . t)
      (sh . t)))
-#+END_SRC  
-  
+#+END_SRC
 * Description
   Haskell Library to wrap =saga_cmd=. 
 
+  Two exectuables are currently shipped
+
+  - sagaChain :: A program to chain different saga-calls, where the output of
+     one command gets the input of the next.
+  - sagaTopo :: Wrapper to create topographic-maps out of =sgrid=-files
+
   This is /Work In Progress/
- 
+
 * Installation
 ** Saga And haskell-platform
 *** Linux
@@ -26,7 +31,8 @@
 *** Windows with Cygwin
     - Get the [[http://www.haskell.org/platform/][haskell-platform]]
     - Install Saga with [[http://trac.osgeo.org/osgeo4w/][OSGeo4W]]
-    - Put =saga_cmd= in the search path: add this line to you =$HOME/.bashrc=
+    - Put =saga_cmd= in the search path; add the line following (the actual
+      filepath could differ) line to your =$HOME/.bashrc=
       #+BEGIN_SRC sh
         export PATH="$PATH:/cygdrive/c/Program Files (x86)/SAGA-GIS
       #+END_SRC
@@ -54,36 +60,74 @@
    - destination-format
    - parameters to use for conversion
    - input-file
-     
+
      These combinations are currently supported, where columns are
      sources and rows destinations:
-     
+
      | to\form     | las | xyz-grid | grid | grid-filled |
      |-------------+-----+----------+------+-------------+
      | grid        | X   | X        |      |             |
      | grid-filled | X   | X        | X    |             |
      | hillshade   | X   | X        | x    | X           |
      | contour     | X   | X        | X    | X           |
-     
+
      where
   - grid        :: A Grid which could contain gaps
   - grid-filled :: A Grid with interpolated values
   - hillshade   :: Analytical hillshade
-  - contour     :: Iso-value-lines 
-                   
+  - contour     :: Iso-value-lines
 
-#+BEGIN_SRC sh :results verbatim :eval no-export
-    sagaChain --from xyz-grid --to hillshade --parameters xyzSep=tabulator:xyzCellSize=0.5
-#+END_SRC
+   #+BEGIN_SRC dot :results graphics :file doc/figures/chains.png :eval no-export
+     digraph chains {
+         node [shape = ellipse];
+
+         las [label = "LAS"];
+         grd [label = "Grid"];
+         grdF [label = "Grid-filled"];
+         xyz [label = "xyz-grid"];
+         cntr [label = "Contour"];
+         hls [label = "Hillshade"];
+         pt [label = "PointCloud"]
+
+         xyzGrid [shape = record, label = "{xyzGridToGrid|d (CELLSIZE)\nsep (SEPERATOR)}", fontsize = 10]
+         lasPt [shape = record, label = "{lasToPtCld |}", fontsize = 10]
+         ptGrd [shape = record, label = "{ptCldToGrid|}", fontsize = 10]
+         grdFl [shape = record, label = "{gridFillGaps| gridFillTarget (TARGET)}", fontsize = 10]
+         grdHl [shape = record, label = "{gridHillShade|}", fontsize = 10]
+         grdCtl [shape = record, label = "{gridContour| min (ZMIN)\nmax (ZMAX)\nd (ZSTEP)}", fontsize = 10]
+
+         las -> lasPt -> pt -> ptGrd -> grd;
+         xyz -> xyzGrid -> grd ;
+         grd -> grdFl -> grdF;
+         grdF -> grdHl -> hls;
+         grdF -> grdCtl -> cntr;
+     }
+   #+END_SRC
+
+   #+RESULTS:
+   [[file:doc/figures/chains.png]]
+
+   For example
+
+   #+BEGIN_SRC sh :results verbatim :eval no-export
+       sagaChain --from xyz-grid --to hillshade --parameters xyzSep=tabulator:xyzCellSize=0.5
+   #+END_SRC
+** =sagaTopo=
+   Wrapper-program to create topographic maps from =sgrd=-files
+
+   For example
+   #+BEGIN_SRC sh :results verbatim :eval no-export
+       sagaTopo --min 280 --max 360  -o dem.tif dem.sgrd
+   #+END_SRC
 
 * Development
 
-In order to extend functionality
-
-- find the wanted library and module
-- create wrapper function
-- define output extension 
-- add chains
+   In order to extend functionality
+   
+   - find the wanted library and module
+   - create wrapper function
+   - define output extension 
+   - add chains
 
 ** Find the module
 #+BEGIN_SRC sh
@@ -95,3 +139,9 @@ In order to extend functionality
    - edit =src/Math/Geometry/Saga/Data.hs=
    - add chain
    - add wrapper function
+
+* ToDo
+  - extend library-commands
+  - merge =sagaTopo= into =sagaChain=
+  - give the opportunity to clean intermediate files (sagaChain,sagaTopo)
+

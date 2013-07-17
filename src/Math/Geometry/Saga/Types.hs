@@ -14,7 +14,7 @@ data SagaCmd = SagaCmd {
         Maybe (FilePath -> FilePath -> IO ())
     ,sPost    ::                -- ^ Post-processing (input/output-file)
         Maybe (FilePath -> FilePath -> IO ())
-    ,sOutFile  :: FilePath         -- ^ Output-file
+    ,sOutFile :: FilePath          -- ^ Output-file
     ,sInFile  :: FilePath          -- ^ Input-file
     } 
 

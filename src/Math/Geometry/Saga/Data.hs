@@ -2,7 +2,7 @@ module Math.Geometry.Saga.Data where
 import Math.Geometry.Saga.Types
 import Math.Geometry.Saga.Utils 
 import qualified Data.Map as M
-       
+
 cXyzGridToGrid, cGridFillGaps, cGridHillShade :: ChainSagaIoCmd
 cGridContour, cLasToPtCld, cPtCldToGrid :: ChainSagaIoCmd
 
@@ -14,24 +14,32 @@ cLasToPtCld    = (lasToPtCld,    ".pcl")
 cPtCldToGrid   = (ptCldToGrid,   ".sgrd")
 
 xyzGridToGrid, gridFillGaps, gridHillShade, gridContour, lasToPtCld, gridTopo :: SagaIoCmd
-xyzGridToGrid = 
+xyzGridToGrid =
   SagaCmd "libio_grid" "6" ("FILENAME","GRID")
   (M.fromList [
        ("d" , ("CELLSIZE"  , "1"))
       ,("sep"      , ("SEPARATOR" , "space"))
       ])
   Nothing Nothing
-  
+
+lasToPtCld =
+  SagaCmd "libio_shapes_las" "1" ("POINTS","FILE")
+  (M.fromList []) Nothing Nothing
+
+ptCldToGrid =
+  SagaCmd "libpointcloud_tools" "4" ("POINTS","GRID")
+  (M.fromList []) Nothing Nothing
+
 gridFillGaps =
   SagaCmd "libgrid_spline" "5" ("GRIDPOINTS","GRID_GRID")
   (M.fromList [("gridFillTarget", ("TARGET", "1"))])
   (Just copyGrid)
   Nothing
-  
+
 gridHillShade =
   SagaCmd "libta_lighting" "0" ("ELEVATION","SHADE")
   (M.fromList []) Nothing Nothing
-  
+
 gridContour =
   SagaCmd "libshapes_grid" "5" ("INPUT","CONTOUR")
   (M.fromList [
@@ -39,8 +47,8 @@ gridContour =
       ,("max" , ("ZMAX" , "10000"))
       ,("d",    ("ZSTEP" , "1"))
       ]) Nothing Nothing
-  
-gridTopo = 
+
+gridTopo =
   SagaCmd "libio_grid_image " "0" ("GRID", "FILE")
   (M.fromList [
       ("tifShade",("SHADE", undefined))
@@ -50,14 +58,7 @@ gridTopo =
 
 dispatchGridTopo :: Float -> Float -> SagaIoCmd
 dispatchGridTopo min max = undefined
-  
-lasToPtCld =
-  SagaCmd "libio_shapes_las" "1" ("POINTS","FILE")
-  (M.fromList []) Nothing Nothing
-  
-ptCldToGrid =
-  SagaCmd "libpointcloud_tools" "4" ("POINTS","GRID")
-  (M.fromList []) Nothing Nothing
+
 
 -- | Processing chains
 sChainDB :: ChainDB

@@ -10,6 +10,7 @@ import qualified Data.Map as M
 import Data.Maybe (fromJust, fromMaybe)
 import System.Environment (getArgs, withArgs)
 
+_PROGRAM_NAME, _PROGRAM_VERSION, _PROGRAM_INFO, _PROGRAM_ABOUT, _COPYRIGHT :: String
 _PROGRAM_NAME    = "sagaChain"
 _PROGRAM_VERSION = "0.0.1.0"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION

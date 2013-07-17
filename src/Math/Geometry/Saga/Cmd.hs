@@ -62,7 +62,7 @@ adjustParas libPrs cmdPrs = M.mapWithKey lkp m
     m  = M.union cmdPrs $ M.map snd libPrs
     lkp k v = (fst . fromJust $ M.lookup k libPrs, v)
 
--- | Execute a 'CmdChain'
+-- | Execute a 'ChainSagaIoCmd'
 doCmdChain :: [ChainSagaIoCmd] -> CmdPars -> FilePath -> IO FilePath
 doCmdChain chain pars fIn =
   foldl (\fOut f -> do

@@ -5,7 +5,7 @@ Haskell Library to wrap `saga_cmd`.
 
 Two exectuables are currently shipped
 
--   **sagaChain:** A program to chain different saga-calls, where the output of
+-   **sagaPipe:** A program to chain different saga-calls, where the output of
     one command gets the input of the next.
 
 -   **sagaTopo:** Wrapper to create topographic-maps out of `sgrid`-files
@@ -46,9 +46,9 @@ your `$HOME/.bashrc`:
 
 # Usage
 
-## `sagaChain`
+## `sagaPipe`
 
-`sagaChain` lets you chain `saga_cmd` commands. The program needs the
+`sagaPipe` lets you chain `saga_cmd` commands. The program needs the
 follwing specification:
 
 -   source-format
@@ -140,7 +140,7 @@ follwing specification:
     
     For example
     
-        sagaChain --from xyz-grid --to hillshade --parameters xyzSep=tabulator:xyzCellSize=0.5
+        sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:d=0.5
 
 ## `sagaTopo`
 
@@ -152,15 +152,19 @@ For example
 
 # Development
 
-In order to extend functionality
+In order to extend functionality, the follwing steps are necessary
 
--   find the wanted library and module
+-   Find the wanted library and module
 
--   create wrapper function
+-   Edit `src/Math/Geometry/Saga/Data.hs`
+    
+    -   create wrapper function
+    
+    -   define output extension
+    
+    -   add chain
 
--   define output extension
-
--   add chains
+-   Adjust documentation
 
 ## Find the module
 
@@ -169,16 +173,26 @@ In order to extend functionality
 
 ## Wrapper function and chain definition
 
--   edit `src/Math/Geometry/Saga/Data.hs`
+Edit `src/Math/Geometry/Saga/Data.hs`
 
 -   add chain
 
 -   add wrapper function
 
+## Documentation
+
+-   Edit `README.org`
+    
+    -   Add entry in matrix
+    
+    -   Adjust dot-diagram
+
+-   Export it to markdown ("M-x org-md-export-to-markdown=)
+
 # ToDo
 
 -   extend library-commands
 
--   merge `sagaTopo` into `sagaChain`
+-   merge `sagaTopo` into `sagaPipe`
 
--   give the opportunity to clean intermediate files (sagaChain,sagaTopo)
+-   give the opportunity to clean intermediate files (sagaPipe,sagaTopo)

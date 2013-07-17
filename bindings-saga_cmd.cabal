@@ -27,8 +27,8 @@ library
   hs-source-dirs:    src
   
 
-executable sagaChain
-  main-is:           sagaChain.hs
+executable sagaPipe
+  main-is:           sagaPipe.hs
   -- other-modules:       
   build-depends:     base,
                      filepath, 

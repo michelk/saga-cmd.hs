@@ -134,30 +134,7 @@ follwing specification:
 
 -   **contour    :** Iso-value-lines
     
-        digraph chains {
-            node [shape = ellipse];
-        
-            las [label = "LAS"];
-            grd [label = "Grid"];
-            grdF [label = "Grid-filled"];
-            xyz [label = "xyz-grid"];
-            cntr [label = "Contour"];
-            hls [label = "Hillshade"];
-            pt [label = "PointCloud"]
-        
-            xyzGrid [shape = record, label = "{xyzGridToGrid|d (CELLSIZE)\nsep (SEPERATOR)}", fontsize = 10]
-            lasPt [shape = record, label = "{lasToPtCld |}", fontsize = 10]
-            ptGrd [shape = record, label = "{ptCldToGrid|}", fontsize = 10]
-            grdFl [shape = record, label = "{gridFillGaps| gridFillTarget (TARGET)}", fontsize = 10]
-            grdHl [shape = record, label = "{gridHillShade|}", fontsize = 10]
-            grdCtl [shape = record, label = "{gridContour| min (ZMIN)\nmax (ZMAX)\nd (ZSTEP)}", fontsize = 10]
-        
-            las -> lasPt -> pt -> ptGrd -> grd;
-            xyz -> xyzGrid -> grd ;
-            grd -> grdFl -> grdF;
-            grdF -> grdHl -> hls;
-            grdF -> grdCtl -> cntr;
-        }
+    ![nil](doc/figures/chains.png)
     
     For example
     

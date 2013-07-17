@@ -77,7 +77,7 @@
   - hillshade   :: Analytical hillshade
   - contour     :: Iso-value-lines
 
-   #+BEGIN_SRC dot :results graphics :file doc/figures/chains.png :eval no-export
+   #+BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
      digraph chains {
          node [shape = ellipse];
 

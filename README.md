@@ -134,6 +134,8 @@ follwing specification:
 
 -   **contour    :** Iso-value-lines
     
+    The pathways are visualized below                   
+    
     ![nil](doc/figures/chains.png)
     
     For example

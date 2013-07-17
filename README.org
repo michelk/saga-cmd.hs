@@ -77,6 +77,8 @@
   - hillshade   :: Analytical hillshade
   - contour     :: Iso-value-lines
 
+   The pathways are visualized below                   
+
    #+BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
      digraph chains {
          graph [rankdir = LR]; 

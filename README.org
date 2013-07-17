@@ -10,6 +10,11 @@
      (haskell . t)
      (sh . t)))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp :results silent :exports none
+  (org-md-export-to-markdown)
+#+END_SRC
+
 * Description
   Haskell Library to wrap =saga_cmd=. 
 
@@ -84,13 +89,13 @@
          graph [rankdir = LR]; 
          node [shape = ellipse, fontsize = 8];
 
-         las [label = "LAS"];
-         grd [label = "Grid"];
-         grdF [label = "Grid-filled"];
+         las [label = "las"];
+         grd [label = "grid"];
+         grdF [label = "grid-filled"];
          xyz [label = "xyz-grid"];
-         cntr [label = "Contour"];
-         hls [label = "Hillshade"];
-         pt [label = "PointCloud"]
+         cntr [label = "contour"];
+         hls [label = "hillshade"];
+         pt [label = "pointcloud"]
 
          xyzGrid [shape = record, label = "xyzGridToGrid|{d\nsep|CELLSIZE\nSEPERATOR}"]
          lasPt [shape = record, label = "lasToPtCld |"]

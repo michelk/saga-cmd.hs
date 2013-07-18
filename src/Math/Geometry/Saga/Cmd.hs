@@ -6,6 +6,7 @@ import           GHC.IO.Exception
 import           Math.Geometry.Saga.Types
 import           Math.Geometry.Saga.Utils
 import           Math.Geometry.Saga.Data
+import Debug.Trace (trace)
 import           System.Cmd (system)
 
 -- | Actual Program to do the work
@@ -64,17 +65,16 @@ adjustParas libPrs cmdPrs = M.mapWithKey lkp m
 
 -- | Execute a 'ChainSagaIoCmd'
 doCmdChain :: [ChainSagaIoCmd] -> CmdPars -> FilePath -> IO FilePath
-doCmdChain chain pars fIn =
+doCmdChain chain pars fIn = do
+--  putStrLn . unlines $ outFs
+--  putStrLn . show . length $ outFs
+--  return "bla"
   foldl (\fOut f -> do
             fIn' <- fOut
-            fOut >>= convert f fIn') (return fIn) chain'
+            doSaga . adjustSagaCmdParas pars . f $ fIn'
+        ) (return fIn) chain'
   where
-     outExts = map snd chain
-     cmds :: [SagaIoCmd]
-     cmds = map fst chain
-     outFs :: [String]
-     outFs = scanl appendFileName fIn outExts
-     chain' :: [FilePath -> SagaCmd]
-     chain' = map (\(f,ext) -> f ext) $ zip  cmds outFs
-     convert :: (FilePath -> SagaCmd) -> FilePath -> (FilePath -> IO FilePath)
-     convert ioCmd fIn = (\fIn -> doSaga (adjustSagaCmdParas pars (ioCmd fIn)))
+    outFs :: [String]
+    outFs = tail $ scanl appendFileName fIn (map snd chain)
+    chain' :: [FilePath -> SagaCmd]
+    chain' = map (\(f,ext) -> f ext) $ zip (map fst chain) outFs

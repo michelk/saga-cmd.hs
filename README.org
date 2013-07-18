@@ -97,7 +97,7 @@
          hls [label = "hillshade"];
          pt [label = "pointcloud"]
 
-         xyzGrid [shape = record, label = "xyzGridToGrid|{d\nsep|CELLSIZE\nSEPERATOR}"]
+         xyzGrid [shape = record, label = "xyzGridToGrid|{cs\nsep|CELLSIZE\nSEPERATOR}"]
          lasPt [shape = record, label = "lasToPtCld |"]
          ptGrd [shape = record, label = "ptCldToGrid|"]
          grdFl [shape = record, label = "gridFillGaps| {grdFlT |TARGET}"]

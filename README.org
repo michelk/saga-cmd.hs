@@ -16,7 +16,7 @@
 #+END_SRC
 
 * Description
-  Haskell Library to wrap =saga_cmd=. 
+  Haskell Library to wrap =saga_cmd=.
 
   Two exectuables are currently shipped
 
@@ -24,7 +24,16 @@
      one command gets the input of the next.
   - sagaTopo :: Wrapper to create topographic-maps out of =sgrid=-files
 
-  This is /Work In Progress/
+                For example
+
+                #+BEGIN_SRC sh :results verbatim :eval no-export
+                   sagaTopo --min 280 --max 360  -o dem.tif dem.sgrd
+                #+END_SRC
+
+  - sagaLut :: Program to create color lookup-tables with min/max values
+               eg =sagaLut 260 280 > colors.txt=
+
+  This is /Work In Progress/.
 
 * Installation
 ** Saga And haskell-platform
@@ -57,8 +66,8 @@
      export PATH="$PATH:$HOME/.cabal/bin"
    #+END_SRC
 
-* Usage 
-** =sagaPipe=
+* =sagaPipe=
+** Usage
    =sagaPipe= lets you chain =saga_cmd= commands. The program needs the
    follwing specification:
    - source-format
@@ -66,6 +75,7 @@
    - parameters to use for conversion
    - input-file
 
+** From-To combinations
      These combinations are currently supported, where columns are
      sources and rows destinations:
 
@@ -84,7 +94,7 @@
 
    The pathways are visualized below                   
 
-   #+BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
+   #    +BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
      digraph chains {
          graph [rankdir = LR]; 
          node [shape = ellipse, fontsize = 8];
@@ -115,18 +125,20 @@
    #+RESULTS:
    [[file:doc/figures/chains.png]]
 
-   For example
+** Example
 
    #+BEGIN_SRC sh :results verbatim :eval no-export
-       sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:d=0.5 dem.xyz
+       sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:cs=0.5 dem.xyz
    #+END_SRC
+
+   In the directory of the input-file, the follwing grids will be created:
+   - =dem_grid.sgrd=
+   - =dem_grid-filled.sgrd=
+   - =dem_grid-filled_hillshade.sgrd=
+
 ** =sagaTopo=
    Wrapper-program to create topographic maps from =sgrd=-files
 
-   For example
-   #+BEGIN_SRC sh :results verbatim :eval no-export
-       sagaTopo --min 280 --max 360  -o dem.tif dem.sgrd
-   #+END_SRC
 
 * Development
 
@@ -158,4 +170,5 @@
   - extend library-commands
   - merge =sagaTopo= into =sagaPipe=
   - give the opportunity to clean intermediate files (sagaPipe,sagaTopo)
+  - option in =sagaLut= which color-palette to use
 

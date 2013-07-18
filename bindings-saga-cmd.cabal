@@ -53,3 +53,10 @@ executable sagaTopo
                      unix,
                      bindings-saga-cmd
   hs-source-dirs:    src
+
+executable sagaLut
+  main-is:           sagaLut.hs
+  -- other-modules:       
+  build-depends:     base,
+                     bindings-saga-cmd
+  hs-source-dirs:    src

@@ -51,8 +51,7 @@ gridContour =
 gridTopo =
   SagaCmd "libio_grid_image " "0" ("GRID", "FILE")
   (M.fromList [
-      ("tifShade",("SHADE", undefined))
-     ,("min",     ("", undefined))
+      ("min",     ("", undefined))
      ,("max",     ("", undefined))
       ]) Nothing Nothing
 

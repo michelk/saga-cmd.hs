@@ -66,9 +66,6 @@ adjustParas libPrs cmdPrs = M.mapWithKey lkp m
 -- | Execute a 'ChainSagaIoCmd'
 doCmdChain :: [ChainSagaIoCmd] -> CmdPars -> FilePath -> IO FilePath
 doCmdChain chain pars fIn = do
---  putStrLn . unlines $ outFs
---  putStrLn . show . length $ outFs
---  return "bla"
   foldl (\fOut f -> do
             fIn' <- fOut
             doSaga . adjustSagaCmdParas pars . f $ fIn'

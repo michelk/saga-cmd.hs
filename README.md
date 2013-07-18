@@ -1,7 +1,7 @@
 
 # Description
 
-Haskell Library to wrap `saga_cmd`. 
+Haskell Library to wrap `saga_cmd`.
 
 Two exectuables are currently shipped
 
@@ -9,8 +9,15 @@ Two exectuables are currently shipped
     one command gets the input of the next.
 
 -   **sagaTopo:** Wrapper to create topographic-maps out of `sgrid`-files
+    
+    For example
+    
+        sagaTopo --min 280 --max 360  -o dem.tif dem.sgrd
 
-This is *Work In Progress*
+-   **sagaLut:** Program to create color lookup-tables with min/max values
+    eg `sagaLut 260 280 > colors.txt`
+
+This is *Work In Progress*.
 
 # Installation
 
@@ -44,9 +51,9 @@ your `$HOME/.bashrc`:
 
     export PATH="$PATH:$HOME/.cabal/bin"
 
-# Usage
+# `sagaPipe`
 
-## `sagaPipe`
+## Usage
 
 `sagaPipe` lets you chain `saga_cmd` commands. The program needs the
 follwing specification:
@@ -58,73 +65,75 @@ follwing specification:
 -   parameters to use for conversion
 
 -   input-file
-    
-    These combinations are currently supported, where columns are
-    sources and rows destinations:
-    
-    <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-    
-    
-    <colgroup>
-    <col  class="left" />
-    
-    <col  class="left" />
-    
-    <col  class="left" />
-    
-    <col  class="left" />
-    
-    <col  class="left" />
-    </colgroup>
-    <thead>
-    <tr>
-    <th scope="col" class="left">to\form</th>
-    <th scope="col" class="left">las</th>
-    <th scope="col" class="left">xyz-grid</th>
-    <th scope="col" class="left">grid</th>
-    <th scope="col" class="left">grid-filled</th>
-    </tr>
-    </thead>
-    
-    <tbody>
-    <tr>
-    <td class="left">grid</td>
-    <td class="left">X</td>
-    <td class="left">X</td>
-    <td class="left">&#xa0;</td>
-    <td class="left">&#xa0;</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="left">grid-filled</td>
-    <td class="left">X</td>
-    <td class="left">X</td>
-    <td class="left">X</td>
-    <td class="left">&#xa0;</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="left">hillshade</td>
-    <td class="left">X</td>
-    <td class="left">X</td>
-    <td class="left">x</td>
-    <td class="left">X</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="left">contour</td>
-    <td class="left">X</td>
-    <td class="left">X</td>
-    <td class="left">X</td>
-    <td class="left">X</td>
-    </tr>
-    </tbody>
-    </table>
-    
-    where
+
+## From-To combinations
+
+These combinations are currently supported, where columns are
+sources and rows destinations:
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">to\form</th>
+<th scope="col" class="left">las</th>
+<th scope="col" class="left">xyz-grid</th>
+<th scope="col" class="left">grid</th>
+<th scope="col" class="left">grid-filled</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td class="left">grid</td>
+<td class="left">X</td>
+<td class="left">X</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+
+<tr>
+<td class="left">grid-filled</td>
+<td class="left">X</td>
+<td class="left">X</td>
+<td class="left">X</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+
+<tr>
+<td class="left">hillshade</td>
+<td class="left">X</td>
+<td class="left">X</td>
+<td class="left">x</td>
+<td class="left">X</td>
+</tr>
+
+
+<tr>
+<td class="left">contour</td>
+<td class="left">X</td>
+<td class="left">X</td>
+<td class="left">X</td>
+<td class="left">X</td>
+</tr>
+</tbody>
+</table>
+
+where
 
 -   **grid       :** A Grid which could contain gaps
 
@@ -136,19 +145,52 @@ follwing specification:
     
     The pathways are visualized below                   
     
+    
+    digraph chains {
+        graph [rankdir = LR]; 
+        node [shape = ellipse, fontsize = 8];
+    
+    las [label = "las"];
+    grd [label = "grid"];
+    grdF [label = "grid-filled"];
+    xyz [label = "xyz-grid"];
+    cntr [label = "contour"];
+    hls [label = "hillshade"];
+    pt [label = "pointcloud"]
+    
+    xyzGrid [shape = record, label = "xyzGridToGrid|{cs\nsep|CELLSIZE\nSEPERATOR}"]
+    lasPt [shape = record, label = "lasToPtCld |"]
+    ptGrd [shape = record, label = "ptCldToGrid|"]
+    grdFl [shape = record, label = "gridFillGaps| {grdFlT |TARGET}"]
+    grdHl [shape = record, label = "gridHillShade|"]
+    grdCtl [shape = record, label = "gridContour| {min\nmax\nd |ZMIN\nZMAX\nZSTEP}"]
+    
+        las -> lasPt -> pt -> ptGrd -> grd;
+        xyz -> xyzGrid -> grd ;
+        grd -> grdFl -> grdF;
+        grdF -> grdHl -> hls;
+        grdF -> grdCtl -> cntr;
+    }
+    
+    \#+END<sub>SRC</sub>
+    
     ![nil](doc/figures/chains.png)
-    
-    For example
-    
-        sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:d=0.5 dem.xyz
+
+## Example
+
+    sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:cs=0.5 dem.xyz
+
+In the directory of the input-file, the follwing grids will be created:
+
+-   `dem_grid.sgrd`
+
+-   `dem_grid-filled.sgrd`
+
+-   `dem_grid-filled_hillshade.sgrd`
 
 ## `sagaTopo`
 
 Wrapper-program to create topographic maps from `sgrd`-files
-
-For example
-
-    sagaTopo --min 280 --max 360  -o dem.tif dem.sgrd
 
 # Development
 
@@ -196,3 +238,5 @@ Edit `src/Math/Geometry/Saga/Data.hs`
 -   merge `sagaTopo` into `sagaPipe`
 
 -   give the opportunity to clean intermediate files (sagaPipe,sagaTopo)
+
+-   option in `sagaLut` which color-palette to use

@@ -225,5 +225,3 @@ Edit `src/Math/Geometry/Saga/Data.hs`
 -   cmd-line-opting to clean intermediate files (`sagaPipe`, `sagaTopo`)
 
 -   cmd-line-option which color-palette to use (`sagaLut`)
-
--   cmd-line-option to specify pathway/chain (`sagaPipe`)

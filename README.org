@@ -67,12 +67,12 @@
 
 * =sagaPipe=
 ** Usage
-   =sagaPipe= lets you chain =saga_cmd= commands. The program needs the
-   follwing specification:
-   - source-format
-   - destination-format
-   - parameters to use for conversion
-   - input-file
+   =sagaPipe= lets you chain =saga_cmd= commands. The program could be
+   used in two ways. Common for both modes are specification of
+   parameters to use during conversion and the input-file.
+
+   - Source-Target :: Specify a source-format and target-format
+   - Processing-pathway :: Specify pathway/route to go exlicitly
 
 ** From-To combinations
      These combinations are currently supported, where columns are
@@ -129,7 +129,7 @@
    [[file:doc/figures/chains.png]]
 
 ** Example
-
+*** Source-Target
    #+BEGIN_SRC sh :results verbatim :eval no-export
        sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:cs=0.5 dem.xyz
    #+END_SRC
@@ -138,6 +138,13 @@
    - =dem_grid.sgrd=
    - =dem_grid-filled.sgrd=
    - =dem_grid-filled_hillshade.sgrd=
+
+*** Processing-pathway
+
+    The equivalent to version above
+   #+BEGIN_SRC sh :results verbatim :eval no-export
+       sagaPipe --chain xyz-grid:grid:grid-filled:hillshade --parameters sep=tabulator:cs=0.5 dem.xyz
+   #+END_SRC
 
 ** =sagaTopo=
    Wrapper-program to create topographic maps from =sgrd=-files

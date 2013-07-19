@@ -55,16 +55,13 @@ your `$HOME/.bashrc`:
 
 ## Usage
 
-`sagaPipe` lets you chain `saga_cmd` commands. The program needs the
-follwing specification:
+`sagaPipe` lets you chain `saga_cmd` commands. The program could be
+used in two ways. Common for both modes are specification of
+parameters to use during conversion and the input-file.
 
--   source-format
+-   **Source-Target:** Specify a source-format and target-format
 
--   destination-format
-
--   parameters to use for conversion
-
--   input-file
+-   **Processing-pathway:** Specify pathway/route to go exlicitly
 
 ## From-To combinations
 
@@ -158,6 +155,8 @@ where
 
 ## Example
 
+### Source-Target
+
     sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:cs=0.5 dem.xyz
 
 In the directory of the input-file, the follwing grids will be created:
@@ -167,6 +166,12 @@ In the directory of the input-file, the follwing grids will be created:
 -   `dem_grid-filled.sgrd`
 
 -   `dem_grid-filled_hillshade.sgrd`
+
+### Processing-pathway
+
+The equivalent to version above
+
+    sagaPipe --chain xyz-grid:grid:grid-filled:hillshade --parameters sep=tabulator:cs=0.5 dem.xyz
 
 ## `sagaTopo`
 

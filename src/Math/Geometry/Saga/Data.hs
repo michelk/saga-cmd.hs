@@ -45,7 +45,7 @@ sIoDB = M.fromList [
        SagaCmd "libshapes_grid" "7" ("GRID","FILE")
        (M.fromList [
            ("col" ,  ("COL_PALETTE" , "2"))
-           ("colRev",("COL_REVERT"  , ""))
+          ,("colRev",("COL_REVERT"  , ""))
            ]) Nothing Nothing, ".tif"))
   ]
 

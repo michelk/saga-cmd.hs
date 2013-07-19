@@ -27,10 +27,11 @@ main = do
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null cArgs then withArgs ["--help"] else id) (cmdArgs defaultOpts)
     when (output opts == "") (fail "Please specify an output-tif")
-    r <- case (min opts, max opts) of
-      (0.0, 0.0) -> sgrdToTopo (file opts) (output opts) Nothing Nothing
-      _          -> sgrdToTopo (file opts) (output opts)
-                        (Just $ min opts) (Just $ max opts)
+    r <- case (hillshade opts, min opts, max opts) of
+      (True, 0.0, 0.0)  -> sgrdToTopo (file opts) (output opts) Nothing Nothing
+      (False, 0.0, 0.0) -> sgrdToRelief (file opts) (output opts) Nothing Nothing
+      (True, _, _)      -> sgrdToTopo (file opts) (output opts) (Just $ min opts) (Just $ max opts)
+      (False, _, _)     -> sgrdToRelief (file opts) (output opts) (Just $ min opts) (Just $ max opts)
     putStrLn ("Successfully created " ++ r)
 
 -- | Convert a grid-file into a topo graphic map
@@ -55,21 +56,37 @@ sgrdToTopo fIn fOut (Just min') (Just max') = do
               ])
           Nothing Nothing fOut fIn
 
+sgrdToRelief :: FilePath -> FilePath -> Maybe Float -> Maybe Float -> IO FilePath
+sgrdToRelief fIn fOut Nothing Nothing = do
+  doSaga $ SagaCmd "libio_grid_image" "0" ("GRID", "FILE")
+          (M.fromList [])
+          Nothing Nothing fOut fIn
+
+sgrdToRelief fIn fOut (Just min') (Just max') = do
+  writeFile _COLOR_FILE (bgrColTable min' max') -- color-lookup-table
+  doSaga $ SagaCmd "libio_grid_image" "0" ("GRID", "FILE")
+          (M.fromList [
+             ("b", ("LUT", _COLOR_FILE))
+             ])
+          Nothing Nothing fOut fIn
+
 -- | Data structure for command line options.
 data Opt = Opt
     {min    :: Float
     ,max    :: Float
     ,output :: FilePath
+    ,hillshade :: Bool
     ,file   :: FilePath
     } deriving (Show, Data, Typeable)
 
 -- | Defaults for command-line options.
 defaultOpts :: Opt
 defaultOpts = Opt
-    {output = def &= help "output-tif"
+    {output = def &= typ "TIF" &= help "output-tif"
     ,min    = def &= help "minimum elevation-value (optional)"
     ,max    = def &= help "maximum elevation-value (optional)"
-    ,file        = def &= args &= typ "DEM-file.sgrd"
+    ,hillshade = def &= help "Should a hillshade be included"
+    ,file   = def &= args &= typ "DEM-file.sgrd"
     } &=
     program _PROGRAM_NAME &=
     help _PROGRAM_ABOUT &=

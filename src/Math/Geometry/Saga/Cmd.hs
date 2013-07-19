@@ -58,14 +58,17 @@ adjustSagaCmdParas cmdPrs (SagaCmd lib mod ks libPrs pre post fOut fIn) =
 adjustParas :: ParaMap          -- ^ parameters specified in 'SagaCmd'
                -> CmdPars       -- ^ parameters given on the cmd-line
                -> ParaMap       -- ^ adjusted parameters
-adjustParas libPrs cmdPrs = M.mapWithKey lkp m
+adjustParas libPrs cmdPrs = M.mapWithKey lkp m'
   where
+    -- | union of cmd-pars and lib-pars; this overwrites the defaults
     m  = M.union cmdPrs $ M.map snd libPrs
-    lkp k v = (fst . fromJust $ M.lookup k libPrs, v)
+    -- | select relevant pars
+    m' = M.filterWithKey (\k _ -> k `elem` M.keys libPrs) m
+    lkp k v = (fst $ fromJust (M.lookup k libPrs), v)
 
 -- | Execute a 'ChainSagaIoCmd'
 doCmdChain :: [ChainSagaIoCmd] -> CmdPars -> FilePath -> IO FilePath
-doCmdChain chain pars fIn = do
+doCmdChain chain pars fIn =
   foldl (\fOut f -> do
             fIn' <- fOut
             doSaga . adjustSagaCmdParas pars . f $ fIn'

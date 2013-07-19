@@ -169,9 +169,16 @@ In the directory of the input-file, the follwing grids will be created:
 
 ### Processing-pathway
 
-The equivalent to version above
+The equivalent exlicit version to above is
 
     sagaPipe --chain xyzGridToGrid:gridFillGaps:gridHillshade --parameters sep=tabulator:cs=0.5 dem.xyz
+
+Or for example If you would like to create a hillshade with some
+buildings removed; invert the buildings-shapefile and do the
+following
+
+    sagaPipe --chain xyzGridToGrid:gridFillGaps:gridHillshade:gridPolyClip:gridTifHillshade  \
+             -p poly=BuildingsInv.shp:cs=0.5:sep=tabulator dem.xyz
 
 ## `sagaTopo`
 

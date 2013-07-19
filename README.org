@@ -144,10 +144,20 @@
 
 *** Processing-pathway
 
-    The equivalent to version above
-   #+BEGIN_SRC sh :results verbatim :eval no-export
+    The equivalent exlicit version to above is
+
+    #+BEGIN_SRC sh :results verbatim :eval no-export
        sagaPipe --chain xyzGridToGrid:gridFillGaps:gridHillshade --parameters sep=tabulator:cs=0.5 dem.xyz
-   #+END_SRC
+    #+END_SRC
+
+    Or for example If you would like to create a hillshade with some
+    buildings removed; invert the buildings-shapefile and do the
+    following
+
+    #+BEGIN_SRC sh
+      sagaPipe --chain xyzGridToGrid:gridFillGaps:gridHillshade:gridPolyClip:gridTifHillshade  \
+               -p poly=BuildingsInv.shp:cs=0.5:sep=tabulator dem.xyz
+    #+END_SRC
 
 ** =sagaTopo=
    Wrapper-program to create topographic maps from =sgrd=-files

@@ -18,29 +18,29 @@ sIoDB = M.fromList [
   )
   ,("lasToPtCld", (
        SagaCmd "libio_shapes_las" "1" ("POINTS","FILE")
-       (M.fromList []) Nothing Nothing , "_filled.sgrd"))
+       (M.fromList []) Nothing Nothing , ".pcl"))
   ,("ptCldToGrid", (
        SagaCmd "libpointcloud_tools" "4" ("POINTS","GRID")
-       (M.fromList []) Nothing Nothing ,"_hillshade.sgrd"))
+       (M.fromList []) Nothing Nothing ,".sgrd"))
   ,("gridFillGaps", (
        SagaCmd "libgrid_spline" "5" ("GRIDPOINTS","GRID_GRID")
        (M.fromList [("grdFlT", ("TARGET", "1"))])
-       (Just copyGrid) Nothing, "_contour.sgrd"))
+       (Just copyGrid) Nothing, "_filled.sgrd"))
   ,("gridHillshade", (
        SagaCmd "libta_lighting" "0" ("ELEVATION","SHADE")
-       (M.fromList []) Nothing Nothing , "_polyClip.sgrd"))
+       (M.fromList []) Nothing Nothing , "_hillshade.sgrd"))
   ,("gridContour", (
        SagaCmd "libshapes_grid" "5" ("INPUT","CONTOUR")
        (M.fromList [
             ("min" , ("ZMIN"  , "0"))
            ,("max" , ("ZMAX" , "10000"))
            ,("d",    ("ZSTEP" , "1"))
-           ]) Nothing Nothing, ".pcl"))
+           ]) Nothing Nothing, "_contour.sgrd"))
   ,("gridPolyClip", (
        SagaCmd "libshapes_grid" "7" ("INPUT","OUTPUT")
        (M.fromList [
            ("poly" , ("POLYGONS"  , ""))
-           ]) Nothing Nothing, ".sgrd"))
+           ]) Nothing Nothing, "_polyClip.sgrd"))
   ,("gridTifHillshade", (
        SagaCmd "libshapes_grid" "7" ("GRID","FILE")
        (M.fromList [

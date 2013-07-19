@@ -74,6 +74,45 @@
    - Source-Target :: Specify a source-format and target-format
    - Processing-pathway :: Specify pathway/route to go exlicitly
 
+   The pathways are visualized below
+
+   #+BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
+     digraph chains {
+         graph [rankdir = LR];
+         node [shape = ellipse, fontsize = 8];
+
+         las [label = "las"];
+         grd [label = "grid"];
+         grdF [label = "grid-filled"];
+         xyz [label = "xyz-grid"];
+         cntr [label = "contour"];
+         hls [label = "hillshade"];
+         pt [label = "pointcloud"];
+         polyCp [label = "pointcloud"];
+         tifHls [labal = "tif-hillshade"];
+
+         xyzGrid [shape = record, label = "xyzGridToGrid|{cs\nsep|CELLSIZE\nSEPERATOR}"];
+         lasPt [shape = record, label = "lasToPtCld |"];
+         ptGrd [shape = record, label = "ptCldToGrid|"];
+         grdFl [shape = record, label = "gridFillGaps| {grdFlT |TARGET}"];
+         grdHl [shape = record, label = "gridHillshade|"];
+         grdCtl [shape = record, label = "gridContour| {min\nmax\nd |ZMIN\nZMAX\nZSTEP}"];
+         grdPolyCp [shape = record, label = "gridPolyClip| {poly|POLYGONS}"];
+         hlsTif [shape = record, label = "gridTifHillshade"];
+
+         las -> lasPt -> pt -> ptGrd -> grd;
+         xyz -> xyzGrid -> grd ;
+         grid -> grdPolyCp -> polyCp;
+         grd -> grdFl -> grdF;
+         grdF -> grdHl -> hls;
+         grdF -> grdCtl -> cntr;
+         hls -> hlsTif -> tifHls;
+     }
+   #+END_SRC
+
+   #+RESULTS:
+   [[file:doc/figures/chains.png]]
+
 ** From-To combinations
      These combinations are currently supported, where columns are
      sources and rows destinations:
@@ -92,41 +131,6 @@
   - hillshade   :: Analytical hillshade
   - contour     :: Iso-value-lines
 
-   The pathways are visualized below
-
-   #+BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
-     digraph chains {
-         graph [rankdir = LR];
-         node [shape = ellipse, fontsize = 8];
-
-         las [label = "las"];
-         grd [label = "grid"];
-         grdF [label = "grid-filled"];
-         xyz [label = "xyz-grid"];
-         cntr [label = "contour"];
-         hls [label = "hillshade"];
-         pt [label = "pointcloud"];
-         polyCp [label = "pointcloud"];
-
-         xyzGrid [shape = record, label = "xyzGridToGrid|{cs\nsep|CELLSIZE\nSEPERATOR}"];
-         lasPt [shape = record, label = "lasToPtCld |"];
-         ptGrd [shape = record, label = "ptCldToGrid|"];
-         grdFl [shape = record, label = "gridFillGaps| {grdFlT |TARGET}"];
-         grdHl [shape = record, label = "gridHillShade|"];
-         grdCtl [shape = record, label = "gridContour| {min\nmax\nd |ZMIN\nZMAX\nZSTEP}"];
-         grdPolyCp [shape = record, label = "gridPolyClip| {poly|POLYGONS}"];
-
-         las -> lasPt -> pt -> ptGrd -> grd;
-         xyz -> xyzGrid -> grd ;
-         grid -> grdPolyCp -> polyCp;
-         grd -> grdFl -> grdF;
-         grdF -> grdHl -> hls;
-         grdF -> grdCtl -> cntr;
-     }
-   #+END_SRC
-
-   #+RESULTS:
-   [[file:doc/figures/chains.png]]
 
 ** Example
 *** Source-Target

@@ -63,6 +63,10 @@ parameters to use during conversion and the input-file.
 
 -   **Processing-pathway:** Specify pathway/route to go exlicitly
 
+The pathways are visualized below
+
+![nil](doc/figures/chains.png)
+
 ## From-To combinations
 
 These combinations are currently supported, where columns are
@@ -148,10 +152,6 @@ where
 -   **hillshade  :** Analytical hillshade
 
 -   **contour    :** Iso-value-lines
-    
-    The pathways are visualized below
-    
-    ![nil](doc/figures/chains.png)
 
 ## Example
 

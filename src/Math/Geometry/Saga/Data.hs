@@ -26,7 +26,7 @@ sIoDB = M.fromList [
        SagaCmd "libgrid_spline" "5" ("GRIDPOINTS","GRID_GRID")
        (M.fromList [("grdFlT", ("TARGET", "1"))])
        (Just copyGrid) Nothing, "_contour.sgrd"))
-  ,("gridHillShade", (
+  ,("gridHillshade", (
        SagaCmd "libta_lighting" "0" ("ELEVATION","SHADE")
        (M.fromList []) Nothing Nothing , "_polyClip.sgrd"))
   ,("gridContour", (
@@ -41,6 +41,12 @@ sIoDB = M.fromList [
        (M.fromList [
            ("poly" , ("POLYGONS"  , ""))
            ]) Nothing Nothing, ".sgrd"))
+  ,("gridTifHillshade", (
+       SagaCmd "libshapes_grid" "7" ("GRID","FILE")
+       (M.fromList [
+           ("col" ,  ("COL_PALETTE" , "2"))
+           ("colRev",("COL_REVERT"  , ""))
+           ]) Nothing Nothing, ".tif"))
   ]
 
 -- | Some common processing chains
@@ -48,17 +54,17 @@ sChainDB :: ChainDB
 sChainDB = M.fromList [
     (("las"        , "grid")        , ["lasToPtCld","ptCldToGrid"])
    ,(("las"        , "grid-filled") , ["lasToPtCld","ptCldToGrid", "gridFillGaps"])
-   ,(("las"        , "hillshade")   , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridHillShade"])
+   ,(("las"        , "hillshade")   , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridHillshade"])
    ,(("las"        , "contour")     , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridContour"])
    ,(("xyz-grid"   , "grid")        , ["xyzGridToGrid"])
    ,(("xyz-grid"   , "grid-filled") , ["xyzGridToGrid", "gridFillGaps"])
-   ,(("xyz-grid"   , "hillshade")   , ["xyzGridToGrid", "gridFillGaps" , "gridHillShade"])
+   ,(("xyz-grid"   , "hillshade")   , ["xyzGridToGrid", "gridFillGaps" , "gridHillshade"])
    ,(("xyz-grid"   , "contour")     , ["xyzGridToGrid", "gridFillGaps" , "gridContour"])
-   ,(("grid"       , "hillshade")   , ["gridFillGaps", "gridHillShade"])
+   ,(("grid"       , "hillshade")   , ["gridFillGaps", "gridHillshade"])
    ,(("grid"       , "grid-filled") , ["gridFillGaps"])
-   ,(("grid"       , "hillshade")   , ["gridFillGaps", "gridHillShade"])
+   ,(("grid"       , "hillshade")   , ["gridFillGaps", "gridHillshade"])
    ,(("grid"       , "contour")     , ["gridFillGaps", "gridContour"])
    ,(("grid"       , "poly-clip")   , ["gridPolyClip"])
-   ,(("grid-filled", "hillshade")   , ["gridHillShade"])
+   ,(("grid-filled", "hillshade")   , ["gridHillshade"])
    ,(("grid-filled", "contour")     , ["gridContour"])
    ]

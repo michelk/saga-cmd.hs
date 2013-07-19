@@ -171,7 +171,7 @@ In the directory of the input-file, the follwing grids will be created:
 
 The equivalent to version above
 
-    sagaPipe --chain xyz-grid:grid:grid-filled:hillshade --parameters sep=tabulator:cs=0.5 dem.xyz
+    sagaPipe --chain xyzGridToGrid:gridFillGaps:gridHillshade --parameters sep=tabulator:cs=0.5 dem.xyz
 
 ## `sagaTopo`
 

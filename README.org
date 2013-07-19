@@ -88,7 +88,6 @@
          cntr [label = "contour"];
          hls [label = "hillshade"];
          pt [label = "pointcloud"];
-         polyCp [label = "pointcloud"];
          tifHls [labal = "tif-hillshade"];
 
          xyzGrid [shape = record, label = "xyzGridToGrid|{cs\nsep|CELLSIZE\nSEPERATOR}"];
@@ -102,7 +101,7 @@
 
          las -> lasPt -> pt -> ptGrd -> grd;
          xyz -> xyzGrid -> grd ;
-         grid -> grdPolyCp -> polyCp;
+         grid -> grdPolyCp -> grid;
          grd -> grdFl -> grdF;
          grdF -> grdHl -> hls;
          grdF -> grdCtl -> cntr;

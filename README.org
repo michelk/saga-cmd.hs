@@ -101,7 +101,7 @@
 
          las -> lasPt -> pt -> ptGrd -> grd;
          xyz -> xyzGrid -> grd ;
-         grid -> grdPolyCp -> grid;
+         grd -> grdPolyCp -> grd;
          grd -> grdFl -> grdF;
          grdF -> grdHl -> hls;
          grdF -> grdCtl -> cntr;

@@ -130,6 +130,15 @@ sources and rows destinations:
 <td class="left">X</td>
 <td class="left">X</td>
 </tr>
+
+
+<tr>
+<td class="left">poly-clip</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">X</td>
+<td class="left">&#xa0;</td>
+</tr>
 </tbody>
 </table>
 
@@ -143,36 +152,7 @@ where
 
 -   **contour    :** Iso-value-lines
     
-    The pathways are visualized below                   
-    
-    
-    digraph chains {
-        graph [rankdir = LR]; 
-        node [shape = ellipse, fontsize = 8];
-    
-    las [label = "las"];
-    grd [label = "grid"];
-    grdF [label = "grid-filled"];
-    xyz [label = "xyz-grid"];
-    cntr [label = "contour"];
-    hls [label = "hillshade"];
-    pt [label = "pointcloud"]
-    
-    xyzGrid [shape = record, label = "xyzGridToGrid|{cs\nsep|CELLSIZE\nSEPERATOR}"]
-    lasPt [shape = record, label = "lasToPtCld |"]
-    ptGrd [shape = record, label = "ptCldToGrid|"]
-    grdFl [shape = record, label = "gridFillGaps| {grdFlT |TARGET}"]
-    grdHl [shape = record, label = "gridHillShade|"]
-    grdCtl [shape = record, label = "gridContour| {min\nmax\nd |ZMIN\nZMAX\nZSTEP}"]
-    
-        las -> lasPt -> pt -> ptGrd -> grd;
-        xyz -> xyzGrid -> grd ;
-        grd -> grdFl -> grdF;
-        grdF -> grdHl -> hls;
-        grdF -> grdCtl -> cntr;
-    }
-    
-    \#+END<sub>SRC</sub>
+    The pathways are visualized below
     
     ![nil](doc/figures/chains.png)
 
@@ -237,6 +217,8 @@ Edit `src/Math/Geometry/Saga/Data.hs`
 
 -   merge `sagaTopo` into `sagaPipe`
 
--   give the opportunity to clean intermediate files (sagaPipe,sagaTopo)
+-   cmd-line-opting to clean intermediate files (`sagaPipe`, `sagaTopo`)
 
--   option in `sagaLut` which color-palette to use
+-   cmd-line-option which color-palette to use (`sagaLut`)
+
+-   cmd-line-option to specify pathway/chain (`sagaPipe`)

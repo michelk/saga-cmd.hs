@@ -10,6 +10,7 @@ cXyzGridToGrid = (xyzGridToGrid, ".sgrd")
 cGridFillGaps  = (gridFillGaps,  "_filled.sgrd")
 cGridHillShade = (gridHillShade, "_hillshade.sgrd")
 cGridContour   = (gridContour,   "_contour.sgrd")
+cGridPolyClip  = (gridContour,   "_polyClip.sgrd")
 cLasToPtCld    = (lasToPtCld,    ".pcl")
 cPtCldToGrid   = (ptCldToGrid,   ".sgrd")
 
@@ -33,8 +34,7 @@ ptCldToGrid =
 gridFillGaps =
   SagaCmd "libgrid_spline" "5" ("GRIDPOINTS","GRID_GRID")
   (M.fromList [("grdFlT", ("TARGET", "1"))])
-  (Just copyGrid)
-  Nothing
+  (Just copyGrid) Nothing
 
 gridHillShade =
   SagaCmd "libta_lighting" "0" ("ELEVATION","SHADE")
@@ -48,15 +48,21 @@ gridContour =
       ,("d",    ("ZSTEP" , "1"))
       ]) Nothing Nothing
 
-gridTopo =
-  SagaCmd "libio_grid_image " "0" ("GRID", "FILE")
+gridPolyClip =
+  SagaCmd "libshapes_grid" "7" ("INPUT","OUTPUT")
   (M.fromList [
-      ("min",     ("", undefined))
-     ,("max",     ("", undefined))
+       ("poly" , ("POLYGONS"  , ""))
       ]) Nothing Nothing
 
-dispatchGridTopo :: Float -> Float -> SagaIoCmd
-dispatchGridTopo min max = undefined
+-- gridTopo =
+--   SagaCmd "libio_grid_image " "0" ("GRID", "FILE")
+--   (M.fromList [
+--       ("min",     ("", undefined))
+--      ,("max",     ("", undefined))
+--       ]) Nothing Nothing
+-- 
+-- dispatchGridTopo :: Float -> Float -> SagaIoCmd
+-- dispatchGridTopo min max = undefined
 
 
 -- | Processing chains
@@ -74,6 +80,7 @@ sChainDB = M.fromList [
    ,(("grid"       , "grid-filled") , [cGridFillGaps])
    ,(("grid"       , "hillshade")   , [cGridFillGaps, cGridHillShade])
    ,(("grid"       , "contour")     , [cGridFillGaps, cGridContour])
+   ,(("grid"       , "poly-clip")     , [cGridFillGaps, cGridPolyClip])
    ,(("grid-filled", "hillshade")   , [cGridHillShade])
    ,(("grid-filled", "contour")     , [cGridContour])
    ]

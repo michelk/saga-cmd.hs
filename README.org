@@ -1,7 +1,7 @@
 #+TITLE: Wrapping =saga_cmd= to chain GIS-Data conversion
 #+AUTHOR: Michel Kuhlmann *TK Consult AG*
 #+OPTIONS: toc:nil
-
+#+NAME: setup
 #+BEGIN_SRC emacs-lisp :results silent :exports none
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -10,11 +10,10 @@
      (haskell . t)
      (sh . t)))
 #+END_SRC
-
+#+NAME: markdown-export
 #+BEGIN_SRC emacs-lisp :results silent :exports none
   (org-md-export-to-markdown)
 #+END_SRC
-
 * Description
   Haskell Library to wrap =saga_cmd=.
 
@@ -85,6 +84,7 @@
      | grid-filled | X   | X        | X    |             |
      | hillshade   | X   | X        | x    | X           |
      | contour     | X   | X        | X    | X           |
+     | poly-clip   |     |          | X    |             |
 
      where
   - grid        :: A Grid which could contain gaps
@@ -92,11 +92,11 @@
   - hillshade   :: Analytical hillshade
   - contour     :: Iso-value-lines
 
-   The pathways are visualized below                   
+   The pathways are visualized below
 
-   #    +BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
+   #+BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
      digraph chains {
-         graph [rankdir = LR]; 
+         graph [rankdir = LR];
          node [shape = ellipse, fontsize = 8];
 
          las [label = "las"];
@@ -105,17 +105,20 @@
          xyz [label = "xyz-grid"];
          cntr [label = "contour"];
          hls [label = "hillshade"];
-         pt [label = "pointcloud"]
+         pt [label = "pointcloud"];
+         polyCp [label = "pointcloud"];
 
-         xyzGrid [shape = record, label = "xyzGridToGrid|{cs\nsep|CELLSIZE\nSEPERATOR}"]
-         lasPt [shape = record, label = "lasToPtCld |"]
-         ptGrd [shape = record, label = "ptCldToGrid|"]
-         grdFl [shape = record, label = "gridFillGaps| {grdFlT |TARGET}"]
-         grdHl [shape = record, label = "gridHillShade|"]
-         grdCtl [shape = record, label = "gridContour| {min\nmax\nd |ZMIN\nZMAX\nZSTEP}"]
+         xyzGrid [shape = record, label = "xyzGridToGrid|{cs\nsep|CELLSIZE\nSEPERATOR}"];
+         lasPt [shape = record, label = "lasToPtCld |"];
+         ptGrd [shape = record, label = "ptCldToGrid|"];
+         grdFl [shape = record, label = "gridFillGaps| {grdFlT |TARGET}"];
+         grdHl [shape = record, label = "gridHillShade|"];
+         grdCtl [shape = record, label = "gridContour| {min\nmax\nd |ZMIN\nZMAX\nZSTEP}"];
+         grdPolyCp [shape = record, label = "gridPolyClip| {poly|POLYGONS}"];
 
          las -> lasPt -> pt -> ptGrd -> grd;
          xyz -> xyzGrid -> grd ;
+         grid -> grdPolyCp -> polyCp;
          grd -> grdFl -> grdF;
          grdF -> grdHl -> hls;
          grdF -> grdCtl -> cntr;
@@ -169,6 +172,7 @@
 * ToDo
   - extend library-commands
   - merge =sagaTopo= into =sagaPipe=
-  - give the opportunity to clean intermediate files (sagaPipe,sagaTopo)
-  - option in =sagaLut= which color-palette to use
+  - cmd-line-opting to clean intermediate files (=sagaPipe=, =sagaTopo=)
+  - cmd-line-option which color-palette to use (=sagaLut=)
+  - cmd-line-option to specify pathway/chain (=sagaPipe=)
 

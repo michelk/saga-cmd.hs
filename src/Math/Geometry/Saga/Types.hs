@@ -25,10 +25,15 @@ type ParaMap =
 
 -- | Data-base for chains. Key contains from-to; value is a sequence
 --   of module-calls
-type ChainDB = M.Map (String, String) [ChainSagaIoCmd]
+type ChainDB = M.Map (String, String) [String]
 
 -- | Saga Command which takes only one input-, and one output-file
 type SagaIoCmd = FilePath -> FilePath -> SagaCmd
 
--- | 'SagaCmd' and output-file extension
-type ChainSagaIoCmd = (SagaIoCmd, String)
+-- | SagaIO-Command with output file extension
+type SagaIoCmdExt = (SagaIoCmd, String)
+
+-- | Data-base with available Saga-Input-Output-commands
+type SagaIoCmdDB = M.Map
+                     String       -- ^ name to reference
+                     SagaIoCmdExt -- ^  cmd and output-extension

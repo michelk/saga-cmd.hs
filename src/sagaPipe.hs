@@ -24,32 +24,36 @@ main = do
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
     let cmdPars = parseParamCmdString $ parameters opts
-        chain = fromMaybe (error "from-to-combination not supported")
-                          (M.lookup (from opts, to opts) sChainDB)
-    result <- doCmdChain chain cmdPars (file opts)
-    putStrLn ("Succussfully created " ++ result ) 
+        cmdChain = case chain opts of
+          "" -> lkpChain sIoDB (fromMaybe (error "from-to-combination not supported")
+                                          (M.lookup (from opts, to opts) sChainDB))
+          _ -> lkpChain  sIoDB (splitStr ':' $ chain opts)
+    result <- doCmdChain cmdChain cmdPars (file opts)
+    putStrLn ("Succussfully created " ++ result )
 
 -- | Data structure for command line options.
 data Opt = Opt
-    { 
+    {
       from       :: String      -- ^ format to convert from
     , to         :: String      -- ^ format to convert into
     , parameters :: String -- ^ Parameters to pass into the different conversion steps
+    , chain      :: String -- ^ pathway 
     , file       :: FilePath    -- ^ Command-line arguments
     } deriving (Show, Data, Typeable)
 
 -- | Defaults for command-line options.
 defaultOpts :: Opt
 defaultOpts = Opt
-    { 
-      from        = def &= help "Source-format"
-    , to          = def &= help "Target-format"
-    , parameters  = def &= help "Parameters to pass into the different conversion steps, delimited by ':'(eg xyzCellSize=0.5:xyzSep=tabulator)"
-    , file        = def &= args &= typ "DEM-input-file"
+    {
+      from       = def &= help "Source-format"
+    , to         = def &= help "Target-format"
+    , parameters = def &= help "Parameters to pass into the different conversion steps, delimited by ':'(eg xyzCellSize=0.5:xyzSep=tabulator)"
+    , chain      = def &= help "Conversion-pathway; commands, delimited by ':'(eg cXyzGridToGrid:cGridFillGaps)"
+    , file       = def &= args &= typ "DEM-input-file"
     } &=
     program _PROGRAM_NAME &=
     help _PROGRAM_ABOUT &=
-    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT) 
+    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT)
 
 -- | Parse the command-line string specifying parameters
 parseParamCmdString :: String -> CmdPars
@@ -62,6 +66,3 @@ parseParamCmdString s = M.fromList . map parseAssign . splitStr ':' $ s
 -- | Split a String on a certain delimiter
 splitStr :: Char -> String -> [String]
 splitStr c s = map unpack $ split (== c) (pack s)
-
-fromTos :: String
-fromTos = renderStringPairs (M.keys sChainDB)

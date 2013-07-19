@@ -66,8 +66,8 @@ adjustParas libPrs cmdPrs = M.mapWithKey lkp m'
     m' = M.filterWithKey (\k _ -> k `elem` M.keys libPrs) m
     lkp k v = (fst $ fromJust (M.lookup k libPrs), v)
 
--- | Execute a 'ChainSagaIoCmd'
-doCmdChain :: [ChainSagaIoCmd] -> CmdPars -> FilePath -> IO FilePath
+-- | Execute a 'SagaIoCmdExt'
+doCmdChain :: [SagaIoCmdExt] -> CmdPars -> FilePath -> IO FilePath
 doCmdChain chain pars fIn =
   foldl (\fOut f -> do
             fIn' <- fOut
@@ -78,3 +78,11 @@ doCmdChain chain pars fIn =
     outFs = tail $ scanl appendFileName fIn (map snd chain)
     chain' :: [FilePath -> SagaCmd]
     chain' = map (\(f,ext) -> f ext) $ zip (map fst chain) outFs
+
+-- | Lookup a chain
+lkpChain :: SagaIoCmdDB -> [String] -> [SagaIoCmdExt]
+lkpChain db = map (`lkpCmd` db)
+
+-- | Lookup a single command
+lkpCmd :: String -> SagaIoCmdDB -> SagaIoCmdExt
+lkpCmd  s db = fromMaybe (error "Command is not yet implemented") $ M.lookup s db

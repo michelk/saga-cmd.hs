@@ -1,13 +1,11 @@
 name:                bindings-saga-cmd
 version:             0.0.1.0
 synopsis:            Wrapping saga_cmd
--- description:         
 homepage:            https://github.com/michelk/bindings-saga-cmd
 license:             GPL-3
 license-file:        LICENSE
 author:              Michel Kuhlmann
 maintainer:          michel.kuhlmann@tkconsult.ch
--- copyright:           
 category:            Math
 build-type:          Simple
 cabal-version:       >=1.8
@@ -18,20 +16,17 @@ library
                      Math.Geometry.Saga.Data
                      Math.Geometry.Saga.Utils
                      Math.Geometry.Saga.LUT
-  -- other-modules:     
   build-depends:     base,
                      filepath,
                      process,
                      containers,
                      directory
   hs-source-dirs:    src
-  
 
 executable sagaPipe
   main-is:           sagaPipe.hs
-  -- other-modules:       
   build-depends:     base,
-                     filepath, 
+                     filepath,
                      cmdargs,
                      process,
                      text,
@@ -42,21 +37,18 @@ executable sagaPipe
 
 executable sagaTopo
   main-is:           sagaTopo.hs
-  -- other-modules:       
   build-depends:     base,
-                     filepath, 
+                     filepath,
                      cmdargs,
                      process,
                      text,
                      containers,
                      directory,
-                     unix,
                      bindings-saga-cmd
   hs-source-dirs:    src
 
 executable sagaLut
   main-is:           sagaLut.hs
-  -- other-modules:       
   build-depends:     base,
                      bindings-saga-cmd
   hs-source-dirs:    src

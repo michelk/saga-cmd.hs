@@ -32,28 +32,28 @@ main = do
       _          -> sgrdToTopo (file opts) (output opts)
                         (Just $ min opts) (Just $ max opts)
     putStrLn ("Successfully created " ++ r)
-    
+
 -- | Convert a grid-file into a topo graphic map
 sgrdToTopo :: FilePath -> FilePath -> Maybe Float -> Maybe Float -> IO FilePath
 sgrdToTopo fIn fOut Nothing Nothing = do
   let hsF = "temp_hillshade.sgrd"
-  doSaga $ gridHillShade hsF fIn 
+  doSaga $ gridHillShade hsF fIn
   doSaga $ SagaCmd "libio_grid_image" "0" ("GRID", "FILE")
           (M.fromList [
               ("a",("SHADE", hsF))
               ])
-          Nothing Nothing fOut fIn 
+          Nothing Nothing fOut fIn
 
-sgrdToTopo fIn fOut (Just min') (Just max') = do 
+sgrdToTopo fIn fOut (Just min') (Just max') = do
   let hsF = "temp_hillshade.sgrd"
-  doSaga $ gridHillShade hsF fIn 
+  doSaga $ gridHillShade hsF fIn
   writeFile _COLOR_FILE (bgrColTable min' max') -- color-lookup-table
   doSaga $ SagaCmd "libio_grid_image" "0" ("GRID", "FILE")
           (M.fromList [
               ("a",("SHADE", hsF))
              ,("b", ("LUT", _COLOR_FILE))
               ])
-          Nothing Nothing fOut fIn 
+          Nothing Nothing fOut fIn
 
 -- | Data structure for command line options.
 data Opt = Opt
@@ -73,4 +73,8 @@ defaultOpts = Opt
     } &=
     program _PROGRAM_NAME &=
     help _PROGRAM_ABOUT &=
-    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT) 
+    summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT)
+
+gridHillShade :: SagaIoCmd
+gridHillShade = fst $ lkpCmd "gridHillShade" sIoDB
+

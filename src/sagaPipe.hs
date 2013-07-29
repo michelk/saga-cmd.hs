@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 module Main where
+import Control.Monad (when)
 import System.Console.CmdArgs
 import Math.Geometry.Saga.Types
 import Math.Geometry.Saga.Data
@@ -23,6 +24,7 @@ main = do
     args <- getArgs
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
+    when (null $ file opts) (error "Please specify an input-file")
     let cmdPars = parseParamCmdString $ parameters opts
         cmdChain = case chain opts of
           "" -> lkpChain sIoDB (fromMaybe (error "from-to-combination not supported")
@@ -47,7 +49,7 @@ defaultOpts = Opt
     {
       from       = def &= help "Source-format"
     , to         = def &= help "Target-format"
-    , parameters = def &= help "Parameters to pass into the different conversion steps, delimited by ':'(eg xyzCellSize=0.5:xyzSep=tabulator)"
+    , parameters = def &= help "Parameters to pass into the different conversion steps, delimited by ':'(eg cs=0.5:sep=tabulator)"
     , chain      = def &= help "Conversion-pathway; commands, delimited by ':'(eg cXyzGridToGrid:cGridFillGaps)"
     , file       = def &= args &= typ "DEM-input-file"
     } &=

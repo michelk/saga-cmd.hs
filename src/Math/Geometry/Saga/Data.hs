@@ -47,6 +47,10 @@ sIoDB = M.fromList [
            ("col" ,  ("COL_PALETTE" , "2"))
           ,("colRev",("COL_REVERT"  , ""))
            ]) Nothing Nothing, ".tif"))
+  ,("gridTifGdal", (
+       SagaCmd "libio_gdal" "2" ("GRIDS","FILE")
+       (M.fromList [
+           ]) Nothing Nothing, ".tif"))
   ]
 
 -- | Some common processing chains

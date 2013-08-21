@@ -51,10 +51,10 @@ sIoDB = M.fromList [
        SagaCmd "libio_gdal" "2" ("GRIDS","FILE")
        (M.fromList [
            ]) Nothing Nothing, ".tif"))
-,("gridXyz", (
-       SagaCmd "libio_grid" "5" ("GRIDS","FILENAME")
-       (M.fromList [
-           ]) Nothing Nothing, ".xyz"))
+  ,("gridXyz", (
+         SagaCmd "libio_grid" "5" ("GRIDS","FILENAME")
+         (M.fromList [
+             ]) Nothing Nothing, ".xyz"))
   ]
 
 -- | Some common processing chains

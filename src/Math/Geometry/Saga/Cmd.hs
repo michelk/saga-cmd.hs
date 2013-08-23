@@ -9,7 +9,8 @@ import           Math.Geometry.Saga.Data
 import Debug.Trace (trace)
 import           System.Cmd (system)
 import           System.Posix.Temp (mkdtemp)
-import           System.FilePath.Posix (replaceDirectory)
+import           System.FilePath.Posix (replaceDirectory, joinPath)
+import           System.Directory (getTemporaryDirectory)
 
 -- | Actual Program to do the work
 progName :: String
@@ -75,15 +76,16 @@ doCmdChain chain pars fIn fOut = do
   outFs <- case fOut of
     Nothing -> return outFsDefault
     Just f  -> do
-      dtemp <- mkdtemp "sagaPipe"
+      dtempDir <- getTemporaryDirectory
+      let dtempT = joinPath [dtempDir, "sagaPipe"]
+      dtemp <- mkdtemp dtempT
       return $ map (`replaceDirectory` dtemp) (init outFsDefault) ++ [f]
   let chain' = map (\(f,ext) -> f ext) $ zip (map fst chain) outFs
-
   foldl (\fOut f -> do
             fIn' <- fOut
             doSaga . adjustSagaCmdParas pars . f $ fIn'
         ) (return fIn) chain'
-  where
+   
 
 -- | Lookup a chain
 lkpChain :: SagaIoCmdDB -> [String] -> [SagaIoCmdExt]

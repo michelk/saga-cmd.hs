@@ -51,6 +51,10 @@ sIoDB = M.fromList [
        SagaCmd "libio_gdal" "2" ("GRIDS","FILE")
        (M.fromList [
            ]) Nothing Nothing, ".tif"))
+  ,("gridXyz", (
+         SagaCmd "libio_grid" "5" ("GRIDS","FILENAME")
+         (M.fromList [
+             ]) Nothing Nothing, ".xyz"))
   ]
 
 -- | Some common processing chains
@@ -58,17 +62,21 @@ sChainDB :: ChainDB
 sChainDB = M.fromList [
     (("las"        , "grid")        , ["lasToPtCld","ptCldToGrid"])
    ,(("las"        , "grid-filled") , ["lasToPtCld","ptCldToGrid", "gridFillGaps"])
+   ,(("las"        , "xyz-filled") , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridXyz"])
    ,(("las"        , "hillshade")   , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridHillshade"])
    ,(("las"        , "contour")     , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridContour"])
    ,(("xyz-grid"   , "grid")        , ["xyzGridToGrid"])
    ,(("xyz-grid"   , "grid-filled") , ["xyzGridToGrid", "gridFillGaps"])
+   ,(("xyz-grid"   , "xyz-filled")  , ["xyzGridToGrid", "gridFillGaps", "gridXyz"])
    ,(("xyz-grid"   , "hillshade")   , ["xyzGridToGrid", "gridFillGaps" , "gridHillshade"])
    ,(("xyz-grid"   , "contour")     , ["xyzGridToGrid", "gridFillGaps" , "gridContour"])
    ,(("grid"       , "hillshade")   , ["gridFillGaps", "gridHillshade"])
    ,(("grid"       , "grid-filled") , ["gridFillGaps"])
+   ,(("grid"       , "xyz-filled")  , ["gridFillGaps", "gridXyz"])
    ,(("grid"       , "hillshade")   , ["gridFillGaps", "gridHillshade"])
    ,(("grid"       , "contour")     , ["gridFillGaps", "gridContour"])
    ,(("grid"       , "poly-clip")   , ["gridPolyClip"])
    ,(("grid-filled", "hillshade")   , ["gridHillshade"])
    ,(("grid-filled", "contour")     , ["gridContour"])
+   ,(("grid-filled", "xyz-filled")  , ["gridXyz"])
    ]

@@ -12,7 +12,7 @@ import Data.Maybe (fromJust, fromMaybe)
 import System.Environment (getArgs, withArgs)
 
 _PROGRAM_NAME, _PROGRAM_VERSION, _PROGRAM_INFO, _PROGRAM_ABOUT, _COPYRIGHT :: String
-_PROGRAM_NAME    = "sagaChain"
+_PROGRAM_NAME    = "sagaPipe"
 _PROGRAM_VERSION = "0.0.1.0"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
 _COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
@@ -30,17 +30,21 @@ main = do
           "" -> lkpChain sIoDB (fromMaybe (error "from-to-combination not supported")
                                           (M.lookup (from opts, to opts) sChainDB))
           _ -> lkpChain  sIoDB (splitStr ':' $ chain opts)
-    result <- doCmdChain cmdChain cmdPars (file opts)
+    result <- doCmdChain cmdChain cmdPars (file opts) (case (output opts) of
+                                                          "" -> Nothing
+                                                          _  -> Just  (output opts)
+                                                      )
     putStrLn ("Succussfully created " ++ result )
 
 -- | Data structure for command line options.
 data Opt = Opt
     {
-      from       :: String      -- ^ format to convert from
-    , to         :: String      -- ^ format to convert into
-    , parameters :: String -- ^ Parameters to pass into the different conversion steps
-    , chain      :: String -- ^ pathway 
-    , file       :: FilePath    -- ^ Command-line arguments
+      from       :: String
+    , to         :: String
+    , parameters :: String
+    , chain      :: String
+    , output     :: FilePath
+    , file       :: FilePath
     } deriving (Show, Data, Typeable)
 
 -- | Defaults for command-line options.
@@ -49,8 +53,9 @@ defaultOpts = Opt
     {
       from       = def &= help "Source-format"
     , to         = def &= help "Target-format"
-    , parameters = def &= help "Parameters to pass into the different conversion steps, delimited by ':'(eg cs=0.5:sep=tabulator)"
-    , chain      = def &= help "Conversion-pathway; commands, delimited by ':'(eg cXyzGridToGrid:cGridFillGaps)"
+    , parameters = def &= help "Conversion-Parameters; delimited by ':'(eg cs=0.5:sep=tabulator)"
+    , chain      = def &= help "Conversion-pathway; delimited by ':'(eg cXyzGridToGrid:cGridFillGaps)"
+    , output     = def &= help "Output-file (optional)"
     , file       = def &= args &= typ "DEM-input-file"
     } &=
     program _PROGRAM_NAME &=

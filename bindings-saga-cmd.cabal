@@ -20,7 +20,8 @@ library
                      filepath,
                      process,
                      containers,
-                     directory
+                     directory,
+                     unix
   hs-source-dirs:    src
 
 executable sagaPipe
@@ -32,6 +33,7 @@ executable sagaPipe
                      text,
                      containers,
                      directory,
+                     unix,
                      bindings-saga-cmd
   hs-source-dirs:    src
 
@@ -44,6 +46,7 @@ executable sagaTopo
                      text,
                      containers,
                      directory,
+                     unix,
                      bindings-saga-cmd
   hs-source-dirs:    src
 

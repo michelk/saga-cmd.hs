@@ -8,6 +8,8 @@ import           Math.Geometry.Saga.Utils
 import           Math.Geometry.Saga.Data
 import Debug.Trace (trace)
 import           System.Cmd (system)
+import           System.Posix.Temp (mkdtemp)
+import           System.FilePath.Posix (replaceDirectory)
 
 -- | Actual Program to do the work
 progName :: String
@@ -67,17 +69,21 @@ adjustParas libPrs cmdPrs = M.mapWithKey lkp m'
     lkp k v = (fst $ fromJust (M.lookup k libPrs), v)
 
 -- | Execute a 'SagaIoCmdExt'
-doCmdChain :: [SagaIoCmdExt] -> CmdPars -> FilePath -> IO FilePath
-doCmdChain chain pars fIn =
+doCmdChain :: [SagaIoCmdExt] -> CmdPars -> FilePath -> Maybe FilePath -> IO FilePath
+doCmdChain chain pars fIn fOut = do
+  let outFsDefault = tail $ scanl appendFileName fIn (map snd chain)
+  outFs <- case fOut of
+    Nothing -> return outFsDefault
+    Just f  -> do
+      dtemp <- mkdtemp "sagaPipe"
+      return $ map (`replaceDirectory` dtemp) (init outFsDefault) ++ [f]
+  let chain' = map (\(f,ext) -> f ext) $ zip (map fst chain) outFs
+
   foldl (\fOut f -> do
             fIn' <- fOut
             doSaga . adjustSagaCmdParas pars . f $ fIn'
         ) (return fIn) chain'
   where
-    outFs :: [String]
-    outFs = tail $ scanl appendFileName fIn (map snd chain)
-    chain' :: [FilePath -> SagaCmd]
-    chain' = map (\(f,ext) -> f ext) $ zip (map fst chain) outFs
 
 -- | Lookup a chain
 lkpChain :: SagaIoCmdDB -> [String] -> [SagaIoCmdExt]

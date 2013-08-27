@@ -119,23 +119,25 @@
      These combinations are currently supported, where columns are
      sources and rows destinations:
 
-     | to\form     | las | xyz-grid | grid | grid-filled |
-     |-------------+-----+----------+------+-------------|
-     | grid        | X   | X        |      |             |
-     | grid-filled | X   | X        | X    |             |
-     | hillshade   | X   | X        | x    | X           |
-     | contour     | X   | X        | X    | X           |
-     | xyz-filled  | X   | X        | X    | X           |
-     | poly-clip   |     |          | X    |             |
+     | to\form      | las | xyz-grid | grid | grid-filled |
+     |--------------+-----+----------+------+-------------|
+     | grid         | X   | X        |      |             |
+     | grid-filled  | X   | X        | X    |             |
+     | hillshade    | X   | X        | x    | X           |
+     | hillshade-tif| X   | X        | x    | X           |
+     | contour      | X   | X        | X    | X           |
+     | xyz-filled   | X   | X        | X    | X           |
+     | poly-clip    |     |          | X    |             |
 
      where
-  - las         :: point-cloud liblas-file
-  - xyz-grid    :: ascii text-file with x,y,z-column
-  - grid        :: A Grid which could contain gaps
-  - grid-filled :: A Grid with interpolated values
-  - hillshade   :: Analytical hillshade
-  - contour     :: Iso-value-lines
-  - xyz-filled  :: ascii text-file with x,y,z-column (gaps filled)
+  - las           :: point-cloud liblas-file
+  - xyz-grid      :: ascii text-file with x,y,z-column
+  - grid          :: A Grid which could contain gaps
+  - grid-filled   :: A Grid with interpolated values
+  - hillshade     :: Analytical hillshade
+  - hillshade-tif :: Analytical hillshade (tif-file)
+  - contour       :: Iso-value-lines
+  - xyz-filled    :: ascii text-file with x,y,z-column (gaps filled)
 
 
 ** Example

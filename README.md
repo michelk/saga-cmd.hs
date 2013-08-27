@@ -76,15 +76,15 @@ sources and rows destinations:
 
 
 <colgroup>
-<col  class="left" />
+<col class="left"/>
 
-<col  class="left" />
+<col class="left"/>
 
-<col  class="left" />
+<col class="left"/>
 
-<col  class="left" />
+<col class="left"/>
 
-<col  class="left" />
+<col class="left"/>
 </colgroup>
 <thead>
 <tr>
@@ -125,7 +125,25 @@ sources and rows destinations:
 
 
 <tr>
+<td class="left">hillshade-tif</td>
+<td class="left">X</td>
+<td class="left">X</td>
+<td class="left">x</td>
+<td class="left">X</td>
+</tr>
+
+
+<tr>
 <td class="left">contour</td>
+<td class="left">X</td>
+<td class="left">X</td>
+<td class="left">X</td>
+<td class="left">X</td>
+</tr>
+
+
+<tr>
+<td class="left">xyz-filled</td>
 <td class="left">X</td>
 <td class="left">X</td>
 <td class="left">X</td>
@@ -145,13 +163,21 @@ sources and rows destinations:
 
 where
 
--   **grid       :** A Grid which could contain gaps
+-   **las          :** point-cloud liblas-file
 
--   **grid-filled:** A Grid with interpolated values
+-   **xyz-grid     :** ascii text-file with x,y,z-column
 
--   **hillshade  :** Analytical hillshade
+-   **grid         :** A Grid which could contain gaps
 
--   **contour    :** Iso-value-lines
+-   **grid-filled  :** A Grid with interpolated values
+
+-   **hillshade    :** Analytical hillshade
+
+-   **hillshade-tif:** Analytical hillshade (tif-file)
+
+-   **contour      :** Iso-value-lines
+
+-   **xyz-filled   :** ascii text-file with x,y,z-column (gaps filled)
 
 ## Example
 

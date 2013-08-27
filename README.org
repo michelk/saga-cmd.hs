@@ -100,6 +100,7 @@
          grdPolyCp [shape = record, label = "gridPolyClip| {poly|POLYGONS}"];
          hlsTif [shape = record, label = "gridTifHillshade"];
          grdXyz [shape = record, label = "gridXyz|"];
+         plyDslv [shape = record, label = "polyDissolve|{method\nf1\nf2\nf3 |DISSOLVE\nFIELD_11\nFIELD_2\nFIELD_3}"];
      
          las -> lasPt -> pt -> ptGrd -> grd;
          xyz -> xyzGrid -> grd ;

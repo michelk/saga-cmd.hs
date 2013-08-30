@@ -67,6 +67,30 @@
 
 * =sagaPipe=
 ** Usage
+   #+BEGIN_SRC sh :results verbatim
+   sagaPipe --help
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+   sagaPipe version 0.0.1.0, GPL licensed; written by Michel Kuhlmann 2013
+
+   sagaPipe [OPTIONS] [DEM-input-file]
+     Convert Digital Elevation Models (DEM) to diffent formats
+
+   Common flags:
+     -f --from=ITEM        Source-format
+     -t --to=ITEM          Target-format
+     -p --parameters=ITEM  Conversion-Parameters; delimited by ':'(eg
+                           cs=0.5:sep=tabulator)
+     -c --chain=ITEM       Conversion-pathway; delimited by ':'(eg
+                           cXyzGridToGrid:cGridFillGaps)
+     -o --output=ITEM      Output-file (optional)
+     -m --modules          Create a list of available modules
+     -? --help             Display help message
+     -V --version          Print version information
+#+end_example
+
    =sagaPipe= lets you chain =saga_cmd= commands. The program could be
    used in two ways. Common for both modes are specification of
    parameters to use during conversion and the input-file.

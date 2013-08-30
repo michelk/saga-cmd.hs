@@ -55,6 +55,8 @@ your `$HOME/.bashrc`:
 
 ## Usage
 
+    sagaPipe --help
+
 `sagaPipe` lets you chain `saga_cmd` commands. The program could be
 used in two ways. Common for both modes are specification of
 parameters to use during conversion and the input-file.

@@ -14,13 +14,13 @@ copyGrid :: FilePath -> FilePath -> IO ()
 copyGrid f t = mapM_ cp ["sgrd", "sdat", "mgrd"]
    where
      cp ext = copyFile (replaceExtension f ext) (replaceExtension t ext)
-    
+
 -- | Move a grid data-set
 moveGrid :: FilePath -> FilePath -> IO ()
 moveGrid f t = mapM_ cp ["sgrd", "sdat", "mgrd"]
    where
      cp ext = renameFile (replaceExtension f ext) (replaceExtension t ext)
-   
+
 -- | Utility function to append to basename of a file-name
 appendFileName :: FilePath -> String -> FilePath
 appendFileName f s = dropExtension f ++ s
@@ -40,11 +40,11 @@ appendFileName f s = dropExtension f ++ s
 
 -- Render a list of string-tuple in two columns
 renderStringPairs :: [(String, String)] -> String
-renderStringPairs = concatMap renderPair 
+renderStringPairs = concatMap renderPair
   where
     renderPair :: (String, String) -> String
     renderPair (k,v) = twoCol k v
-    
+
 -- | render two strings in two columns
 twoCol :: String -> String -> String
 twoCol = printf "\t%10s  %10s\n"

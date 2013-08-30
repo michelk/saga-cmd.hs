@@ -21,7 +21,7 @@ data SagaCmd = SagaCmd {
 -- | Parameter-Map in a 'SagaCmd'
 type ParaMap =
   M.Map String          -- ^ Parameter-name accessor from the cmd-line
-        (String,String) -- ^ Parameter-name called in saga_cmd( Default-value
+        (String,String) -- ^ Parameter-name called in saga_cmd; Default-value
 
 -- | Data-base for chains. Key contains from-to; value is a sequence
 --   of module-calls

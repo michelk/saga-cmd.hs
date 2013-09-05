@@ -77,18 +77,20 @@ sIoDB = M.fromList [
   ,("gridClassifyFlat", (
          SagaCmd "libgrid_tools" "15" ("INPUT","RESULT")
          (M.fromList [
-            ("method" ,("METHOD" , "1")) -- 1: range
+            ("method" ,("METHOD" , "2")) -- 1: range
                                          -- 2: simple table
-           ,("table" ,("RETAB" , "reclassfiy.txt"))
+           ,("table" ,("RETAB" , "reclassify.txt"))
          ])
-         (Just (\_ _ -> writeReclassifyTableFlatSlope "reclassfiy.txt"))
-         (Just (\_ _ -> removeFile "reclassfiy.txt"))
-                , "_reclassyfied.sgrd"))
+         (Just (\_ _ -> writeReclassifyTableFlatSlope "reclassify.txt"))
+         (Just (\_ _ -> removeFile "reclassify.txt"))
+                , "_reclassified.sgrd"))
   ,("gridClassToPoly", (
          SagaCmd "libshapes_grid" "6" ("GRID","POLYGONS")
          (M.fromList [
            ("id",    ("CLASS_ID" , "1")) -- class identifier
-          ,("split",  ("SPLIT" , "1")) -- 0: one single (multi-)polygon object
+          ,("all",   ("CLASS_ALL" , "0")) -- 0: one single class specified by class identifier
+                                          -- 1: all classes
+          ,("split",  ("SPLIT" , "0")) -- 0: one single (multi-)polygon object
                                        -- 1: each island as separated polygon
          ])
          Nothing Nothing, "_polygons.shp"))

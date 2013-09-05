@@ -50,13 +50,4 @@ twoCol :: String -> String -> String
 twoCol = printf "\t%10s  %10s\n"
 
 writeReclassifyTableFlatSlope :: String -> IO ()
-writeReclassifyTableFlatSlope f = putStrLn $ unlines [
-  "minimum\tmaximum\tnew"
-  ,"00.00000\00.10000\1.000000"
-  ,"00.10000\00.20000\2.000000"
-  ,"00.20000\00.50000\3.000000"
-  ,"00.50000\01.00000\4.000000"
-  ,"01.00000\05.00000\5.000000"
-  ,"05.00000\25.00000\6.000000"
-  ,"25.00000\50.00000\7.000000"
-  ]
+writeReclassifyTableFlatSlope f = writeFile f "minimum\tmaximum\tnew\n0.000000\t0.100000\t1.000000\n0.100000\t0.200000\t2.000000\n0.200000\t0.500000\t3.000000\n0.500000\t1.000000\t4.000000\n1.000000\t5.000000\t5.000000\n5.000000\t25.000000\t6.000000\n25.000000\t50.000000\t7.000000\n"

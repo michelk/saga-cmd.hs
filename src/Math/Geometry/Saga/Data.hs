@@ -1,6 +1,7 @@
 module Math.Geometry.Saga.Data where
 import Math.Geometry.Saga.Types
 import Math.Geometry.Saga.Utils
+import System.Directory (removeFile)
 import qualified Data.Map as M
 
 -- | Implemented command for piping
@@ -65,8 +66,32 @@ sIoDB = M.fromList [
           ,("f1",("FIELD_1"  , "1"))
           ,("f2",("FIELD_1"  , "-1"))
           ,("f3",("FIELD_1"  , "-1"))
-         ])  
+         ])
          Nothing Nothing, "_disollved.shp"))
+  ,("gridSlope", (
+         SagaCmd "libta_morphometry" "0" ("ELEVATION","SLOPE")
+         (M.fromList [
+            ("aspect" ,("ASPECT" , "aspect"))
+         ])
+         Nothing Nothing, "_slope.sgrd"))
+  ,("gridClassifyFlat", (
+         SagaCmd "libgrid_tools" "15" ("INPUT","RESULT")
+         (M.fromList [
+            ("method" ,("METHOD" , "1")) -- 1: range
+                                         -- 2: simple table
+           ,("table" ,("RETAB" , "reclassfiy.txt"))
+         ])
+         (Just (\_ _ -> writeReclassifyTableFlatSlope "reclassfiy.txt"))
+         (Just (\_ _ -> removeFile "reclassfiy.txt"))
+                , "_reclassyfied.sgrd"))
+  ,("gridClassToPoly", (
+         SagaCmd "libshapes_grid" "6" ("GRID","POLYGONS")
+         (M.fromList [
+           ("id",    ("CLASS_ID" , "1")) -- class identifier
+          ,("split",  ("SPLIT" , "1")) -- 0: one single (multi-)polygon object
+                                       -- 1: each island as separated polygon
+         ])
+         Nothing Nothing, "_polygons.shp"))
   ]
 
 -- | Some common processing chains

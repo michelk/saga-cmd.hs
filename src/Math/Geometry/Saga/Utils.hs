@@ -48,3 +48,15 @@ renderStringPairs = concatMap renderPair
 -- | render two strings in two columns
 twoCol :: String -> String -> String
 twoCol = printf "\t%10s  %10s\n"
+
+writeReclassifyTableFlatSlope :: String -> IO ()
+writeReclassifyTableFlatSlope f = putStrLn $ unlines [
+  "minimum\tmaximum\tnew"
+  ,"00.00000\00.10000\1.000000"
+  ,"00.10000\00.20000\2.000000"
+  ,"00.20000\00.50000\3.000000"
+  ,"00.50000\01.00000\4.000000"
+  ,"01.00000\05.00000\5.000000"
+  ,"05.00000\25.00000\6.000000"
+  ,"25.00000\50.00000\7.000000"
+  ]

@@ -6,7 +6,7 @@ import Math.Geometry.Saga.Types
 import Math.Geometry.Saga.Data
 import Math.Geometry.Saga.Utils
 import Math.Geometry.Saga.Cmd
-import Math.Geometry.Saga.Doc (renderSagaIoDb)
+import Math.Geometry.Saga.Doc (renderTable)
 import Data.Text (split, pack, unpack, Text)
 import qualified Data.Map as M
 import Data.Maybe (fromJust, fromMaybe)
@@ -25,7 +25,7 @@ main = do
     args <- getArgs
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
-    when (modules opts) (sequence_ [putStrLn (renderSagaIoDb sIoDB), exitSuccess])
+    when (modules opts) (sequence_ [putStrLn (renderTable sIoDB), exitSuccess])
     when (null $ file opts) (error "Please specify an input-file")
     let cmdPars = parseParamCmdString $ parameters opts
         cmdChain = case chain opts of

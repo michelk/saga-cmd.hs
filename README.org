@@ -33,6 +33,30 @@
                eg =sagaLut 260 280 > colors.txt=
 
   This is /Work In Progress/.
+** Implemented modules
+
+   #+BEGIN_SRC sh :exports results :colnames yes :rownames yes
+     sagaPipe -m
+   #+END_SRC
+
+   #+RESULTS:
+   | Command          | (cmdPar,sagaPar,default)                                           | sagaLib             | sagaModule | defaultSuffix      |
+   |------------------+--------------------------------------------------------------------+---------------------+------------+--------------------|
+   | gridClassToPoly  | (all,CLASS_ALL,0):(id,CLASS_ID,1):(split,SPLIT,0)                  | libshapes_grid      |          6 | _polygons.shp      |
+   | gridClassifyFlat | (method,METHOD,2):(table,RETAB,reclassify.txt)                     | libgrid_tools       |         15 | _reclassified.sgrd |
+   | gridContour      | (d,ZSTEP,1):(max,ZMAX,10000):(min,ZMIN,0)                          | libshapes_grid      |          5 | _contour.sgrd      |
+   | gridFillGaps     | (grdFlT,TARGET,1)                                                  | libgrid_spline      |          5 | _filled.sgrd       |
+   | gridHillshade    | NA                                                                 | libta_lighting      |          0 | _hillshade.sgrd    |
+   | gridPolyClip     | (poly,POLYGONS,)                                                   | libshapes_grid      |          7 | _polyClip.sgrd     |
+   | gridSlope        | (aspect,ASPECT,aspect)                                             | libta_morphometry   |          0 | _slope.sgrd        |
+   | gridTifGdal      | NA                                                                 | libio_gdal          |          2 | .tif               |
+   | gridTifHillshade | (col,COL_PALETTE,2):(colRev,COL_REVERT,)                           | libio_grid_image    |          0 | .tif               |
+   | gridXyz          | NA                                                                 | libio_grid          |          5 | .xyz               |
+   | lasToPtCld       | NA                                                                 | libio_shapes_las    |          1 | .pcl               |
+   | polyDissolve     | (f1,FIELD_1,1):(f2,FIELD_1,-1):(f3,FIELD_1,-1):(method,DISSOLVE,0) | libshapes_polygons  |          5 | _disollved.shp     |
+   | ptCldToGrid      | NA                                                                 | libpointcloud_tools |          4 | .sgrd              |
+   | xyzGridToGrid    | (cs,CELLSIZE,1):(sep,SEPARATOR,space)                              | libio_grid          |          6 | .sgrd              |
+   |                  |                                                                    |                     |            |                    |
 
 * Installation
 ** Saga And haskell-platform
@@ -41,6 +65,10 @@
      sudo aptitude install haskell-platform
      sudo aptitude install saga
    #+END_SRC
+
+   #+RESULTS:
+   | <interactive>:17:1: Not in scope: `sudo'\n\n<interactive>:17:6: Not in scope: `aptitude'\n\n<interactive>:17:15: Not in scope: `install'\n\n<interactive>:17:23: Not in scope: `saga' |
+
 *** Windows with Cygwin
     - Get the [[http://www.haskell.org/platform/][haskell-platform]]
     - Install Saga with [[http://trac.osgeo.org/osgeo4w/][OSGeo4W]]

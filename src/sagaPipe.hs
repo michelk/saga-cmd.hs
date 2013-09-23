@@ -6,7 +6,7 @@ import Math.Geometry.Saga.Types
 import Math.Geometry.Saga.Data
 import Math.Geometry.Saga.Utils
 import Math.Geometry.Saga.Cmd
-import Math.Geometry.Saga.Doc (renderTable)
+import Math.Geometry.Saga.Doc (renderTable, renderDot)
 import Data.Text (split, pack, unpack, Text)
 import qualified Data.Map as M
 import Data.Maybe (fromJust, fromMaybe)
@@ -26,6 +26,7 @@ main = do
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
     when (modules opts) (sequence_ [putStrLn (renderTable sIoDB), exitSuccess])
+    when (dot opts) (sequence_ [putStrLn (renderDot (sIoDB,sChainDB)), exitSuccess])
     when (null $ file opts) (error "Please specify an input-file")
     let cmdPars = parseParamCmdString $ parameters opts
         cmdChain = case chain opts of
@@ -47,6 +48,7 @@ data Opt = Opt
     , chain      :: String
     , output     :: FilePath
     , modules    :: Bool
+    , dot        :: Bool
     , file       :: FilePath
     } deriving (Show, Data, Typeable)
 
@@ -58,8 +60,9 @@ defaultOpts = Opt
     , to         = def &= help "Target-format"
     , parameters = def &= help "Conversion-Parameters; delimited by ':'(eg cs=0.5:sep=tabulator)"
     , chain      = def &= help "Conversion-pathway; delimited by ':'(eg cXyzGridToGrid:cGridFillGaps)"
-    , output     = def &= help "Output-file (optional)"
-    , modules    = def &= help "Create a list of available modules"
+    , output     = def &= help "Output-file (optional; no intermediate files preserved)"
+    , modules    = def &= help "Create a table of implemented modules"
+    , dot        = def &= help "Show implemented chains as a dot-graphics"
     , file       = def &= args &= typ "DEM-input-file"
     } &=
     program _PROGRAM_NAME &=

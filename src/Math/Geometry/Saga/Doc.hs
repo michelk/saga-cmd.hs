@@ -1,23 +1,82 @@
-module Math.Geometry.Saga.Doc where
+{-# LANGUAGE FlexibleInstances #-}
+module Math.Geometry.Saga.Doc (renderTable, renderDot)
+where
 import qualified Data.Map as M
 import           Math.Geometry.Saga.Types
+import           Data.List (intercalate)
+import           Text.Printf (printf)
 
 class TableView a where renderTable :: a -> String
+
 instance TableView SagaIoCmdDB where
-  renderTable db = unlines $ map renderTable $ M.toList db
+  renderTable db =
+   "Command (cmdPar,sagaPar,default) sagaLib sagaModule defaultSuffix\n" ++
+    (unlines . map renderTable . M.toList $ db)
 
 instance TableView (String, SagaIoCmdExt) where
-  let SagaCmd sLib sMod _ sParas _ _ _ _ = cmd "" "" in
-    renderTable (cmdName, (cmd,ext)) = unlines [
-      cmdName ++ " (" ++ sLib ++ " "  ++ sMod ++ ")"
-      ,"Default suffix: " ++ ext
-      ,renderTable  sParas
-      ]
+  renderTable = renderTableSagaIoCmd
+
+renderTableSagaIoCmd :: (String, SagaIoCmdExt) -> String
+renderTableSagaIoCmd (cmdName, (cmd,ext)) =
+  let SagaCmd sLib sMod _ sParas _ _ _ _ = cmd "" ""
+  in intercalate " " [cmdName, renderTable sParas, sLib, sMod, ext]
 
 instance TableView ParaMap where
-  renderTable = unlines . map renderTable . M.toList
+  renderTable pm
+                 | M.size pm == 0  = "NA"
+                 | otherwise = intercalate ":" (map renderTable . M.toList $ pm)
 
-
-instance TableView [(String, (String,String))] where
+instance TableView (String, (String,String)) where
   renderTable (cmdArg, (sArg,def)) =
-    cmdArg ++ "(" ++ "default:" ++ def ++ "; SAGA-Arg: " ++ sArg ++ ")"
+    "(" ++ intercalate "," [cmdArg,sArg,def] ++ ")"
+
+
+
+class DotGraphics a where renderDot :: a -> String
+
+instance DotGraphics (SagaIoCmdDB,ChainDB) where
+  renderDot (cmds,chains) = unlines [
+    "digraph chains {"
+   ,"  graph  [rankdir = LR];"
+   ,"  node [shape = ellipse, fontsize = 8];"
+   ,""
+   ,(unlines . map renderDot . M.toList $ cmds) -- implemented modules
+   ,renderDot chains                            -- implemented chains
+   ,"}"
+   ]
+
+instance DotGraphics (String, SagaIoCmdExt) where
+  renderDot = renderDotSagaIoCmd
+
+renderDotSagaIoCmd :: (String, SagaIoCmdExt) -> String
+renderDotSagaIoCmd (cmdName, (cmd,ext)) =
+  let SagaCmd sLib sMod _ sParas _ _ _ _ = cmd "" ""
+  in printf "  %s [shape = record, label = \"%s|%s|%s|%s %s\"];"
+     cmdName cmdName (renderDot sParas) ext  sLib  sMod
+
+
+renderDotParaMap :: ParaMap -> String
+renderDotParaMap pm = "{" ++ ss ++ "}"
+  where
+    ps = M.toList pm
+    cmdArgs = intercalate "\\n" (map fst ps)
+    sArgs = intercalate "\\n" (map (fst . snd)  ps)
+    defs = intercalate "\\n" (map (snd . snd)  ps)
+    ss = intercalate "|" [cmdArgs,sArgs,defs]
+
+instance DotGraphics ParaMap where
+  renderDot = renderDotParaMap
+
+renderDotChainDB :: ChainDB -> String
+renderDotChainDB = unlines . map renderDot . M.toList
+
+instance DotGraphics ((String,String), [String]) where
+  renderDot ((from,to), chain) =
+    printf "  \"%s\" -> %s -> \"%s\";" from (renderDot chain) to
+
+instance DotGraphics [String] where
+  renderDot = intercalate "->"
+
+instance DotGraphics ChainDB where
+  renderDot = renderDotChainDB
+

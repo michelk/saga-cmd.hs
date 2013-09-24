@@ -123,3 +123,24 @@ sChainDB = M.fromList [
    ,(("grid-filled", "contour")     , ["gridContour"])
    ,(("grid-filled", "xyz-filled")  , ["gridXyz"])
    ]
+
+
+-- | Pathsway nodes with input and output commands
+nodes :: [PathNode]
+nodes =
+  [
+    PathNode "las" [] ["lasToPtCld"]
+   ,PathNode "ptc" ["lasToPtCld"] ["ptCldToGrid"]
+   ,PathNode "grid" ["ptCldToGrid"]
+      ["gridFillGaps", "gridTifGdal", "gridPolyClip"
+      ,"gridSlope", "gridClassToPoly", "gridClassifyFlat"]
+   ,PathNode "xyz-grid" [] ["xyzGridToGrid"]
+   ,PathNode "grid-filled" ["gridFillGaps"]
+      ["gridHillshade", "gridXyz", "gridContour"]
+   ,PathNode "grid-hillshade" ["gridHillshade"] ["gridTifHillshade"]
+   ,PathNode "grid-hillshade-tif" ["gridTifHillshade"] []
+   ,PathNode "grid-filled-xyz" ["gridXyz"] []
+   ,PathNode "grid-filled-contour" ["gridContour"] []
+   ,PathNode "grid-polygonClip" ["gridPolyClip"] []
+  ]
+

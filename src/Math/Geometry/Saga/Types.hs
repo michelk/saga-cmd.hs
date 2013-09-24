@@ -37,3 +37,10 @@ type SagaIoCmdExt = (SagaIoCmd, String)
 type SagaIoCmdDB = M.Map
                      String       -- ^ name to reference
                      SagaIoCmdExt -- ^  cmd and output-extension
+
+-- | Targets for from-to combinations
+data PathNode = PathNode {
+  ndName :: String              -- ^ name of target
+ ,ndIn   :: [String]            -- ^ input commands
+ ,ndOut  :: [String]            -- ^ output commands
+ }

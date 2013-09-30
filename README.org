@@ -17,7 +17,7 @@
 * Description
   Haskell Library to wrap =saga_cmd=.
 
-  Two exectuables are currently shipped
+  Three exectuables are currently shipped
 
   - sagaPipe :: A program to chain different saga-calls, where the output of
      one command gets the input of the next.
@@ -25,7 +25,7 @@
 
                 For example
 
-                #+BEGIN_SRC sh :results verbatim :eval no-export
+                #+BEGIN_SRC sh :exports code :eval never
                    sagaTopo --min 280 --max 360  -o dem.tif dem.sgrd
                 #+END_SRC
 
@@ -113,8 +113,10 @@
                            cs=0.5:sep=tabulator)
      -c --chain=ITEM       Conversion-pathway; delimited by ':'(eg
                            cXyzGridToGrid:cGridFillGaps)
-     -o --output=ITEM      Output-file (optional)
-     -m --modules          Create a list of available modules
+     -o --output=ITEM      Output-file (optional; no intermediate files
+                           preserved)
+     -m --modules          Create a table of implemented modules
+     -d --dot              Show implemented chains as a dot-graphics
      -? --help             Display help message
      -V --version          Print version information
 #+end_example
@@ -128,61 +130,15 @@
 
    The pathways are visualized below
 
-   #+BEGIN_SRC dot :exports results :results graphics :file doc/figures/chains.png :eval no-export
-     digraph chains {
-         graph [rankdir = LR];
-         node [shape = ellipse, fontsize = 8];
-     
-         las [label = "las"];
-         grd [label = "grid"];
-         grdF [label = "grid-filled"];
-         xyz [label = "xyz-grid"];
-         cntr [label = "contour"];
-         hls [label = "hillshade"];
-         pt [label = "pointcloud"];
-         tifHls [labal = "tif-hillshade"];
-         xyzF  [label = "xyz-filled"];
-     
-         xyzGrid [shape = record, label = "xyzGridToGrid|{cs\nsep|CELLSIZE\nSEPERATOR}"];
-         lasPt [shape = record, label = "lasToPtCld |"];
-         ptGrd [shape = record, label = "ptCldToGrid|"];
-         grdFl [shape = record, label = "gridFillGaps| {grdFlT |TARGET}"];
-         grdHl [shape = record, label = "gridHillshade|"];
-         grdCtl [shape = record, label = "gridContour| {min\nmax\nd |ZMIN\nZMAX\nZSTEP}"];
-         grdPolyCp [shape = record, label = "gridPolyClip| {poly|POLYGONS}"];
-         hlsTif [shape = record, label = "gridTifHillshade"];
-         grdXyz [shape = record, label = "gridXyz|"];
-         plyDslv [shape = record, label = "polyDissolve|{method\nf1\nf2\nf3 |DISSOLVE\nFIELD_11\nFIELD_2\nFIELD_3}"];
-     
-         las -> lasPt -> pt -> ptGrd -> grd;
-         xyz -> xyzGrid -> grd ;
-         grd -> grdXyz -> xyzF;
-         grd -> grdPolyCp -> grd;
-         grd -> grdFl -> grdF;
-         grdF -> grdHl -> hls;
-         grdF -> grdCtl -> cntr;
-         hls -> hlsTif -> tifHls;
-     }
+   #+BEGIN_SRC sh :exports results :results graphics :file doc/figures/chains.png 
+      sagaPipe -d | dot -Tpng > doc/figures/chains.png
    #+END_SRC
 
    #+RESULTS:
    [[file:doc/figures/chains.png]]
 
-** From-To combinations
-     These combinations are currently supported, where columns are
-     sources and rows destinations:
+   where
 
-     | to\form      | las | xyz-grid | grid | grid-filled |
-     |--------------+-----+----------+------+-------------|
-     | grid         | X   | X        |      |             |
-     | grid-filled  | X   | X        | X    |             |
-     | hillshade    | X   | X        | x    | X           |
-     | hillshade-tif| X   | X        | x    | X           |
-     | contour      | X   | X        | X    | X           |
-     | xyz-filled   | X   | X        | X    | X           |
-     | poly-clip    |     |          | X    |             |
-
-     where
   - las           :: point-cloud liblas-file
   - xyz-grid      :: ascii text-file with x,y,z-column
   - grid          :: A Grid which could contain gaps
@@ -195,7 +151,7 @@
 
 ** Example
 *** Source-Target
-   #+BEGIN_SRC sh :results verbatim :eval no-export
+   #+BEGIN_SRC sh :exports code :eval never
        sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:cs=0.5 dem.xyz
    #+END_SRC
 
@@ -208,7 +164,7 @@
 
     The equivalent exlicit version to above is
 
-    #+BEGIN_SRC sh :results verbatim :eval no-export
+    #+BEGIN_SRC sh :exports code :eval never
        sagaPipe --chain xyzGridToGrid:gridFillGaps:gridHillshade --parameters sep=tabulator:cs=0.5 dem.xyz
     #+END_SRC
 

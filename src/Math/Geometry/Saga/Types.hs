@@ -23,10 +23,6 @@ type ParaMap =
   M.Map String          -- ^ Parameter-name accessor from the cmd-line
         (String,String) -- ^ Parameter-name called in saga_cmd; Default-value
 
--- | Data-base for chains. Key contains from-to; value is a sequence
---   of module-calls
-type ChainDB = M.Map (String, String) [String]
-
 -- | Saga Command which takes only one input-, and one output-file
 type SagaIoCmd = FilePath -> FilePath -> SagaCmd
 
@@ -38,9 +34,7 @@ type SagaIoCmdDB = M.Map
                      String       -- ^ name to reference
                      SagaIoCmdExt -- ^  cmd and output-extension
 
--- | Targets for from-to combinations
-data PathNode = PathNode {
-  ndName :: String              -- ^ name of target
- ,ndIn   :: [String]            -- ^ input commands
- ,ndOut  :: [String]            -- ^ output commands
- }
+-- | Node-map for form-to-combinations
+type NodeMap = M.Map
+               String     -- ^ Name
+               ([String],[String]) -- ^ input-, output-modules

@@ -3,7 +3,7 @@
 
 Haskell Library to wrap `saga_cmd`.
 
-Two exectuables are currently shipped
+Three exectuables are currently shipped
 
 -   **sagaPipe:** A program to chain different saga-calls, where the output of
     one command gets the input of the next.
@@ -18,6 +18,168 @@ Two exectuables are currently shipped
     eg `sagaLut 260 280 > colors.txt`
 
 This is *Work In Progress*.
+
+## Implemented modules
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">Command</td>
+<td class="left">(cmdPar,sagaPar,default)</td>
+<td class="left">sagaLib</td>
+<td class="right">sagaModule</td>
+<td class="left">defaultSuffix</td>
+</tr>
+
+
+<tr>
+<td class="left">gridClassToPoly</td>
+<td class="left">(all,CLASS<sub>ALL</sub>,0):(id,CLASS<sub>ID</sub>,1):(split,SPLIT,0)</td>
+<td class="left">libshapes<sub>grid</sub></td>
+<td class="right">6</td>
+<td class="left">\_polygons.shp</td>
+</tr>
+
+
+<tr>
+<td class="left">gridClassifyFlat</td>
+<td class="left">(method,METHOD,2):(table,RETAB,reclassify.txt)</td>
+<td class="left">libgrid<sub>tools</sub></td>
+<td class="right">15</td>
+<td class="left">\_reclassified.sgrd</td>
+</tr>
+
+
+<tr>
+<td class="left">gridContour</td>
+<td class="left">(d,ZSTEP,1):(max,ZMAX,10000):(min,ZMIN,0)</td>
+<td class="left">libshapes<sub>grid</sub></td>
+<td class="right">5</td>
+<td class="left">\_contour.sgrd</td>
+</tr>
+
+
+<tr>
+<td class="left">gridFillGaps</td>
+<td class="left">(grdFlT,TARGET,1)</td>
+<td class="left">libgrid<sub>spline</sub></td>
+<td class="right">5</td>
+<td class="left">\_filled.sgrd</td>
+</tr>
+
+
+<tr>
+<td class="left">gridHillshade</td>
+<td class="left">NA</td>
+<td class="left">libta<sub>lighting</sub></td>
+<td class="right">0</td>
+<td class="left">\_hillshade.sgrd</td>
+</tr>
+
+
+<tr>
+<td class="left">gridPolyClip</td>
+<td class="left">(poly,POLYGONS,)</td>
+<td class="left">libshapes<sub>grid</sub></td>
+<td class="right">7</td>
+<td class="left">\_polyClip.sgrd</td>
+</tr>
+
+
+<tr>
+<td class="left">gridSlope</td>
+<td class="left">(aspect,ASPECT,aspect)</td>
+<td class="left">libta<sub>morphometry</sub></td>
+<td class="right">0</td>
+<td class="left">\_slope.sgrd</td>
+</tr>
+
+
+<tr>
+<td class="left">gridTifGdal</td>
+<td class="left">NA</td>
+<td class="left">libio<sub>gdal</sub></td>
+<td class="right">2</td>
+<td class="left">.tif</td>
+</tr>
+
+
+<tr>
+<td class="left">gridTifHillshade</td>
+<td class="left">(col,COL<sub>PALETTE</sub>,2):(colRev,COL<sub>REVERT</sub>,)</td>
+<td class="left">libio<sub>grid</sub><sub>image</sub></td>
+<td class="right">0</td>
+<td class="left">.tif</td>
+</tr>
+
+
+<tr>
+<td class="left">gridXyz</td>
+<td class="left">NA</td>
+<td class="left">libio<sub>grid</sub></td>
+<td class="right">5</td>
+<td class="left">.xyz</td>
+</tr>
+
+
+<tr>
+<td class="left">lasToPtCld</td>
+<td class="left">NA</td>
+<td class="left">libio<sub>shapes</sub><sub>las</sub></td>
+<td class="right">1</td>
+<td class="left">.pcl</td>
+</tr>
+
+
+<tr>
+<td class="left">polyDissolve</td>
+<td class="left">(f1,FIELD<sub>1</sub>,1):(f2,FIELD<sub>1</sub>,-1):(f3,FIELD<sub>1</sub>,-1):(method,DISSOLVE,0)</td>
+<td class="left">libshapes<sub>polygons</sub></td>
+<td class="right">5</td>
+<td class="left">\_disollved.shp</td>
+</tr>
+
+
+<tr>
+<td class="left">ptCldToGrid</td>
+<td class="left">NA</td>
+<td class="left">libpointcloud<sub>tools</sub></td>
+<td class="right">4</td>
+<td class="left">.sgrd</td>
+</tr>
+
+
+<tr>
+<td class="left">xyzGridToGrid</td>
+<td class="left">(cs,CELLSIZE,1):(sep,SEPARATOR,space)</td>
+<td class="left">libio<sub>grid</sub></td>
+<td class="right">6</td>
+<td class="left">.sgrd</td>
+</tr>
+
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="right">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
 
 # Installation
 
@@ -68,100 +230,6 @@ parameters to use during conversion and the input-file.
 The pathways are visualized below
 
 ![nil](doc/figures/chains.png)
-
-## From-To combinations
-
-These combinations are currently supported, where columns are
-sources and rows destinations:
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col class="left"/>
-
-<col class="left"/>
-
-<col class="left"/>
-
-<col class="left"/>
-
-<col class="left"/>
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="left">to\form</th>
-<th scope="col" class="left">las</th>
-<th scope="col" class="left">xyz-grid</th>
-<th scope="col" class="left">grid</th>
-<th scope="col" class="left">grid-filled</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td class="left">grid</td>
-<td class="left">X</td>
-<td class="left">X</td>
-<td class="left">&#xa0;</td>
-<td class="left">&#xa0;</td>
-</tr>
-
-
-<tr>
-<td class="left">grid-filled</td>
-<td class="left">X</td>
-<td class="left">X</td>
-<td class="left">X</td>
-<td class="left">&#xa0;</td>
-</tr>
-
-
-<tr>
-<td class="left">hillshade</td>
-<td class="left">X</td>
-<td class="left">X</td>
-<td class="left">x</td>
-<td class="left">X</td>
-</tr>
-
-
-<tr>
-<td class="left">hillshade-tif</td>
-<td class="left">X</td>
-<td class="left">X</td>
-<td class="left">x</td>
-<td class="left">X</td>
-</tr>
-
-
-<tr>
-<td class="left">contour</td>
-<td class="left">X</td>
-<td class="left">X</td>
-<td class="left">X</td>
-<td class="left">X</td>
-</tr>
-
-
-<tr>
-<td class="left">xyz-filled</td>
-<td class="left">X</td>
-<td class="left">X</td>
-<td class="left">X</td>
-<td class="left">X</td>
-</tr>
-
-
-<tr>
-<td class="left">poly-clip</td>
-<td class="left">&#xa0;</td>
-<td class="left">&#xa0;</td>
-<td class="left">X</td>
-<td class="left">&#xa0;</td>
-</tr>
-</tbody>
-</table>
 
 where
 

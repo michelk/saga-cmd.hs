@@ -8,12 +8,12 @@ import qualified Data.Map as M
 sIoDB :: SagaIoCmdDB
 sIoDB = M.fromList [
   ("xyzGridToGrid", (
-      SagaCmd "libio_grid" "6" ("FILENAME","GRID")
-              (M.fromList [
+      SagaCmd "libio_grid" "6" ("FILENAME","GRID") -- library, module, input-,output-parameters
+              (M.fromList [     -- ^ parameters: sagaPipe-par, saga_cmd-par, default
                    ("cs",  ("CELLSIZE"  , "1"))
                   ,("sep", ("SEPARATOR" , "space"))
                   ])
-              Nothing Nothing
+              Nothing Nothing   -- pre-, post-processing
       , ".sgrd"                 -- ^ output-file extension
       )
   )
@@ -96,51 +96,22 @@ sIoDB = M.fromList [
          Nothing Nothing, "_polygons.shp"))
   ]
 
--- | Some common processing chains
-sChainDB :: ChainDB
-sChainDB = M.fromList [
-    (("las"        , "grid")        , ["lasToPtCld","ptCldToGrid"])
-   ,(("las"        , "grid-filled") , ["lasToPtCld","ptCldToGrid", "gridFillGaps"])
-   ,(("las"        , "xyz-filled") , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridXyz"])
-   ,(("las"        , "hillshade")   , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridHillshade"])
-   ,(("las"        , "hillshade-tif")   , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridHillshade", "gridTifHillshade"])
-   ,(("las"        , "contour")     , ["lasToPtCld","ptCldToGrid", "gridFillGaps", "gridContour"])
-   ,(("xyz-grid"   , "grid")        , ["xyzGridToGrid"])
-   ,(("xyz-grid"   , "grid-filled") , ["xyzGridToGrid", "gridFillGaps"])
-   ,(("xyz-grid"   , "xyz-filled")  , ["xyzGridToGrid", "gridFillGaps", "gridXyz"])
-   ,(("xyz-grid"   , "hillshade")   , ["xyzGridToGrid", "gridFillGaps" , "gridHillshade"])
-   ,(("xyz-grid"   , "hillshade-tif")   , ["xyzGridToGrid", "gridFillGaps" , "gridHillshade", "gridTifHillshade"])
-   ,(("xyz-grid"   , "contour")     , ["xyzGridToGrid", "gridFillGaps" , "gridContour"])
-   ,(("grid"       , "hillshade")   , ["gridFillGaps", "gridHillshade"])
-   ,(("grid"       , "grid-filled") , ["gridFillGaps"])
-   ,(("grid"       , "xyz-filled")  , ["gridFillGaps", "gridXyz"])
-   ,(("grid"       , "hillshade")   , ["gridFillGaps", "gridHillshade"])
-   ,(("grid"       , "hillshade-tif")   , ["gridFillGaps", "gridHillshade", "gridTifHillshade"])
-   ,(("grid"       , "contour")     , ["gridFillGaps", "gridContour"])
-   ,(("grid"       , "poly-clip")   , ["gridPolyClip"])
-   ,(("grid-filled", "hillshade")   , ["gridHillshade"])
-   ,(("grid-filled", "hillshade-tif"),["gridHillshade", "gridTifHillshade"])
-   ,(("grid-filled", "contour")     , ["gridContour"])
-   ,(("grid-filled", "xyz-filled")  , ["gridXyz"])
-   ]
-
 
 -- | Pathsway nodes with input and output commands
-nodes :: [PathNode]
-nodes =
-  [
-    PathNode "las" [] ["lasToPtCld"]
-   ,PathNode "ptc" ["lasToPtCld"] ["ptCldToGrid"]
-   ,PathNode "grid" ["ptCldToGrid"]
+sNodes :: NodeMap
+sNodes =
+  M.fromList [
+    ("las", ([], ["lasToPtCld"]))
+   ,("ptc", (["lasToPtCld"], ["ptCldToGrid"]))
+   ,("grid", (["ptCldToGrid", "xyzGridToGrid"],
       ["gridFillGaps", "gridTifGdal", "gridPolyClip"
-      ,"gridSlope", "gridClassToPoly", "gridClassifyFlat"]
-   ,PathNode "xyz-grid" [] ["xyzGridToGrid"]
-   ,PathNode "grid-filled" ["gridFillGaps"]
-      ["gridHillshade", "gridXyz", "gridContour"]
-   ,PathNode "grid-hillshade" ["gridHillshade"] ["gridTifHillshade"]
-   ,PathNode "grid-hillshade-tif" ["gridTifHillshade"] []
-   ,PathNode "grid-filled-xyz" ["gridXyz"] []
-   ,PathNode "grid-filled-contour" ["gridContour"] []
-   ,PathNode "grid-polygonClip" ["gridPolyClip"] []
+      ,"gridSlope", "gridClassToPoly", "gridClassifyFlat"]))
+   ,("xyz-grid", ([], ["xyzGridToGrid"]))
+   ,("grid-filled", (["gridFillGaps"],
+      ["gridHillshade", "gridXyz", "gridContour"]))
+   ,("grid-hillshade", (["gridHillshade"], ["gridTifHillshade"]))
+   ,("grid-hillshade-tif", (["gridTifHillshade"], []))
+   ,("grid-filled-xyz", (["gridXyz"], []))
+   ,("grid-filled-contour", (["gridContour"], []))
+   ,("grid-polygonClip", (["gridPolyClip"], []))
   ]
-

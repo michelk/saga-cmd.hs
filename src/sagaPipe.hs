@@ -6,6 +6,7 @@ import Math.Geometry.Saga.Types
 import Math.Geometry.Saga.Data
 import Math.Geometry.Saga.Utils
 import Math.Geometry.Saga.Cmd
+import Math.Geometry.Saga.Node (getAllRoutes)
 import Math.Geometry.Saga.Doc (renderTable, renderDot)
 import Data.Text (split, pack, unpack, Text)
 import qualified Data.Map as M
@@ -26,12 +27,12 @@ main = do
     -- If the user did not specify any arguments, pretend as "--help" was given
     opts <- (if null args then withArgs ["--help"] else id) (cmdArgs defaultOpts)
     when (modules opts) (sequence_ [putStrLn (renderTable sIoDB), exitSuccess])
-    when (dot opts) (sequence_ [putStrLn (renderDot (sIoDB,sChainDB)), exitSuccess])
+    when (dot opts) (sequence_ [putStrLn (renderDot (sIoDB,sNodes)), exitSuccess])
     when (null $ file opts) (error "Please specify an input-file")
     let cmdPars = parseParamCmdString $ parameters opts
         cmdChain = case chain opts of
           "" -> lkpChain sIoDB (fromMaybe (error "from-to-combination not supported")
-                                          (M.lookup (from opts, to opts) sChainDB))
+                                          (M.lookup (from opts, to opts) (M.fromList . getAllRoutes $ sNodes)))
           _ -> lkpChain  sIoDB (splitStr ':' $ chain opts)
     result <- doCmdChain cmdChain cmdPars (file opts) (case (output opts) of
                                                           "" -> Nothing

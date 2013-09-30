@@ -19,7 +19,7 @@ instance TableView (String, SagaIoCmdExt) where
 renderTableSagaIoCmd :: (String, SagaIoCmdExt) -> String
 renderTableSagaIoCmd (cmdName, (cmd,ext)) =
   let SagaCmd sLib sMod _ sParas _ _ _ _ = cmd "" ""
-  in intercalate " " [cmdName, renderTable sParas, sLib, sMod, ext]
+  in unwords [cmdName, renderTable sParas, sLib, sMod, ext]
 
 instance TableView ParaMap where
   renderTable pm
@@ -34,13 +34,13 @@ instance TableView (String, (String,String)) where
 
 class DotGraphics a where renderDot :: a -> String
 
-instance DotGraphics (SagaIoCmdDB,ChainDB) where
+instance DotGraphics (SagaIoCmdDB,NodeMap) where
   renderDot (cmds,chains) = unlines [
     "digraph chains {"
    ,"  graph  [rankdir = LR];"
    ,"  node [shape = ellipse, fontsize = 8];"
    ,""
-   ,(unlines . map renderDot . M.toList $ cmds) -- implemented modules
+   ,unlines . map renderDot . M.toList $ cmds -- implemented modules
    ,renderDot chains                            -- implemented chains
    ,"}"
    ]
@@ -67,16 +67,14 @@ renderDotParaMap pm = "{" ++ ss ++ "}"
 instance DotGraphics ParaMap where
   renderDot = renderDotParaMap
 
-renderDotChainDB :: ChainDB -> String
-renderDotChainDB = unlines . map renderDot . M.toList
+instance DotGraphics NodeMap where
+  renderDot = unlines . map renderDot . M.toList
 
-instance DotGraphics ((String,String), [String]) where
-  renderDot ((from,to), chain) =
-    printf "  \"%s\" -> %s -> \"%s\";" from (renderDot chain) to
+instance DotGraphics (String, ([String],[String])) where
+  renderDot (name, (ins, outs)) = unlines $ map unlines [
+    map (`edge` name) ins
+   ,map (name `edge`) outs
+   ]
 
-instance DotGraphics [String] where
-  renderDot = intercalate "->"
-
-instance DotGraphics ChainDB where
-  renderDot = renderDotChainDB
-
+edge :: String -> String -> String
+edge = printf "  \"%s\" -> \"%s\";"

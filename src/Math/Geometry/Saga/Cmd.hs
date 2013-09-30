@@ -94,3 +94,5 @@ lkpChain db = map (`lkpCmd` db)
 -- | Lookup a single command
 lkpCmd :: String -> SagaIoCmdDB -> SagaIoCmdExt
 lkpCmd  s db = fromMaybe (error "Command is not yet implemented") $ M.lookup s db
+
+

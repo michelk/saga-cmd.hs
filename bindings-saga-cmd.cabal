@@ -17,6 +17,7 @@ library
                      Math.Geometry.Saga.Utils
                      Math.Geometry.Saga.LUT
                      Math.Geometry.Saga.Doc
+                     Math.Geometry.Saga.Node
   build-depends:     base,
                      filepath,
                      process,

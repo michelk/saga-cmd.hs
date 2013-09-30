@@ -1,5 +1,5 @@
 {-# LANGUAGE FlexibleInstances #-}
-module Math.Geometry.Saga.Doc (renderTable, renderDot)
+module Math.Geometry.Saga.Doc (renderTable, renderDot, renderNodes)
 where
 import qualified Data.Map as M
 import           Math.Geometry.Saga.Types
@@ -78,3 +78,11 @@ instance DotGraphics (String, ([String],[String])) where
 
 edge :: String -> String -> String
 edge = printf "  \"%s\" -> \"%s\";"
+
+class NodeView a where renderNodes :: a -> String
+
+instance NodeView NodeMap where
+  renderNodes = unlines . map renderNodes . M.toList
+
+instance NodeView (String, ([String], [String])) where
+  renderNodes (name, (ins, outs)) = name ++ ": "++ show ins ++ show outs

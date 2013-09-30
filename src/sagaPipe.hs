@@ -31,9 +31,11 @@ main = do
     when (nodes opts) (sequence_ [putStrLn (renderNodes sNodes), exitSuccess])
     when (null $ file opts) (error "Please specify an input-file")
     let cmdPars = parseParamCmdString $ parameters opts
+        allChains = M.fromList . getAllRoutes $ sNodes
         cmdChain = case chain opts of
-          "" -> lkpChain sIoDB (fromMaybe (error "from-to-combination not supported")
-                                          (M.lookup (from opts, to opts) (M.fromList . getAllRoutes $ sNodes)))
+          "" -> lkpChain sIoDB (fromMaybe (error ("from-to-combination not supported.\n\nSupported:\n " ++
+                                                  (unlines . map show . M.toList $ allChains)))
+                                          (M.lookup (from opts, to opts) allChains))
           _ -> lkpChain  sIoDB (splitStr ':' $ chain opts)
     result <- doCmdChain cmdChain cmdPars (file opts) (case (output opts) of
                                                           "" -> Nothing

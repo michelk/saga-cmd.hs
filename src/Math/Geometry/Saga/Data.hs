@@ -109,6 +109,8 @@ sNodes =
    ,("xyz-grid", ([], ["xyzGridToGrid"]))
    ,("grid-filled", (["gridFillGaps"],
       ["gridHillshade", "gridXyz", "gridContour"]))
+   ,("grid-filled-hillshade", (["gridHillshade"], ["gridTifHillshade"]))
+   ,("grid-filled-hillshade-tif", (["gridTifHillshade"], []))
    ,("grid-hillshade", (["gridHillshade"], ["gridTifHillshade"]))
    ,("grid-hillshade-tif", (["gridTifHillshade"], []))
    ,("grid-filled-xyz", (["gridXyz"], []))

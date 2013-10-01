@@ -21,7 +21,7 @@ getAllRoutes = concat . findRoutes . findEdges
 -- | finds all possible routes
 findRoutes :: [((String,String),[String])] -> [[((String,String),[String])]]
 findRoutes [] = []
-findRoutes edgs = edgs' : findRoutes edgs'
+findRoutes edgs = edgs : edgs' : findRoutes edgs'
   where
     edgs' = chainEdges edgs
     chainEdges :: [((String,String),[String])] -> [((String,String),[String])]

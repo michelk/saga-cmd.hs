@@ -13,7 +13,7 @@ import           System.Environment (getArgs, withArgs)
 
 _PROGRAM_NAME, _PROGRAM_VERSION, _PROGRAM_INFO, _PROGRAM_ABOUT, _COPYRIGHT :: String
 _PROGRAM_NAME    = "sagaTopo"
-_PROGRAM_VERSION = "0.0.0.1"
+_PROGRAM_VERSION = "0.1.0.0"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
 _COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
 _PROGRAM_ABOUT   = "Create create topographic maps out of gridded data"

@@ -61,26 +61,23 @@
 * Installation
 ** Saga And haskell-platform
 *** Linux
-   #+BEGIN_SRC sh
+   #+BEGIN_SRC sh :eval never
      sudo aptitude install haskell-platform
      sudo aptitude install saga
    #+END_SRC
-
-   #+RESULTS:
-   | <interactive>:17:1: Not in scope: `sudo'\n\n<interactive>:17:6: Not in scope: `aptitude'\n\n<interactive>:17:15: Not in scope: `install'\n\n<interactive>:17:23: Not in scope: `saga' |
 
 *** Windows with Cygwin
     - Get the [[http://www.haskell.org/platform/][haskell-platform]]
     - Install Saga with [[http://trac.osgeo.org/osgeo4w/][OSGeo4W]]
     - Put =saga_cmd= in the search path; add the line following (the actual
       filepath could differ) line to your =$HOME/.bashrc=
-      #+BEGIN_SRC sh
+      #+BEGIN_SRC sh :eval never
         export PATH="$PATH:/cygdrive/c/Program Files (x86)/SAGA-GIS
       #+END_SRC
 
 ** saga-cmd-wrapper library
 
-   #+BEGIN_SRC sh
+   #+BEGIN_SRC sh :eval never
        git clone https://www.github.com/michelk/bindings-saga-cmd.hs.git
        cd bindings-saga-cmd.hs
        cabal update && cabal install
@@ -89,7 +86,7 @@
    The exectuables are usually installed into =$HOME/.cabal/bin=; to
    use them you have to put them into your search path. Put this into
    your =$HOME/.bashrc=:
-   #+BEGIN_SRC sh
+   #+BEGIN_SRC sh :eval never
      export PATH="$PATH:$HOME/.cabal/bin"
    #+END_SRC
 
@@ -110,13 +107,14 @@
      -f --from=ITEM        Source-format
      -t --to=ITEM          Target-format
      -p --parameters=ITEM  Conversion-Parameters; delimited by ':'(eg
-                           cs=0.5:sep=tabulator)
+			   cs=0.5:sep=tabulator)
      -c --chain=ITEM       Conversion-pathway; delimited by ':'(eg
-                           cXyzGridToGrid:cGridFillGaps)
+			   cXyzGridToGrid:cGridFillGaps)
      -o --output=ITEM      Output-file (optional; no intermediate files
-                           preserved)
+			   preserved)
      -m --modules          Create a table of implemented modules
      -d --dot              Show implemented chains as a dot-graphics
+     -n --nodes            Show implemented nodes
      -? --help             Display help message
      -V --version          Print version information
 #+end_example
@@ -137,25 +135,13 @@
    #+RESULTS:
    [[file:doc/figures/chains.png]]
 
-   where
-
-  - las           :: point-cloud liblas-file
-  - xyz-grid      :: ascii text-file with x,y,z-column
-  - grid          :: A Grid which could contain gaps
-  - grid-filled   :: A Grid with interpolated values
-  - hillshade     :: Analytical hillshade
-  - hillshade-tif :: Analytical hillshade (tif-file)
-  - contour       :: Iso-value-lines
-  - xyz-filled    :: ascii text-file with x,y,z-column (gaps filled)
-
-
 ** Example
 *** Source-Target
    #+BEGIN_SRC sh :exports code :eval never
-       sagaPipe --from xyz-grid --to hillshade --parameters sep=tabulator:cs=0.5 dem.xyz
+       sagaPipe --from xyz-grid --to grid-filled-hillshade-tif --parameters sep=tabulator:cs=0.5 -o dem_hillshade.tif dem.xyz
    #+END_SRC
 
-   In the directory of the input-file, the follwing grids will be created:
+   If =-o= hadn't been specified, in the directory of the input-file, the follwing grids would have been created:
    - =dem_grid.sgrd=
    - =dem_grid-filled.sgrd=
    - =dem_grid-filled_hillshade.sgrd=
@@ -184,12 +170,13 @@
 * Development
 
    In order to extend functionality, the follwing steps are necessary
+
    - Find the wanted library and module
+     + Eg with =./doc/search=
    - Edit =src/Math/Geometry/Saga/Data.hs=
-     + create wrapper function
-     + define output extension
-     + add chain
-   - Adjust documentation
+     + create a SagaCmd (copy & paste an existing one; pretty straigt forward)
+     + create a pathway-chain
+   - Export =README.org= 
 
 ** Find the module
 #+BEGIN_SRC sh
@@ -197,19 +184,16 @@
   ./search <keyword> 
 #+END_SRC
 
-** Wrapper function and chain definition
+** New SagaCmd
    Edit =src/Math/Geometry/Saga/Data.hs=
-   - add chain
-   - add wrapper function
+   - Add Module
+   - Add pathway node
 ** Documentation
    - Edit =README.org=
-     + Add entry in matrix
-     + Adjust dot-diagram
    - Export it to markdown (=M-x org-md-export-to-markdown=)
 
 * ToDo
   - extend library-commands
   - merge =sagaTopo= into =sagaPipe=
-  - cmd-line-opting to clean intermediate files (=sagaPipe=, =sagaTopo=)
   - cmd-line-option which color-palette to use (=sagaLut=)
 

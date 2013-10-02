@@ -1,5 +1,5 @@
 name:                bindings-saga-cmd
-version:             0.0.1.0
+version:             0.1.0.0
 synopsis:            Wrapping saga_cmd
 homepage:            https://github.com/michelk/bindings-saga-cmd
 license:             GPL-3

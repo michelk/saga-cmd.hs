@@ -17,9 +17,9 @@ instance TableView (String, SagaIoCmdExt) where
   renderTable = renderTableSagaIoCmd
 
 renderTableSagaIoCmd :: (String, SagaIoCmdExt) -> String
-renderTableSagaIoCmd (cmdName, (cmd,ext)) =
-  let SagaCmd sLib sMod _ sParas _ _ _ _ = cmd "" ""
-  in unwords [cmdName, renderTable sParas, sLib, sMod, ext]
+renderTableSagaIoCmd (cmdName, (cmd, ext)) =
+  let SagaCmd {sLib = lib, sMod = mod, sParas = ps } = cmd "" ""
+  in unwords [cmdName, renderTable ps, lib, mod, ext]
 
 instance TableView ParaMap where
   renderTable pm
@@ -50,9 +50,9 @@ instance DotGraphics (String, SagaIoCmdExt) where
 
 renderDotSagaIoCmd :: (String, SagaIoCmdExt) -> String
 renderDotSagaIoCmd (cmdName, (cmd,ext)) =
-  let SagaCmd sLib sMod _ sParas _ _ _ _ = cmd "" ""
+  let SagaCmd {sLib = lib, sMod = mod, sParas = ps } = cmd "" ""
   in printf "  %s [shape = record, label = \"%s|%s|%s|%s %s\"];"
-     cmdName cmdName (renderDot sParas) ext  sLib  sMod
+     cmdName cmdName (renderDot ps) ext  lib mod
 
 
 renderDotParaMap :: ParaMap -> String

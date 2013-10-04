@@ -5,8 +5,6 @@ import           Data.Maybe (fromMaybe, fromJust)
 import           GHC.IO.Exception
 import           Math.Geometry.Saga.Types
 import           Math.Geometry.Saga.Utils
-import           Math.Geometry.Saga.Data
-import Debug.Trace (trace)
 import           System.Cmd (system)
 import           System.Posix.Temp (mkdtemp)
 import           System.FilePath.Posix (replaceDirectory, joinPath)
@@ -52,10 +50,8 @@ saga lib mod params =
 
 -- | adjust default parameters with the ones given on the command-line
 adjustSagaCmdParas :: CmdPars ->  SagaCmd -> SagaCmd
-adjustSagaCmdParas cmdPrs (SagaCmd lib mod ks libPrs pre post fOut fIn) =
-  SagaCmd lib mod ks prs' pre post fOut fIn
-  where
-    prs' = adjustParas libPrs cmdPrs
+adjustSagaCmdParas cmdPrs cmd@(SagaCmd{sParas = libPrs}) =
+  cmd {sParas = adjustParas libPrs cmdPrs}
 
 -- | Overwrite default parameters with parameters given on the command-line
 adjustParas :: ParaMap          -- ^ parameters specified in 'SagaCmd'
@@ -85,7 +81,6 @@ doCmdChain chain pars fIn fOut = do
             fIn' <- fOut
             doSaga . adjustSagaCmdParas pars . f $ fIn'
         ) (return fIn) chain'
-   
 
 -- | Lookup a chain
 lkpChain :: SagaIoCmdDB -> [String] -> [SagaIoCmdExt]

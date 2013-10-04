@@ -13,12 +13,6 @@ import qualified Data.Map as M
 import Data.Maybe (fromJust, fromMaybe)
 import System.Environment (getArgs, withArgs)
 import System.Exit (exitSuccess)
-_PROGRAM_NAME, _PROGRAM_VERSION, _PROGRAM_INFO, _PROGRAM_ABOUT, _COPYRIGHT :: String
-_PROGRAM_NAME    = "sagaPipe"
-_PROGRAM_VERSION = "0.1.0.0"
-_PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
-_COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
-_PROGRAM_ABOUT   = "Convert Digital Elevation Models (DEM) to diffent formats"
 
 
 main :: IO ()
@@ -42,6 +36,13 @@ main = do
                                                           _  -> Just  (output opts)
                                                       )
     putStrLn ("Succussfully created " ++ result )
+
+_PROGRAM_NAME, _PROGRAM_VERSION, _PROGRAM_INFO, _PROGRAM_ABOUT, _COPYRIGHT :: String
+_PROGRAM_NAME    = "sagaPipe"
+_PROGRAM_VERSION = "0.1.0.0"
+_PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
+_COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
+_PROGRAM_ABOUT   = "Convert Digital Elevation Models (DEM) to diffent formats"
 
 -- | Data structure for command line options.
 data Opt = Opt

@@ -93,5 +93,5 @@ defaultOpts = Opt
     summary (_PROGRAM_INFO ++ ", " ++ _COPYRIGHT)
 
 gridHillShade :: SagaIoCmd
-gridHillShade = fst $ lkpCmd "gridHillShade" sIoDB
+gridHillShade = fst $ lkpCmd "gridHillshade" sIoDB
 

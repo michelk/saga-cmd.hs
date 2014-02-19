@@ -1,662 +1,767 @@
-libio_shapes
+grid_spline
 --------------------------------
-libio_shapes: 0	:Export GStat Shapes
-libio_shapes: 1	:Import GStat Shapes
-libio_shapes: 2	:Export Shapes to XYZ
-libio_shapes: 3	:Import Shapes from XYZ
-libio_shapes: 4	:Export Shapes to Generate
-libio_shapes: 5	:Export Surfer Blanking File
-libio_shapes: 6	:Import Surfer Blanking Files
-libio_shapes: 7	:Export Atlas Boundary File
-libio_shapes: 8	:Import Atlas Boundary File
-libio_shapes: 9	:Export WASP terrain map file
-libio_shapes: 10	:Import WASP terrain map file
-libio_shapes: 11	:Import Stereo Lithography File (STL)
-libio_shapes: 12	:Export TIN to Stereo Lithography File (STL)
-libio_shapes: 13	:Import GPX
-libio_shapes: 14	:Export GPX
-libio_shapes: 15	:Import Point Cloud from Shape File
-libio_shapes: 16	:Import Point Cloud from Text File
-libio_shapes: 17	:Export Scalable Vector Graphics (SVG) File
-libio_shapes: 18	:Export Point Cloud to Text File
+grid_spline: 0	:Thin Plate Spline (Global)
+grid_spline: 1	:Thin Plate Spline (Local)
+grid_spline: 2	:Thin Plate Spline (TIN)
+grid_spline: 3	:B-Spline Approximation
+grid_spline: 4	:Multilevel B-Spline Interpolation
+grid_spline: 5	:Multilevel B-Spline Interpolation (from Grid)
+grid_spline: 6	:Cubic Spline Approximation
 
 
-liblectures_introduction
+grid_calculus_bsl
 --------------------------------
-liblectures_introduction: 0	:01 My first module
-liblectures_introduction: 1	:02 Pixel by pixel operations with two grids
-liblectures_introduction: 2	:03 Direct neighbours
-liblectures_introduction: 3	:04 Direct neighbours 
-liblectures_introduction: 4	:05 Direct neighbours 
-liblectures_introduction: 5	:06 Extended neighbourhoods
-liblectures_introduction: 6	:07 Extended neighbourhoods 
-liblectures_introduction: 7	:08 Extended neighbourhoods 
-liblectures_introduction: 8	:09 Extended neighbourhoods 
-liblectures_introduction: 9	:10 Dynamic Simulation 
-liblectures_introduction: 10	:11: Dynamic Simulation 
-liblectures_introduction: 11	:12: First steps with shapes
-liblectures_introduction: 12	:13: Reprojecting a shapes layer
-liblectures_introduction: 13	:14: Vectorising channel lines
+grid_calculus_bsl: 0	:BSL
+grid_calculus_bsl: 1	:BSL from File
 
 
-libtable_calculus
+io_grid
 --------------------------------
-libtable_calculus: 0	:Function Fit
-libtable_calculus: 1	:Table Calculator
-libtable_calculus: 2	:Table Calculator (Shapes)
-libtable_calculus: 3	:Trend Analysis
-libtable_calculus: 4	:Trend (Analysis) Shapes
-libtable_calculus: 5	:Running Average
-libtable_calculus: 6	:Cluster Analysis
-libtable_calculus: 7	:Principle Components Analysis
-libtable_calculus: 8	:Fill Gaps in Records
-libtable_calculus: 9	:PET (after Hargreave)
-libtable_calculus: 10	:Daily to Hourly PET
+io_grid: 0	:Export ESRI Arc/Info Grid
+io_grid: 1	:Import ESRI Arc/Info Grid
+io_grid: 2	:Export Surfer Grid
+io_grid: 3	:Import Surfer Grid
+io_grid: 4	:Import Binary Raw Data
+io_grid: 5	:Export Grid to XYZ
+io_grid: 6	:Import Grid from XYZ
+io_grid: 7	:Import USGS SRTM Grid
+io_grid: 8	:Import MOLA Grid (MEGDR)
+io_grid: 9	:Import SRTM30 DEM
+io_grid: 10	:Export True Color Bitmap
+io_grid: 11	:Import Erdas LAN/GIS
+io_grid: 12	:Import Grid from Table
+io_grid: 13	:Import WRF Geogrid Binary Format
+io_grid: 14	:Export WRF Geogrid Binary Format
 
 
-libgeostatistics_regression
+grid_gridding
 --------------------------------
-libgeostatistics_regression: 0	:Regression Analysis (Points/Grid)
-libgeostatistics_regression: 1	:Multiple Regression Analysis (Points/Grids)
-libgeostatistics_regression: 2	:Polynomial Regression
-libgeostatistics_regression: 3	:Geographically Weighted Regression
-libgeostatistics_regression: 4	:Geographically Weighted Regression (Points/Grid)
-libgeostatistics_regression: 5	:Geographically Weighted Multiple Regression
-libgeostatistics_regression: 6	:Geographically Weighted Multiple Regression (Points/Grids)
-libgeostatistics_regression: 7	:Geographically Weighted Multiple Regression (Points)
-libgeostatistics_regression: 8	:Multiple Regression Analysis (Grid/Grids)
+grid_gridding: 0	:Shapes to Grid
+grid_gridding: 1	:Inverse Distance Weighted
+grid_gridding: 2	:Nearest Neighbour
+grid_gridding: 3	:Natural Neighbour
+grid_gridding: 4	:Modifed Quadratic Shepard
+grid_gridding: 5	:Triangulation
+grid_gridding: 6	:Kernel Density Estimation
+grid_gridding: 7	:Angular Distance Weighted
 
 
-libgrid_visualisation
+shapes_points
 --------------------------------
-libgrid_visualisation: 0	:Color Palette Rotation
-libgrid_visualisation: 1	:Color Blending
-libgrid_visualisation: 2	:Fit Color Palette to Grid Values
-libgrid_visualisation: 3	:RGB Composite
-libgrid_visualisation: 4	:Create 3D Image
-libgrid_visualisation: 5	:Color Triangle Composite
-libgrid_visualisation: 6	:Histogram Surface
+shapes_points: 0	:Convert Table to Points
+shapes_points: 1	:Count Points in Polygons
+shapes_points: 2	:Create Point Grid
+shapes_points: 3	:Distance Matrix
+shapes_points: 4	:Fit N Points to shape
+shapes_points: 5	:Convert Lines to Points
+shapes_points: 6	:Add Coordinates to points
+shapes_points: 7	:Remove Duplicate Points
+shapes_points: 8	:Clip Points with Polygons
+shapes_points: 9	:Separate points by direction
+shapes_points: 10	:Add Polygon Attributes to Points
+shapes_points: 11	:Points Filter
+shapes_points: 12	:Convex Hull
+shapes_points: 14	:Points Thinning
+shapes_points: 15	:Convert Multipoints to Points
+shapes_points: 16	:Thiessen Polygons
+shapes_points: 17	:Aggregate Point Observations
+shapes_points: 18	:Snap Points to Points
+shapes_points: 19	:Snap Points to Lines
+shapes_points: 20	:Snap Points to Grid
 
 
-libtransect
+ta_slope_stability
 --------------------------------
-libtransect: 0	:Transect through polygon shapefile
+ta_slope_stability: 0	:SAFETYFACTOR
+ta_slope_stability: 1	:TOBIA
+ta_slope_stability: 2	:SHALSTAB
+ta_slope_stability: 3	:WETNESS
+ta_slope_stability: 4	:WEDGEFAIL
+ta_slope_stability: 5	:ANGMAP
 
 
-libshapes_points
+grid_tools
 --------------------------------
-libshapes_points: 0	:Convert Table to Points
-libshapes_points: 1	:Count Points in Polygons
-libshapes_points: 2	:Create Point Grid
-libshapes_points: 3	:Distance Matrix
-libshapes_points: 4	:Fit N Points to shape
-libshapes_points: 5	:Convert Lines to Points
-libshapes_points: 6	:Add Coordinates to points
-libshapes_points: 7	:Remove Duplicate Points
-libshapes_points: 8	:Clip Points with Polygons
-libshapes_points: 9	:Separate points by direction
-libshapes_points: 10	:Add Polygon Attributes to Points
-libshapes_points: 11	:Points Filter
-libshapes_points: 12	:Convex Hull
-libshapes_points: 14	:Points Thinning
-libshapes_points: 15	:Convert Multipoints to Points
-libshapes_points: 16	:Thiessen Polygons
-libshapes_points: 17	:Aggregate Point Observations
+grid_tools: 0	:Resampling
+grid_tools: 1	:Aggregate
+grid_tools: 3	:Mosaicking
+grid_tools: 4	:Constant Grid
+grid_tools: 5	:Patching
+grid_tools: 6	:Close One Cell Gaps
+grid_tools: 7	:Close Gaps
+grid_tools: 8	:Grid Buffer
+grid_tools: 9	:Threshold Buffer
+grid_tools: 10	:Grid Proximity Buffer
+grid_tools: 11	:Convert Data Storage Type
+grid_tools: 12	:Change Grid Values
+grid_tools: 15	:Reclassify Grid Values
+grid_tools: 17	:Crop to Data
+grid_tools: 18	:Invert Data/No-Data
+grid_tools: 19	:Grid Orientation
+grid_tools: 20	:Combine Grids
+grid_tools: 21	:Grid Cell Index
+grid_tools: 22	:Grids from classified grid and table
+grid_tools: 23	:Create Grid System
+grid_tools: 24	:Grid Masking
+grid_tools: 25	:Close Gaps with Spline
+grid_tools: 26	:Proximity Grid
+grid_tools: 27	:Tiling
+grid_tools: 28	:Shrink and Expand
+grid_tools: 29	:Close Gaps with Stepwise Resampling
+grid_tools: 30	:Transpose Grids
+grid_tools: 31	:Clip Grids
 
 
-libsim_hydrology
+table_tools
 --------------------------------
-libsim_hydrology: 0	:Soil Moisture Content
-libsim_hydrology: 1	:Overland Flow 
-libsim_hydrology: 2	:TOPMODEL
-libsim_hydrology: 3	:Water Retention Capacity
+table_tools: 0	:Create New Table
+table_tools: 1	:Transpose Table
+table_tools: 2	:Enumerate Table Field
+table_tools: 3	:Join Attributes from a Table
+table_tools: 4	:Join Attributes from a Table (Shapes)
+table_tools: 5	:Change Date Format
+table_tools: 6	:Change Time Format
+table_tools: 7	:Change Field Type
+table_tools: 8	:Append Rows from Table
+table_tools: 9	:Change Color Format
+table_tools: 10	:Replace Text
+table_tools: 11	:Delete Fields
+table_tools: 15	:Copy Selection
+table_tools: 16	:Delete Selection
+table_tools: 17	:Invert Selection
+table_tools: 18	:Select by Numerical Expression
+table_tools: 19	:Select by String Expression
 
 
-libgrid_spline
+statistics_regression
 --------------------------------
-libgrid_spline: 0	:Thin Plate Spline (Global)
-libgrid_spline: 1	:Thin Plate Spline (Local)
-libgrid_spline: 2	:Thin Plate Spline (TIN)
-libgrid_spline: 3	:B-Spline Approximation
-libgrid_spline: 4	:Multilevel B-Spline Interpolation
-libgrid_spline: 5	:Multilevel B-Spline Interpolation (from Grid)
-libgrid_spline: 6	:Cubic Spline Approximation
+statistics_regression: 0	:Regression Analysis (Points/Grid)
+statistics_regression: 1	:Multiple Regression Analysis (Points/Grids)
+statistics_regression: 2	:Polynomial Regression
+statistics_regression: 3	:Geographically Weighted Regression
+statistics_regression: 4	:Geographically Weighted Regression (Points/Grid)
+statistics_regression: 5	:Geographically Weighted Multiple Regression
+statistics_regression: 6	:GWR Gridding (Points/Grids)
+statistics_regression: 7	:Geographically Weighted Multiple Regression (Points)
+statistics_regression: 8	:Multiple Regression Analysis (Grid/Grids)
+statistics_regression: 9	:Polynomial Trend from Grids
+statistics_regression: 10	:Trend Analysis
+statistics_regression: 11	:Trend Analysis (Shapes)
+statistics_regression: 12	:Multiple Linear Regression Analysis
+statistics_regression: 13	:Multiple Linear Regression Analysis (Shapes)
+statistics_regression: 14	:GWR Grid Downscaling
 
 
-libta_hydrology
+ta_channels
 --------------------------------
-libta_hydrology: 0	:Catchment Area (Parallel)
-libta_hydrology: 1	:Catchment Area (Recursive)
-libta_hydrology: 2	:Catchment Area (Flow Tracing)
-libta_hydrology: 4	:Upslope Area
-libta_hydrology: 6	:Flow Path Length
-libta_hydrology: 7	:Slope Length
-libta_hydrology: 10	:Cell Balance
-libta_hydrology: 13	:Edge Contamination
-libta_hydrology: 15	:SAGA Wetness Index
-libta_hydrology: 16	:Lake Flood
-libta_hydrology: 18	:Catchment Area (Mass-Flux Method)
-libta_hydrology: 19	:Flow Width and Specific Catchment Area
-libta_hydrology: 20	:Topographic Wetness Index (TWI)
-libta_hydrology: 21	:Stream Power Index
-libta_hydrology: 22	:LS Factor
+ta_channels: 0	:Channel Network
+ta_channels: 1	:Watershed Basins
+ta_channels: 2	:Watershed Basins (Extended)
+ta_channels: 3	:Vertical Distance to Channel Network
+ta_channels: 4	:Overland Flow Distance to Channel Network
+ta_channels: 5	:Channel Network and Drainage Basins
+ta_channels: 6	:Strahler Order
+ta_channels: 7	:Valley Depth
 
 
-libpointcloud_tools
+shapes_transect
 --------------------------------
-libpointcloud_tools: 0	:Point Cloud Cutter
-libpointcloud_tools: 2	:Point Cloud from Grid Points
-libpointcloud_tools: 3	:Point Cloud from Shapes
-libpointcloud_tools: 4	:Point Cloud to Grid
-libpointcloud_tools: 5	:Point Cloud to Shapes
-libpointcloud_tools: 6	:Point Cloud Reclassifier / Subset Extractor
-libpointcloud_tools: 7	:Drop Point Cloud Attribute
-libpointcloud_tools: 8	:Transform Point Cloud
-libpointcloud_tools: 9	:Point Cloud Thinning (simple)
-libpointcloud_tools: 10	:Point Cloud Attribute Calculator
-libpointcloud_tools: 11	:Cluster Analysis for Point Clouds
+shapes_transect: 0	:Transect through polygon shapefile
 
 
-libgrid_tools
+docs_html
 --------------------------------
-libgrid_tools: 0	:Resampling
-libgrid_tools: 1	:Aggregate
-libgrid_tools: 3	:Merging
-libgrid_tools: 4	:Create Constant Grid
-libgrid_tools: 5	:Patching
-libgrid_tools: 6	:Close One Cell Gaps
-libgrid_tools: 7	:Close Gaps
-libgrid_tools: 8	:Grid Buffer
-libgrid_tools: 9	:Threshold Buffer
-libgrid_tools: 10	:Grid Proximity Buffer
-libgrid_tools: 11	:Convert Data Storage Type
-libgrid_tools: 12	:Change Grid Values
-libgrid_tools: 15	:Reclassify Grid Values
-libgrid_tools: 17	:Crop to Data
-libgrid_tools: 18	:Invert Data/No-Data
-libgrid_tools: 19	:Grid Orientation
-libgrid_tools: 20	:Combine Grids
-libgrid_tools: 21	:Sort Grid
-libgrid_tools: 22	:Grids from classified grid and table
-libgrid_tools: 23	:Create Grid System
-libgrid_tools: 24	:Grid Masking
-libgrid_tools: 25	:Close Gaps with Spline
-libgrid_tools: 26	:Proximity Grid
-libgrid_tools: 27	:Tiling
-libgrid_tools: 28	:Grid Shrink/Expand
+docs_html: 1	:SVG Interactive Map
 
 
-libdocs_pdf
+io_gdal
 --------------------------------
-libdocs_pdf: 0	:Shapes Report
-libdocs_pdf: 1	:Shapes Summary Report
-libdocs_pdf: 2	:Terrain Path Cross Sections
+io_gdal: 0	:GDAL: Import Raster
+io_gdal: 1	:GDAL: Export Raster
+io_gdal: 2	:GDAL: Export Raster to GeoTIFF
+io_gdal: 3	:OGR: Import Vector Data
+io_gdal: 4	:OGR: Export Vector Data
+io_gdal: 5	:OGR: Export Shapes to KML
+io_gdal: 6	:GDAL: Import NetCDF
 
 
-libimagery_tools
+db_pgsql
 --------------------------------
-libimagery_tools: 0	:Vegetation Index[distance based]
-libimagery_tools: 1	:Vegetation Index[slope based]
+db_pgsql: 0	:List PostgreSQL Connections
+db_pgsql: 1	:Connect to PostgreSQL
+db_pgsql: 2	:Disconnect from PostgreSQL
+db_pgsql: 3	:Disconnect All
+db_pgsql: 4	:Begin Transaction
+db_pgsql: 5	:Commit/Rollback Transaction
+db_pgsql: 6	:Execute SQL
+db_pgsql: 10	:List Tables
+db_pgsql: 11	:List Table Fields
+db_pgsql: 12	:Import Table
+db_pgsql: 13	:Export Table
+db_pgsql: 14	:Drop Table
+db_pgsql: 15	:Import Table from SQL Query
+db_pgsql: 20	:Import Shapes from PostGIS
+db_pgsql: 21	:Export Shapes to PostGIS
+db_pgsql: 22	:Update Shapes SRID
+db_pgsql: 30	:Import Raster from PostGIS
+db_pgsql: 31	:Export Raster to PostGIS
+db_pgsql: 32	:Update Raster SRID
 
 
-librecreations_fractals
+io_table
 --------------------------------
-librecreations_fractals: 0	:Bifurcation
-librecreations_fractals: 1	:Pythagoras' Tree
-librecreations_fractals: 3	:Fractal Dimension of Grid Surface
-librecreations_fractals: 5	:Gaussian Landscapes
+io_table: 0	:Export Text Table
+io_table: 1	:Import Text Table
+io_table: 2	:Import Text Table with Numbers only
+io_table: 3	:Import Text Table (Fixed Column Sizes)
 
 
-libio_shapes_las
+shapes_polygons
 --------------------------------
-libio_shapes_las: 0	:Export LAS Files
-libio_shapes_las: 1	:Import LAS Files
-libio_shapes_las: 2	:LAS Info
+shapes_polygons: 1	:Polygon Centroids
+shapes_polygons: 2	:Polygon Properties
+shapes_polygons: 3	:Convert Lines to Polygons
+shapes_polygons: 4	:Point Statistics for Polygons
+shapes_polygons: 5	:Polygon Dissolve
+shapes_polygons: 6	:Convert Polygon/Line Vertices to Points
+shapes_polygons: 7	:Polygon Shape Indices
+shapes_polygons: 8	:Polygon-Line Intersection
+shapes_polygons: 9	:Polygons to Edges and Nodes
+shapes_polygons: 10	:Polygon Parts to Separate Polygons
+shapes_polygons: 11	:Polygon Clipping
+shapes_polygons: 12	:Polygon Self-Intersection
+shapes_polygons: 14	:Intersect
+shapes_polygons: 15	:Difference
+shapes_polygons: 16	:Symmetrical Difference
+shapes_polygons: 17	:Union
+shapes_polygons: 18	:Update
+shapes_polygons: 19	:Identity
+shapes_polygons: 20	:Add Point Attributes to Polygons
 
 
-libta_compound
+shapes_grid
 --------------------------------
-libta_compound: 0	:Basic Terrain Analysis
+shapes_grid: 0	:Add Grid Values to Points
+shapes_grid: 1	:Add Grid Values to Shapes
+shapes_grid: 2	:Grid Statistics for Polygons
+shapes_grid: 3	:Grid Values to Points
+shapes_grid: 4	:Grid Values to Points (randomly)
+shapes_grid: 5	:Contour Lines from Grid
+shapes_grid: 6	:Vectorising Grid Classes
+shapes_grid: 7	:Clip Grid with Polygon
+shapes_grid: 9	:Local Minima and Maxima
+shapes_grid: 10	:Grid System Extent
+shapes_grid: 11	:Clip Grid with Rectangle
+shapes_grid: 15	:Gradient Vectors from Surface
+shapes_grid: 16	:Gradient Vectors from Direction and Length
+shapes_grid: 17	:Gradient Vectors from Directional Components
 
 
-libio_gdal
+imagery_svm
 --------------------------------
-libio_gdal: 0	:GDAL: Import Raster
-libio_gdal: 1	:GDAL: Export Raster
-libio_gdal: 2	:GDAL: Export Raster to GeoTIFF
-libio_gdal: 3	:OGR: Import Vector Data
-libio_gdal: 4	:OGR: Export Vector Data
+imagery_svm: 0	:SVM Classification
 
 
-libio_esri_e00
+sim_ihacres
 --------------------------------
-libio_esri_e00: 0	:Import ESRI E00 File
+sim_ihacres: 0	:IHACRES Calibration (2)
+sim_ihacres: 1	:IHACRES Version 1.0
+sim_ihacres: 2	:IHACRES Basin
+sim_ihacres: 3	:IHACRES Elevation Bands
+sim_ihacres: 4	:IHACRES Elevation Bands Calibration
 
 
-libdocs_html
+grid_analysis
 --------------------------------
-libdocs_html: 1	:SVG Interactive Map
+grid_analysis: 0	:Accumulated Cost (Isotropic)
+grid_analysis: 1	:Accumulated Cost (Anisotropic)
+grid_analysis: 5	:Least Cost Paths
+grid_analysis: 6	:Change Vector Analysis
+grid_analysis: 7	:Covered Distance
+grid_analysis: 8	:Pattern Analysis
+grid_analysis: 9	:Layer of extreme value
+grid_analysis: 10	:Analytical Hierarchy Process
+grid_analysis: 11	:Ordered Weighted Averaging (OWA)
+grid_analysis: 12	:Aggregation Index
+grid_analysis: 13	:Cross-Classification and Tabulation
+grid_analysis: 14	:Soil Texture Classification
+grid_analysis: 15	:Fragmentation (Standard)
+grid_analysis: 16	:Fragmentation (Alternative)
+grid_analysis: 17	:Fragmentation Classes from Density and Connectivity
+grid_analysis: 18	:Accumulation Functions
+grid_analysis: 19	:IMCORR 
 
 
-libgrid_gridding
+pj_proj4
 --------------------------------
-libgrid_gridding: 0	:Shapes to Grid
-libgrid_gridding: 1	:Inverse Distance Weighted
-libgrid_gridding: 2	:Nearest Neighbour
-libgrid_gridding: 3	:Natural Neighbour
-libgrid_gridding: 4	:Modifed Quadratic Shepard
-libgrid_gridding: 5	:Triangulation
-libgrid_gridding: 6	:Kernel Density Estimation
+pj_proj4: 0	:Set Coordinate Reference System
+pj_proj4: 1	:Coordinate Transformation (Shapes List)
+pj_proj4: 2	:Coordinate Transformation (Shapes)
+pj_proj4: 3	:Coordinate Transformation (Grid List)
+pj_proj4: 4	:Coordinate Transformation (Grid)
+pj_proj4: 5	:Proj.4 (Command Line Arguments, Shapes)
+pj_proj4: 6	:Proj.4 (Dialog, Shapes)
+pj_proj4: 7	:Proj.4 (Command Line Arguments, Grid)
+pj_proj4: 8	:Proj.4 (Dialog, Grid)
+pj_proj4: 9	:Proj.4 (Command Line Arguments, List of Shapes Layers)
+pj_proj4: 10	:Proj.4 (Dialog, List of Shapes Layers)
+pj_proj4: 11	:Proj.4 (Command Line Arguments, List of Grids)
+pj_proj4: 12	:Proj.4 (Dialog, List of Grids)
+pj_proj4: 13	:Change Longitudinal Range for Grids
+pj_proj4: 14	:Latitude/Longitude Graticule
+pj_proj4: 15	:Coordinate Reference System Picker
 
 
-libta_channels
+io_esri_e00
 --------------------------------
-libta_channels: 0	:Channel Network
-libta_channels: 1	:Watershed Basins
-libta_channels: 2	:Watershed Basins (Extended)
-libta_channels: 3	:Vertical Distance to Channel Network
-libta_channels: 4	:Overland Flow Distance to Channel Network
-libta_channels: 5	:Channel Network and Drainage Basins
-libta_channels: 6	:Strahler Order
+io_esri_e00: 0	:Import ESRI E00 File
 
 
-libio_grid_image
+io_gps
 --------------------------------
-libio_grid_image: 0	:Export Image (bmp, jpg, pcx, png, tif)
-libio_grid_image: 1	:Import Image (bmp, jpg, png, tif, gif, pnm, xpm)
+io_gps: 0	:GPX to shapefile
+io_gps: 1	:GPSBabel
 
 
-libgeostatistics_grid
+ta_compound
 --------------------------------
-libgeostatistics_grid: 0	:Fast Representativeness
-libgeostatistics_grid: 1	:Residual Analysis (Grid)
-libgeostatistics_grid: 2	:Representativeness (Grid)
-libgeostatistics_grid: 3	:Radius of Variance (Grid)
-libgeostatistics_grid: 4	:Statistics for Grids
-libgeostatistics_grid: 5	:Zonal Grid Statistics
-libgeostatistics_grid: 6	:Directional Statistics for Single Grid
-libgeostatistics_grid: 7	:Global Moran's I for Grids
-libgeostatistics_grid: 8	:Principle Components Analysis
-libgeostatistics_grid: 9	:Multi-Band Variation
+ta_compound: 0	:Basic Terrain Analysis
 
 
-libio_grid_grib2
+pj_georeference
 --------------------------------
-libio_grid_grib2: 0	:Import GRIB2 record
+pj_georeference: 1	:Rectify Grid
+pj_georeference: 2	:Warping Shapes
+pj_georeference: 4	:Direct Georeferencing of Airborne Photographs
+pj_georeference: 5	:Define Georeference for Grids
 
 
-libtin_tools
+sim_fire_spreading
 --------------------------------
-libtin_tools: 0	:Grid to TIN
-libtin_tools: 1	:Grid to TIN (Surface Specific Points)
-libtin_tools: 2	:Shapes to TIN
-libtin_tools: 3	:TIN to Shapes
-libtin_tools: 4	:Gradient
-libtin_tools: 5	:Flow Accumulation (Trace)
-libtin_tools: 6	:Flow Accumulation (Parallel)
+sim_fire_spreading: 0	:Fire Risk Analysis
+sim_fire_spreading: 1	:Simulation
 
 
-libgrid_filter
+ta_hydrology
 --------------------------------
-libgrid_filter: 0	:Simple Filter
-libgrid_filter: 1	:Gaussian Filter
-libgrid_filter: 2	:Laplacian Filter
-libgrid_filter: 3	:Multi Direction Lee Filter
-libgrid_filter: 4	:User Defined Filter
-libgrid_filter: 5	:Filter Clumps
-libgrid_filter: 6	:Majority Filter
-libgrid_filter: 7	:DTM Filter (slope-based)
-libgrid_filter: 8	:Morphological Filter
-libgrid_filter: 9	:Rank Filter
+ta_hydrology: 0	:Catchment Area (Parallel)
+ta_hydrology: 1	:Catchment Area (Recursive)
+ta_hydrology: 2	:Catchment Area (Flow Tracing)
+ta_hydrology: 4	:Upslope Area
+ta_hydrology: 6	:Flow Path Length
+ta_hydrology: 7	:Slope Length
+ta_hydrology: 10	:Cell Balance
+ta_hydrology: 13	:Edge Contamination
+ta_hydrology: 15	:SAGA Wetness Index
+ta_hydrology: 16	:Lake Flood
+ta_hydrology: 18	:Catchment Area (Mass-Flux Method)
+ta_hydrology: 19	:Flow Width and Specific Catchment Area
+ta_hydrology: 20	:Topographic Wetness Index (TWI)
+ta_hydrology: 21	:Stream Power Index
+ta_hydrology: 22	:LS Factor
+ta_hydrology: 23	:Melton Ruggedness Number
+ta_hydrology: 24	:TCI Low
+ta_hydrology: 25	:LS-Factor, Field Based
+ta_hydrology: 26	:Slope Limited Flow Accumulation
 
 
-libshapes_tools
+imagery_tools
 --------------------------------
-libshapes_tools: 0	:Create New Shapes Layer
-libshapes_tools: 2	:Merge Shapes Layers
-libshapes_tools: 3	:Select by Attributes... (Numerical Expression)
-libshapes_tools: 4	:Select by Attributes... (String Expression)
-libshapes_tools: 5	:Select by Location...
-libshapes_tools: 6	:Copy Selection to New Shapes Layer
-libshapes_tools: 7	:Delete Selection from Shapes Layer
-libshapes_tools: 8	:Invert Selection of Shapes Layer
-libshapes_tools: 9	:Split Shapes Layer Completely
-libshapes_tools: 10	:Transform Shapes
-libshapes_tools: 11	:Create Chart Layer (bars/sectors)
-libshapes_tools: 12	:Create Graticule
-libshapes_tools: 13	:Cut Shapes Layer
-libshapes_tools: 15	:Split Shapes Layer
-libshapes_tools: 16	:Split Shapes Layer Randomly
-libshapes_tools: 17	:Split Table/Shapes by Attribute
-libshapes_tools: 18	:Shapes Buffer
-libshapes_tools: 19	:Get Shapes Extents
-libshapes_tools: 20	:QuadTree Structure to Shapes
-libshapes_tools: 21	:Polar to Cartesian Coordinates
+imagery_tools: 0	:Vegetation Index (Distance Based)
+imagery_tools: 1	:Vegetation Index (Slope Based)
+imagery_tools: 2	:Enhanced Vegetation Index
+imagery_tools: 3	:Tasseled Cap Transformation
+imagery_tools: 4	:IHS Sharpening
+imagery_tools: 5	:Colour Normalized Brovey Sharpening
+imagery_tools: 6	:Colour Normalized Spectral Sharpening
+imagery_tools: 7	:Principle Components Based Image Sharpening
+imagery_tools: 8	:Top of Atmosphere Reflectance
+imagery_tools: 9	:Automated Cloud Cover Assessment
 
 
-libshapes_lines
+db_odbc
 --------------------------------
-libshapes_lines: 0	:Convert Polygons to Lines
-libshapes_lines: 1	:Convert Points to Line(s)
-libshapes_lines: 2	:Line Properties
-libshapes_lines: 3	:Line-Polygon Intersection
-libshapes_lines: 4	:Line Simplification
-libshapes_lines: 5	:Line Dissolve
+db_odbc: 0	:Connect to ODBC Source
+db_odbc: 1	:Disconnect from ODBC Source
+db_odbc: 2	:Commit/Rollback Transaction
+db_odbc: 3	:Execute SQL
+db_odbc: 4	:List Table Fields
+db_odbc: 5	:Import Table
+db_odbc: 6	:Export Table
+db_odbc: 7	:Drop Table
+db_odbc: 8	:Import Table from SQL Query
+db_odbc: 9	:List ODBC Servers
+db_odbc: 10	:List Tables
+db_odbc: 11	:Disconnect All
 
 
-libgeostatistics_points
+contrib_perego
 --------------------------------
-libgeostatistics_points: 0	:Variogram
-libgeostatistics_points: 1	:Variogram Cloud
-libgeostatistics_points: 2	:Variogram Surface
-libgeostatistics_points: 3	:Minimum Distance Analysis
-libgeostatistics_points: 4	:Spatial Point Pattern Analysis
+contrib_perego: 0	:Average With Thereshold 1
+contrib_perego: 1	:Average With Thereshold 2
+contrib_perego: 2	:Average With Thereshold 3
+contrib_perego: 3	:Average With Mask 1
+contrib_perego: 4	:Average With Mask 2
+contrib_perego: 5	:Destriping
+contrib_perego: 6	:Destriping with Mask
+contrib_perego: 7	:Directional Average
 
 
-libio_shapes_dxf
+tin_tools
 --------------------------------
-libio_shapes_dxf: 0	:Import DXF Files
+tin_tools: 0	:Grid to TIN
+tin_tools: 1	:Grid to TIN (Surface Specific Points)
+tin_tools: 2	:Shapes to TIN
+tin_tools: 3	:TIN to Shapes
+tin_tools: 4	:Gradient
+tin_tools: 5	:Flow Accumulation (Trace)
+tin_tools: 6	:Flow Accumulation (Parallel)
 
 
-libpointcloud_viewer
+grid_calculus
 --------------------------------
-libpointcloud_viewer: 0	:Point Cloud Viewer
+grid_calculus: 0	:Grid Normalisation
+grid_calculus: 1	:Grid Calculator
+grid_calculus: 2	:Grid Volume
+grid_calculus: 3	:Grid Difference
+grid_calculus: 4	:Function
+grid_calculus: 5	:Geometric Figures
+grid_calculus: 6	:Random Terrain Generation
+grid_calculus: 7	:Random Field
+grid_calculus: 8	:Grids Sum
+grid_calculus: 9	:Grids Product
+grid_calculus: 10	:Grid Standardisation
+grid_calculus: 11	:Fuzzify
+grid_calculus: 12	:Fuzzy Intersection (AND)
+grid_calculus: 13	:Fuzzy Union (OR)
+grid_calculus: 14	:Metric Conversions
+grid_calculus: 15	:Gradient Vector from Cartesian to Polar Coordinates
+grid_calculus: 16	:Gradient Vector from Polar to Cartesian Coordinates
+grid_calculus: 18	:Grid Division
+grid_calculus: 19	:Spherical Harmonic Synthesis
 
 
-libta_lighting
+sim_ecosystems_hugget
 --------------------------------
-libta_lighting: 0	:Analytical Hillshading
-libta_lighting: 2	:Potential Incoming Solar Radiation
-libta_lighting: 3	:Sky View Factor
-libta_lighting: 4	:Topographic Correction
+sim_ecosystems_hugget: 0	:01: A Simple Litter System
+sim_ecosystems_hugget: 1	:02: Carbon Cycle Simulation for Terrestrial Biomass
+sim_ecosystems_hugget: 2	:03: Spatially Distributed Simulation of Soil Nitrogen Dynamics
 
 
-libgrid_calculus_bsl
+garden_webservices
 --------------------------------
-libgrid_calculus_bsl: 0	:BSL
-libgrid_calculus_bsl: 1	:BSL from File
+garden_webservices: 0	:Import a Map via Web Map Service (WMS)
 
 
-libgarden_webservices
+imagery_rga
 --------------------------------
-libgarden_webservices: 0	:Import a Map via Web Map Service (WMS)
+imagery_rga: 0	:Fast Region Growing Algorithm
 
 
-libio_table
+garden_learn_to_program
 --------------------------------
-libio_table: 0	:Export Text Table
-libio_table: 1	:Import Text Table
-libio_table: 2	:Import Text Table with Numbers only
-libio_table: 3	:Import Text Table (Fixed Column Sizes)
+garden_learn_to_program: 0	:01: My first module
+garden_learn_to_program: 1	:02: Pixel by pixel operations with two grids
+garden_learn_to_program: 2	:03: Direct neighbours
+garden_learn_to_program: 3	:04: Direct neighbours 
+garden_learn_to_program: 4	:05: Direct neighbours 
+garden_learn_to_program: 5	:06: Extended neighbourhoods
+garden_learn_to_program: 6	:07: Extended neighbourhoods 
+garden_learn_to_program: 7	:08: Extended neighbourhoods 
+garden_learn_to_program: 8	:09: Extended neighbourhoods 
+garden_learn_to_program: 9	:10: Dynamic Simulation 
+garden_learn_to_program: 10	:11: Dynamic Simulation 
+garden_learn_to_program: 11	:12: First steps with shapes
+garden_learn_to_program: 12	:13: Reprojecting a shapes layer
+garden_learn_to_program: 13	:14: Vectorising channel lines
 
 
-libio_odbc
+imagery_segmentation
 --------------------------------
-libio_odbc: 0	:ODBC Connect
-libio_odbc: 1	:ODBC Disconnect
-libio_odbc: 2	:ODBC Commit/Rollback Transaction
-libio_odbc: 3	:ODBC Execute SQL
-libio_odbc: 4	:Table Field Description
-libio_odbc: 5	:Table Import
-libio_odbc: 6	:Table Export
-libio_odbc: 7	:Table Deletion
-libio_odbc: 8	:Table from Query
-libio_odbc: 9	:Points Import
-libio_odbc: 10	:Points Export
-libio_odbc: 11	:PostGIS Shapes Import
-libio_odbc: 12	:PostGIS Shapes Export
+imagery_segmentation: 0	:Watershed Segmentation
+imagery_segmentation: 1	:Grid Skeletonization
+imagery_segmentation: 2	:Seed Generation
+imagery_segmentation: 3	:Simple Region Growing
 
 
-libgrid_analysis
+sim_hydrology
 --------------------------------
-libgrid_analysis: 0	:Accumulated Cost (Isotropic)
-libgrid_analysis: 1	:Accumulated Cost (Anisotropic)
-libgrid_analysis: 5	:Least Cost Paths
-libgrid_analysis: 6	:Change Vector Analysis
-libgrid_analysis: 7	:Covered Distance
-libgrid_analysis: 8	:Pattern Analysis
-libgrid_analysis: 9	:Layer of extreme value
-libgrid_analysis: 10	:Analytical Hierarchy Process
-libgrid_analysis: 11	:Ordered Weighted Averaging (OWA)
-libgrid_analysis: 12	:Aggregation Index
-libgrid_analysis: 13	:Cross-Classification and Tabulation
-libgrid_analysis: 14	:Soil Texture Classification
-libgrid_analysis: 15	:Fragmentation (Standard)
-libgrid_analysis: 16	:Fragmentation (Alternative)
-libgrid_analysis: 17	:Fragmentation Classes from Density and Connectivity
+sim_hydrology: 0	:Soil Moisture Content
+sim_hydrology: 1	:Overland Flow 
+sim_hydrology: 2	:TOPMODEL
+sim_hydrology: 3	:Water Retention Capacity
 
 
-libta_preprocessor
+ta_morphometry
 --------------------------------
-libta_preprocessor: 0	:Flat Detection
-libta_preprocessor: 1	:Sink Drainage Route Detection
-libta_preprocessor: 2	:Sink Removal
-libta_preprocessor: 3	:Fill Sinks (Planchon/Darboux, 2001)
-libta_preprocessor: 4	:Fill Sinks (Wang & Liu)
-libta_preprocessor: 5	:Fill Sinks XXL (Wang & Liu)
-libta_preprocessor: 6	:Burn Stream Network into DEM
+ta_morphometry: 0	:Slope, Aspect, Curvature
+ta_morphometry: 1	:Convergence Index
+ta_morphometry: 2	:Convergence Index (Search Radius)
+ta_morphometry: 3	:Surface Specific Points
+ta_morphometry: 4	:Curvature Classification
+ta_morphometry: 5	:Hypsometry
+ta_morphometry: 6	:Real Surface Area
+ta_morphometry: 7	:Morphometric Protection Index
+ta_morphometry: 8	:Multiresolution Index of Valley Bottom Flatness (MRVBF)
+ta_morphometry: 9	:Downslope Distance Gradient
+ta_morphometry: 10	:Mass Balance Index
+ta_morphometry: 11	:Effective Air Flow Heights
+ta_morphometry: 12	:Diurnal Anisotropic Heating
+ta_morphometry: 13	:Land Surface Temperature
+ta_morphometry: 14	:Relative Heights and Slope Positions
+ta_morphometry: 15	:Wind Effect (Windward / Leeward Index)
+ta_morphometry: 16	:Terrain Ruggedness Index (TRI)
+ta_morphometry: 17	:Vector Ruggedness Measure (VRM)
+ta_morphometry: 18	:Topographic Position Index (TPI)
+ta_morphometry: 19	:TPI Based Landform Classification
+ta_morphometry: 20	:Terrain Surface Texture
+ta_morphometry: 21	:Terrain Surface Convexity
+ta_morphometry: 22	:Terrain Surface Classification
+ta_morphometry: 23	:Morphometric Features
+ta_morphometry: 24	:Valley and Ridge Detection (Top Hat Approach)
+ta_morphometry: 25	:Fuzzy Landform Element Classification
 
 
-libta_morphometry
+io_grid_image
 --------------------------------
-libta_morphometry: 0	:Slope, Aspect, Curvature
-libta_morphometry: 1	:Convergence Index
-libta_morphometry: 2	:Convergence Index (Search Radius)
-libta_morphometry: 3	:Surface Specific Points
-libta_morphometry: 4	:Curvature Classification
-libta_morphometry: 5	:Hypsometry
-libta_morphometry: 6	:Real Area Calculation
-libta_morphometry: 7	:Morphometric Protection Index
-libta_morphometry: 8	:Multiresolution Index of Valley Bottom Flatness (MRVBF)
-libta_morphometry: 9	:Downslope Distance Gradient
-libta_morphometry: 10	:Mass Balance Index
-libta_morphometry: 11	:Effective Air Flow Heights
-libta_morphometry: 12	:Diurnal Anisotropic Heating
-libta_morphometry: 13	:Land Surface Temperature
-libta_morphometry: 14	:Relative Heights and Slope Positions
-libta_morphometry: 15	:Wind Effect (Windward / Leeward Index)
-libta_morphometry: 16	:Terrain Ruggedness Index (TRI)
-libta_morphometry: 17	:Vector Ruggedness Measure (VRM)
-libta_morphometry: 18	:Topographic Position Index (TPI)
-libta_morphometry: 19	:TPI Based Landform Classification
+io_grid_image: 0	:Export Image (bmp, jpg, pcx, png, tif)
+io_grid_image: 1	:Import Image (bmp, jpg, png, tif, gif, pnm, xpm)
 
 
-libimagery_classification
+climate_tools
 --------------------------------
-libimagery_classification: 0	:Supervised Classification
-libimagery_classification: 1	:Cluster Analysis for Grids
-libimagery_classification: 2	:Change Detection
-libimagery_classification: 3	:Decision Tree
+climate_tools: 0	:Multi Level to Surface Interpolation
+climate_tools: 1	:Multi Level to Points Interpolation
+climate_tools: 2	:Earth's Orbital Parameters
+climate_tools: 3	:Annual Course of Daily Insolation
+climate_tools: 4	:Daily Insolation over Latitude
+climate_tools: 5	:Monthly Global by Latitude
+climate_tools: 6	:PET (after Hargreave)
+climate_tools: 7	:Daily to Hourly PET
 
 
-libtable_tools
+io_grid_grib2
 --------------------------------
-libtable_tools: 0	:Create New Table
-libtable_tools: 1	:Transpose Table
-libtable_tools: 2	:Enumerate Table Field
-libtable_tools: 3	:Join Attributes from a Table
-libtable_tools: 4	:Join Attributes from a Table (Shapes)
-libtable_tools: 5	:Change Date Format
-libtable_tools: 6	:Change Time Format
+io_grid_grib2: 0	:Import GRIB2 record
 
 
-libshapes_polygons
+io_virtual
 --------------------------------
-libshapes_polygons: 0	:Polygon Intersection
-libshapes_polygons: 1	:Polygon Centroids
-libshapes_polygons: 2	:Polygon Properties
-libshapes_polygons: 3	:Convert Lines to Polygons
-libshapes_polygons: 4	:Point Statistics for Polygons
-libshapes_polygons: 5	:Polygon Dissolve
-libshapes_polygons: 6	:Convert Polygon/Line Vertices to Points
-libshapes_polygons: 7	:Polygon Shape Indices
-libshapes_polygons: 8	:Polygon-Line Intersection
-libshapes_polygons: 9	:Polygons to Edges and Nodes
-libshapes_polygons: 10	:Polygon Parts to Separate Polygons
+io_virtual: 0	:Create Virtual Point Cloud Dataset
+io_virtual: 1	:Get Subset from Virtual Point Cloud
 
 
-libpj_georeference
+io_shapes
 --------------------------------
-libpj_georeference: 1	:Georeferencing 
-libpj_georeference: 2	:Georeferencing 
+io_shapes: 0	:Export GStat Shapes
+io_shapes: 1	:Import GStat Shapes
+io_shapes: 2	:Export Shapes to XYZ
+io_shapes: 3	:Import Shapes from XYZ
+io_shapes: 4	:Export Shapes to Generate
+io_shapes: 5	:Export Surfer Blanking File
+io_shapes: 6	:Import Surfer Blanking Files
+io_shapes: 7	:Export Atlas Boundary File
+io_shapes: 8	:Import Atlas Boundary File
+io_shapes: 9	:Export WASP terrain map file
+io_shapes: 10	:Import WASP terrain map file
+io_shapes: 11	:Import Stereo Lithography File (STL)
+io_shapes: 12	:Export TIN to Stereo Lithography File (STL)
+io_shapes: 13	:Import GPX
+io_shapes: 14	:Export GPX
+io_shapes: 15	:Import Point Cloud from Shape File
+io_shapes: 16	:Import Point Cloud from Text File
+io_shapes: 17	:Export Scalable Vector Graphics (SVG) File
+io_shapes: 18	:Export Point Cloud to Text File
+io_shapes: 19	:Import Simple Features from Well Known Text
+io_shapes: 20	:Export Simple Features to Well Known Text
 
 
-libimagery_rga
+garden_fractals
 --------------------------------
-libimagery_rga: 0	:Fast Region Growing Algorithm
+garden_fractals: 0	:Bifurcation
+garden_fractals: 1	:Pythagoras' Tree
+garden_fractals: 3	:Fractal Dimension of Grid Surface
+garden_fractals: 5	:Gaussian Landscapes
 
 
-libgeostatistics_kriging
+imagery_classification
 --------------------------------
-libgeostatistics_kriging: 0	:Ordinary Kriging (VF)
-libgeostatistics_kriging: 1	:Ordinary Kriging (VF, Global)
-libgeostatistics_kriging: 2	:Universal Kriging (VF)
-libgeostatistics_kriging: 3	:Universal Kriging (VF, Global)
-libgeostatistics_kriging: 4	:Variogram (Dialog))
-libgeostatistics_kriging: 5	:Ordinary Kriging
-libgeostatistics_kriging: 6	:Ordinary Kriging (Global)
-libgeostatistics_kriging: 7	:Universal Kriging
-libgeostatistics_kriging: 8	:Universal Kriging (Global)
+imagery_classification: 0	:Supervised Classification
+imagery_classification: 1	:Cluster Analysis for Grids
+imagery_classification: 2	:Change Detection
+imagery_classification: 3	:Decision Tree
+imagery_classification: 4	:Supervised Classification for Polygons
 
 
-libio_grid
+ta_preprocessor
 --------------------------------
-libio_grid: 0	:Export ESRI Arc/Info Grid
-libio_grid: 1	:Import ESRI Arc/Info Grid
-libio_grid: 2	:Export Surfer Grid
-libio_grid: 3	:Import Surfer Grid
-libio_grid: 4	:Import Binary Raw Data
-libio_grid: 5	:Export Grid to XYZ
-libio_grid: 6	:Import Grid from XYZ
-libio_grid: 7	:Import USGS SRTM Grid
-libio_grid: 8	:Import MOLA Grid (MEGDR)
-libio_grid: 9	:Import SRTM30 DEM
-libio_grid: 10	:Export True Color Bitmap
-libio_grid: 11	:Import Erdas LAN/GIS
-libio_grid: 12	:Import Grid from Table
-libio_grid: 13	:Import WRF Geogrid Binary Format
-libio_grid: 14	:Export WRF Geogrid Binary Format
+ta_preprocessor: 0	:Flat Detection
+ta_preprocessor: 1	:Sink Drainage Route Detection
+ta_preprocessor: 2	:Sink Removal
+ta_preprocessor: 3	:Fill Sinks (Planchon/Darboux, 2001)
+ta_preprocessor: 4	:Fill Sinks (Wang & Liu)
+ta_preprocessor: 5	:Fill Sinks XXL (Wang & Liu)
+ta_preprocessor: 6	:Burn Stream Network into DEM
 
 
-libsim_cellular_automata
+sim_erosion
 --------------------------------
-libsim_cellular_automata: 0	:Conway's Life
-libsim_cellular_automata: 1	:Wa-Tor
+sim_erosion: 0	:MMF-SAGA Soil Erosion Model
 
 
-libsim_ecosystems_hugget
+table_calculus
 --------------------------------
-libsim_ecosystems_hugget: 0	:01: A Simple Litter System
-libsim_ecosystems_hugget: 1	:02: Carbon Cycle Simulation for Terrestrial Biomass
-libsim_ecosystems_hugget: 2	:03: Spatially Distributed Simulation of Soil Nitrogen Dynamics
+table_calculus: 0	:Function Fit
+table_calculus: 1	:Table Calculator
+table_calculus: 2	:Table Calculator (Shapes)
+table_calculus: 5	:Running Average
+table_calculus: 6	:Cluster Analysis
+table_calculus: 7	:Principle Components Analysis
+table_calculus: 8	:Fill Gaps in Records
+table_calculus: 11	:Find Field of Extreme Value
 
 
-libcontrib_a_perego
+statistics_grid
 --------------------------------
-libcontrib_a_perego: 0	:Average With Thereshold 1
-libcontrib_a_perego: 1	:Average With Thereshold 2
-libcontrib_a_perego: 2	:Average With Thereshold 3
-libcontrib_a_perego: 3	:Average With Mask 1
-libcontrib_a_perego: 4	:Average With Mask 2
-libcontrib_a_perego: 5	:Destriping 1
-libcontrib_a_perego: 6	:Destriping 2
-libcontrib_a_perego: 7	:Directional Average 1
+statistics_grid: 0	:Fast Representativeness
+statistics_grid: 1	:Residual Analysis (Grid)
+statistics_grid: 2	:Representativeness (Grid)
+statistics_grid: 3	:Radius of Variance (Grid)
+statistics_grid: 4	:Statistics for Grids
+statistics_grid: 5	:Zonal Grid Statistics
+statistics_grid: 6	:Directional Statistics for Single Grid
+statistics_grid: 7	:Global Moran's I for Grids
+statistics_grid: 8	:Principle Components Analysis
+statistics_grid: 9	:Multi-Band Variation
+statistics_grid: 10	:Inverse Principle Components Rotation
+statistics_grid: 11	:Longitudinal Grid Statistics
+statistics_grid: 12	:Meridional Grid Statistics
+statistics_grid: 13	:Save Grid Statistics to Table
 
 
-libshapes_grid
+io_shapes_dxf
 --------------------------------
-libshapes_grid: 0	:Add Grid Values to Points
-libshapes_grid: 1	:Add Grid Values to Shapes
-libshapes_grid: 2	:Grid Statistics for Polygons
-libshapes_grid: 3	:Grid Values to Points
-libshapes_grid: 4	:Grid Values to Points (randomly)
-libshapes_grid: 5	:Contour Lines from Grid
-libshapes_grid: 6	:Vectorising Grid Classes
-libshapes_grid: 7	:Clip Grid with Polygon
-libshapes_grid: 9	:Local Minima and Maxima
-libshapes_grid: 10	:Grid System Extent
-libshapes_grid: 15	:Gradient Vectors from Surface
-libshapes_grid: 16	:Gradient Vectors from Direction and Length
-libshapes_grid: 17	:Gradient Vectors from Directional Components
+io_shapes_dxf: 0	:Import DXF Files
 
 
-libgarden_3d_viewer
+ta_profiles
 --------------------------------
-libgarden_3d_viewer: 0	:3D Shapes Viewer
+ta_profiles: 3	:Cross Profiles
+ta_profiles: 4	:Profiles from Lines
+ta_profiles: 5	:Profile from points
 
 
-libpj_proj4
+grid_visualisation
 --------------------------------
-libpj_proj4: 0	:Set Coordinate Reference System
-libpj_proj4: 1	:Coordinate Transformation (Shapes List)
-libpj_proj4: 2	:Coordinate Transformation (Shapes)
-libpj_proj4: 3	:Coordinate Transformation (Grid List)
-libpj_proj4: 4	:Coordinate Transformation (Grid)
-libpj_proj4: 5	:Proj.4 (Command Line Arguments, Shapes)
-libpj_proj4: 6	:Proj.4 (Dialog, Shapes)
-libpj_proj4: 7	:Proj.4 (Command Line Arguments, Grid)
-libpj_proj4: 8	:Proj.4 (Dialog, Grid)
-libpj_proj4: 9	:Proj.4 (Command Line Arguments, List of Shapes Layers)
-libpj_proj4: 10	:Proj.4 (Dialog, List of Shapes Layers)
-libpj_proj4: 11	:Proj.4 (Command Line Arguments, List of Grids)
-libpj_proj4: 12	:Proj.4 (Dialog, List of Grids)
+grid_visualisation: 0	:Color Palette Rotation
+grid_visualisation: 1	:Color Blending
+grid_visualisation: 2	:Fit Color Palette to Grid Values
+grid_visualisation: 3	:RGB Composite
+grid_visualisation: 4	:Create 3D Image
+grid_visualisation: 5	:Color Triangle Composite
+grid_visualisation: 6	:Histogram Surface
+grid_visualisation: 7	:Aspect-Slope Grid
 
 
-libihacres
+shapes_lines
 --------------------------------
-libihacres: 0	:IHACRES Calibration (2)
-libihacres: 1	:IHACRES Version 1.0
-libihacres: 2	:IHACRES Basin
-libihacres: 3	:IHACRES Elevation Bands
-libihacres: 4	:IHACRES Elevation Bands Calibration
+shapes_lines: 0	:Convert Polygons to Lines
+shapes_lines: 1	:Convert Points to Line(s)
+shapes_lines: 2	:Line Properties
+shapes_lines: 3	:Line-Polygon Intersection
+shapes_lines: 4	:Line Simplification
+shapes_lines: 5	:Line Dissolve
+shapes_lines: 6	:Split Lines with Lines
 
 
-libtin_viewer
+ta_lighting
 --------------------------------
-libtin_viewer: 0	:TIN Viewer
+ta_lighting: 0	:Analytical Hillshading
+ta_lighting: 2	:Potential Incoming Solar Radiation
+ta_lighting: 3	:Sky View Factor
+ta_lighting: 4	:Topographic Correction
+ta_lighting: 5	:Topographic Openness
+ta_lighting: 6	:Visibility (points)
 
 
-libgrid_calculus
+garden_games
 --------------------------------
-libgrid_calculus: 0	:Grid Normalisation
-libgrid_calculus: 1	:Grid Calculator
-libgrid_calculus: 2	:Grid Volume
-libgrid_calculus: 3	:Grid Difference
-libgrid_calculus: 4	:Function
-libgrid_calculus: 5	:Geometric Figures
-libgrid_calculus: 6	:Random Terrain Generation
-libgrid_calculus: 7	:Random Field
-libgrid_calculus: 8	:Grids Sum
-libgrid_calculus: 9	:Grids Product
-libgrid_calculus: 10	:Grid Standardisation
-libgrid_calculus: 11	:Fuzzify
-libgrid_calculus: 12	:Fuzzy Intersection (AND)
-libgrid_calculus: 13	:Fuzzy Union (OR)
-libgrid_calculus: 14	:Metric Conversions
-libgrid_calculus: 15	:Gradient Vector from Cartesian to Polar Coordinates
-libgrid_calculus: 16	:Gradient Vector from Polar to Cartesian Coordinates
-libgrid_calculus: 17	:Polynomial Trend from Grids
-libgrid_calculus: 18	:Grid Division
 
 
-libimagery_segmentation
+grid_filter
 --------------------------------
-libimagery_segmentation: 0	:Watershed Segmentation
-libimagery_segmentation: 1	:Grid Skeletonization
-libimagery_segmentation: 2	:Seed Generation
-libimagery_segmentation: 3	:Simple Region Growing
+grid_filter: 0	:Simple Filter
+grid_filter: 1	:Gaussian Filter
+grid_filter: 2	:Laplacian Filter
+grid_filter: 3	:Multi Direction Lee Filter
+grid_filter: 4	:User Defined Filter
+grid_filter: 5	:Filter Clumps
+grid_filter: 6	:Majority Filter
+grid_filter: 7	:DTM Filter (slope-based)
+grid_filter: 8	:Morphological Filter
+grid_filter: 9	:Rank Filter
+grid_filter: 10	:Mesh Denoise
+grid_filter: 11	:Resampling Filter
+grid_filter: 12	:Geodesic Morphological Reconstruction
+grid_filter: 13	:Binary Erosion-Reconstruction
+grid_filter: 14	:Connectivity Analysis
+grid_filter: 15	:Sieving Classes
 
 
-libio_gps
+pointcloud_tools
 --------------------------------
-libio_gps: 0	:GPX to shapefile
-libio_gps: 1	:GPSBabel
+pointcloud_tools: 0	:Point Cloud Cutter
+pointcloud_tools: 2	:Point Cloud from Grid Points
+pointcloud_tools: 3	:Point Cloud from Shapes
+pointcloud_tools: 4	:Point Cloud to Grid
+pointcloud_tools: 5	:Point Cloud to Shapes
+pointcloud_tools: 6	:Point Cloud Reclassifier / Subset Extractor
+pointcloud_tools: 7	:Drop Point Cloud Attributes
+pointcloud_tools: 8	:Transform Point Cloud
+pointcloud_tools: 9	:Point Cloud Thinning (simple)
+pointcloud_tools: 10	:Point Cloud Attribute Calculator
+pointcloud_tools: 11	:Cluster Analysis for Point Clouds
+pointcloud_tools: 12	:Merge Point Clouds
 
 
-libta_profiles
+shapes_tools
 --------------------------------
-libta_profiles: 3	:Cross Profiles
-libta_profiles: 4	:Profiles from Lines
-libta_profiles: 5	:Profile from points
+shapes_tools: 0	:Create New Shapes Layer
+shapes_tools: 2	:Merge Shapes Layers
+shapes_tools: 3	:Select by Attributes... (Numerical Expression)
+shapes_tools: 4	:Select by Attributes... (String Expression)
+shapes_tools: 5	:Select by Location...
+shapes_tools: 6	:Copy Selection to New Shapes Layer
+shapes_tools: 7	:Delete Selection from Shapes Layer
+shapes_tools: 8	:Invert Selection of Shapes Layer
+shapes_tools: 9	:Split Shapes Layer Completely
+shapes_tools: 10	:Transform Shapes
+shapes_tools: 11	:Create Chart Layer (bars/sectors)
+shapes_tools: 12	:Create Graticule
+shapes_tools: 13	:Cut Shapes Layer
+shapes_tools: 15	:Split Shapes Layer
+shapes_tools: 16	:Split Shapes Layer Randomly
+shapes_tools: 17	:Split Table/Shapes by Attribute
+shapes_tools: 18	:Shapes Buffer
+shapes_tools: 19	:Get Shapes Extents
+shapes_tools: 20	:QuadTree Structure to Shapes
+shapes_tools: 21	:Polar to Cartesian Coordinates
+shapes_tools: 22	:Generate Shapes
+shapes_tools: 23	:Convert Vertex Type (2D/3D)
+
+
+statistics_points
+--------------------------------
+statistics_points: 0	:Variogram
+statistics_points: 1	:Variogram Cloud
+statistics_points: 2	:Variogram Surface
+statistics_points: 3	:Minimum Distance Analysis
+statistics_points: 4	:Spatial Point Pattern Analysis
+
+
+sim_cellular_automata
+--------------------------------
+sim_cellular_automata: 0	:Conway's Life
+sim_cellular_automata: 1	:Wa-Tor
 
 

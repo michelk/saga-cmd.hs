@@ -1,10 +1,11 @@
+all: modules.png
 
 lib.list : 
-	saga_cmd | grep "\- lib" | sed -e 's/\- //' -e 's/\.so//' > $@
+	saga_cmd | grep "^\-" | sed 's/^- //' > $@
 
-module.list : 
+module.list :  lib.list
 	rm -f $@
-	for l in $$(cat lib.list); do \
+	for l in $$(cat $<); do \
 		echo $$l >> $@ ;\
 		echo "--------------------------------" >> $@ ;\
 		saga_cmd $$l | grep "\- " \

@@ -56,7 +56,7 @@ sIoDB = M.fromList [
        (M.fromList [
            ]) Nothing Nothing, ".tif"))
   ,("gdalGrid", (
-       SagaCmd "io_gdal" "0" ("GRIDS","FILES")
+       SagaCmd "io_gdal" "0" ("FILES", "GRIDS")
        (M.fromList [
            ]) Nothing Nothing, ".sgrd"))
   ,("gridXyz", (

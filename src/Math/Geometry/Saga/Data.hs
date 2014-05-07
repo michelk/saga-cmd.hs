@@ -109,8 +109,9 @@ sNodes :: NodeMap
 sNodes =
   M.fromList [
     ("las", ([], ["lasToPtCld"]))
+   ,("gdal", ([], ["gdalGrid"]))
    ,("ptc", (["lasToPtCld"], ["ptCldToGrid"]))
-   ,("grid", (["ptCldToGrid", "xyzGridToGrid"],
+   ,("grid", (["ptCldToGrid", "xyzGridToGrid", "gdalGrid"],
       ["gridFillGaps", "gridTifGdal", "gridPolyClip"
       ,"gridSlope", "gridClassToPoly", "gridClassifyFlat"]))
    ,("xyz-grid", ([], ["xyzGridToGrid"]))

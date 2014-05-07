@@ -33,17 +33,25 @@ This is *Work In Progress*.
 
 <col  class="left" />
 </colgroup>
-<thead>
-<tr>
-<th scope="col" class="left">Command</th>
-<th scope="col" class="left">(cmdPar,sagaPar,default)</th>
-<th scope="col" class="left">sagaLib</th>
-<th scope="col" class="right">sagaModule</th>
-<th scope="col" class="left">defaultSuffix</th>
-</tr>
-</thead>
-
 <tbody>
+<tr>
+<td class="left">Command</td>
+<td class="left">(cmdPar,sagaPar,default)</td>
+<td class="left">sagaLib</td>
+<td class="right">sagaModule</td>
+<td class="left">defaultSuffix</td>
+</tr>
+
+
+<tr>
+<td class="left">gdalGrid</td>
+<td class="left">NA</td>
+<td class="left">io<sub>gdal</sub></td>
+<td class="right">0</td>
+<td class="left">.sgrd</td>
+</tr>
+
+
 <tr>
 <td class="left">gridClassToPoly</td>
 <td class="left">(all,CLASS<sub>ALL</sub>,0):(id,CLASS<sub>ID</sub>,1):(split,SPLIT,0)</td>
@@ -269,7 +277,7 @@ In order to extend functionality, the follwing steps are necessary
 ## Find the module
 
     cd saga-cmd-wrapper/do
-    ./search <keyword> 
+    ./search <keyword>
 
 ## New SagaCmd
 

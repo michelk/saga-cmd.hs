@@ -1,7 +1,7 @@
 module Main where
 import System.Environment (getArgs, getProgName)
 import Control.Monad (when)
-import Math.Geometry.Saga.LUT
+import Gis.Saga.LUT
 
 main :: IO ()
 main = do

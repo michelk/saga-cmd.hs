@@ -1,4 +1,4 @@
-module Math.Geometry.Saga.LUT (bgrColTable)
+module Gis.Saga.LUT (bgrColTable)
 where 
 import Data.List (zip5, intercalate)
 import Text.Printf (printf)

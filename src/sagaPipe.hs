@@ -2,12 +2,12 @@
 module Main where
 import Control.Monad (when)
 import System.Console.CmdArgs
-import Math.Geometry.Saga.Types
-import Math.Geometry.Saga.Data
-import Math.Geometry.Saga.Utils
-import Math.Geometry.Saga.Cmd
-import Math.Geometry.Saga.Node (getAllRoutes)
-import Math.Geometry.Saga.Doc
+import Gis.Saga.Types
+import Gis.Saga.Data
+import Gis.Saga.Utils
+import Gis.Saga.Cmd
+import Gis.Saga.Node (getAllRoutes)
+import Gis.Saga.Doc
 import Data.Text (split, pack, unpack, Text)
 import qualified Data.Map as M
 import Data.Maybe (fromJust, fromMaybe)

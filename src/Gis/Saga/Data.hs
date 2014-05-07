@@ -1,6 +1,6 @@
-module Math.Geometry.Saga.Data where
-import Math.Geometry.Saga.Types
-import Math.Geometry.Saga.Utils
+module Gis.Saga.Data where
+import Gis.Saga.Types
+import Gis.Saga.Utils
 import System.Directory (removeFile)
 import qualified Data.Map as M
 

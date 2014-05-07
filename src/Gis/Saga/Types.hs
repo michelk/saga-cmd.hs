@@ -1,4 +1,4 @@
-module Math.Geometry.Saga.Types where
+module Gis.Saga.Types where
 import qualified Data.Map as M
 
 -- | Parameters passed in with command-line

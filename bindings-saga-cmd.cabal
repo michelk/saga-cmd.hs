@@ -11,13 +11,13 @@ build-type:          Simple
 cabal-version:       >=1.8
 
 library
-  exposed-modules:   Math.Geometry.Saga.Types
-                     Math.Geometry.Saga.Cmd
-                     Math.Geometry.Saga.Data
-                     Math.Geometry.Saga.Utils
-                     Math.Geometry.Saga.LUT
-                     Math.Geometry.Saga.Doc
-                     Math.Geometry.Saga.Node
+  exposed-modules:   Gis.Saga.Types
+                     Gis.Saga.Cmd
+                     Gis.Saga.Data
+                     Gis.Saga.Utils
+                     Gis.Saga.LUT
+                     Gis.Saga.Doc
+                     Gis.Saga.Node
   build-depends:     base,
                      filepath,
                      process,

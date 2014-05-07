@@ -1,10 +1,10 @@
-module Math.Geometry.Saga.Cmd where
+module Gis.Saga.Cmd where
 import           Data.Map (elems)
 import qualified Data.Map as M
 import           Data.Maybe (fromMaybe, fromJust)
 import           GHC.IO.Exception
-import           Math.Geometry.Saga.Types
-import           Math.Geometry.Saga.Utils
+import           Gis.Saga.Types
+import           Gis.Saga.Utils
 import           System.Cmd (system)
 import           System.Posix.Temp (mkdtemp)
 import           System.FilePath.Posix (replaceDirectory, joinPath)

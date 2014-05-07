@@ -1,5 +1,5 @@
-module Math.Geometry.Saga.Utils where
-import Math.Geometry.Saga.Types
+module Gis.Saga.Utils where
+import Gis.Saga.Types
 import qualified Data.Map  as M
 import System.FilePath.Posix (dropExtension, replaceExtension)
 import System.Directory (copyFile, renameFile)

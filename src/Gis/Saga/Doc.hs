@@ -1,8 +1,8 @@
 {-# LANGUAGE FlexibleInstances #-}
-module Math.Geometry.Saga.Doc (renderTable, renderDot, renderNodes)
+module Gis.Saga.Doc (renderTable, renderDot, renderNodes)
 where
 import qualified Data.Map as M
-import           Math.Geometry.Saga.Types
+import           Gis.Saga.Types
 import           Data.List (intercalate)
 import           Text.Printf (printf)
 

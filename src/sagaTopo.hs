@@ -3,10 +3,10 @@
 module Main where
 import           Control.Monad (when)
 import qualified Data.Map as M
-import           Math.Geometry.Saga.Cmd
-import           Math.Geometry.Saga.Data
-import           Math.Geometry.Saga.LUT
-import           Math.Geometry.Saga.Types
+import           Gis.Saga.Cmd
+import           Gis.Saga.Data
+import           Gis.Saga.LUT
+import           Gis.Saga.Types
 import           Prelude hiding (min,max)
 import           System.Console.CmdArgs
 import           System.Environment (getArgs, withArgs)

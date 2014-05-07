@@ -1,7 +1,7 @@
-module Math.Geometry.Saga.Node (getAllRoutes)
+module Gis.Saga.Node (getAllRoutes)
 where
 import qualified Data.Map as M
-import Math.Geometry.Saga.Types
+import Gis.Saga.Types
 
 -- | find all possible edges between Nodes
 findEdges :: NodeMap -> [((String,String),[String])]

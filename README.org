@@ -42,7 +42,7 @@
 
    #+RESULTS:
    | Command          | (cmdPar,sagaPar,default)                                           | sagaLib          | sagaModule | defaultSuffix      |
-   |------------------+--------------------------------------------------------------------+------------------+------------+--------------------|
+   | gdalGrid         | NA                                                                 | io_gdal          |          0 | .sgrd              |
    | gridClassToPoly  | (all,CLASS_ALL,0):(id,CLASS_ID,1):(split,SPLIT,0)                  | shapes_grid      |          6 | _polygons.shp      |
    | gridClassifyFlat | (method,METHOD,2):(table,RETAB,reclassify.txt)                     | grid_tools       |         15 | _reclassified.sgrd |
    | gridContour      | (d,ZSTEP,1):(max,ZMAX,10000):(min,ZMIN,0)                          | shapes_grid      |          5 | _contour.sgrd      |

@@ -48,8 +48,22 @@ sIoDB = M.fromList [
   ,("gridTifHillshade", (
        SagaCmd "io_grid_image" "0" ("GRID","FILE")
        (M.fromList [
-           ("col" ,  ("COL_PALETTE" , "2"))
-          ,("colRev",("COL_REVERT"  , ""))
+           ("pal" ,  ("COL_PALETTE", "2"))
+          ,("colRev",("COL_REVERT" , ""))
+          ,("min",("STRETCH_MIN" , "0"))
+          ,("max",("STRETCH_MAX" , "1.571"))
+          --,("stddev",("STDDEV"   , "2"))
+          ,("col",("COLOURING"   , "2"))
+           ]) Nothing Nothing, ".tif"))
+  ,("gridTifTerrain", (
+       SagaCmd "io_grid_image" "0" ("GRID","FILE")
+       (M.fromList [
+           ("pal" ,  ("COL_PALETTE", "23"))
+          --,("colRev",("COL_REVERT" , ""))
+          ,("min",("STRETCH_MIN" , "0"))
+          ,("max",("STRETCH_MAX" , "100"))
+          --,("stddev",("STDDEV"   , "2"))
+          ,("col",("COLOURING"   , "2"))
            ]) Nothing Nothing, ".tif"))
   ,("gridTifGdal", (
        SagaCmd "io_gdal" "2" ("GRIDS","FILE")

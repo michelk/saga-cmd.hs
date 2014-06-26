@@ -1,3 +1,8 @@
+pointcloud_viewer
+--------------------------------
+pointcloud_viewer: 0	:Point Cloud Viewer
+
+
 grid_spline
 --------------------------------
 grid_spline: 0	:Thin Plate Spline (Global)
@@ -51,7 +56,7 @@ shapes_points
 shapes_points: 0	:Convert Table to Points
 shapes_points: 1	:Count Points in Polygons
 shapes_points: 2	:Create Point Grid
-shapes_points: 3	:Distance Matrix
+shapes_points: 3	:Point Distances
 shapes_points: 4	:Fit N Points to shape
 shapes_points: 5	:Convert Lines to Points
 shapes_points: 6	:Add Coordinates to points
@@ -185,6 +190,15 @@ io_gdal: 5	:OGR: Export Shapes to KML
 io_gdal: 6	:GDAL: Import NetCDF
 
 
+garden_3d_viewer
+--------------------------------
+garden_3d_viewer: 0	:TIN Viewer
+garden_3d_viewer: 1	:Point Cloud Viewer
+garden_3d_viewer: 2	:3D Shapes Viewer
+garden_3d_viewer: 3	:Globe Viewer for Grids
+garden_3d_viewer: 4	:Multiple Grids Viewer
+
+
 db_pgsql
 --------------------------------
 db_pgsql: 0	:List PostgreSQL Connections
@@ -237,6 +251,7 @@ shapes_polygons: 17	:Union
 shapes_polygons: 18	:Update
 shapes_polygons: 19	:Identity
 shapes_polygons: 20	:Add Point Attributes to Polygons
+shapes_polygons: 21	:Flatten Polygon Layer
 
 
 shapes_grid
@@ -310,6 +325,10 @@ pj_proj4: 12	:Proj.4 (Dialog, List of Grids)
 pj_proj4: 13	:Change Longitudinal Range for Grids
 pj_proj4: 14	:Latitude/Longitude Graticule
 pj_proj4: 15	:Coordinate Reference System Picker
+pj_proj4: 16	:Tissot's Indicatrix
+pj_proj4: 17	:Geographic Coordinate Grids
+pj_proj4: 18	:Coordinate Transformation (Point Cloud List)
+pj_proj4: 19	:Coordinate Transformation (Point Cloud)
 
 
 io_esri_e00
@@ -407,6 +426,19 @@ contrib_perego: 6	:Destriping with Mask
 contrib_perego: 7	:Directional Average
 
 
+statistics_kriging
+--------------------------------
+statistics_kriging: 0	:Ordinary Kriging
+statistics_kriging: 1	:Ordinary Kriging (Global)
+statistics_kriging: 2	:Universal Kriging
+statistics_kriging: 3	:Universal Kriging (Global)
+statistics_kriging: 4	:Variogram (Dialog))
+statistics_kriging: 5	:Ordinary Kriging
+statistics_kriging: 6	:Ordinary Kriging (Global)
+statistics_kriging: 7	:Universal Kriging
+statistics_kriging: 8	:Universal Kriging (Global)
+
+
 tin_tools
 --------------------------------
 tin_tools: 0	:Grid to TIN
@@ -416,6 +448,11 @@ tin_tools: 3	:TIN to Shapes
 tin_tools: 4	:Gradient
 tin_tools: 5	:Flow Accumulation (Trace)
 tin_tools: 6	:Flow Accumulation (Parallel)
+
+
+tin_viewer
+--------------------------------
+tin_viewer: 0	:TIN Viewer
 
 
 grid_calculus
@@ -526,6 +563,7 @@ io_grid_image
 --------------------------------
 io_grid_image: 0	:Export Image (bmp, jpg, pcx, png, tif)
 io_grid_image: 1	:Import Image (bmp, jpg, png, tif, gif, pnm, xpm)
+io_grid_image: 2	:Export Grid to KML
 
 
 climate_tools
@@ -549,6 +587,7 @@ io_virtual
 --------------------------------
 io_virtual: 0	:Create Virtual Point Cloud Dataset
 io_virtual: 1	:Get Subset from Virtual Point Cloud
+io_virtual: 2	:Create Tileshape from Virtual Point Cloud
 
 
 io_shapes
@@ -644,6 +683,12 @@ io_shapes_dxf
 io_shapes_dxf: 0	:Import DXF Files
 
 
+imagery_photogrammetry
+--------------------------------
+imagery_photogrammetry: 0	:Resection (Terrestrial)
+imagery_photogrammetry: 1	:Colorisation (PC)
+
+
 ta_profiles
 --------------------------------
 ta_profiles: 3	:Cross Profiles
@@ -661,6 +706,8 @@ grid_visualisation: 4	:Create 3D Image
 grid_visualisation: 5	:Color Triangle Composite
 grid_visualisation: 6	:Histogram Surface
 grid_visualisation: 7	:Aspect-Slope Grid
+grid_visualisation: 8	:Terrain Map View
+grid_visualisation: 9	:Split RGB Composite
 
 
 shapes_lines
@@ -727,7 +774,7 @@ pointcloud_tools: 12	:Merge Point Clouds
 shapes_tools
 --------------------------------
 shapes_tools: 0	:Create New Shapes Layer
-shapes_tools: 2	:Merge Shapes Layers
+shapes_tools: 2	:Merge Layers
 shapes_tools: 3	:Select by Attributes... (Numerical Expression)
 shapes_tools: 4	:Select by Attributes... (String Expression)
 shapes_tools: 5	:Select by Location...
@@ -748,6 +795,7 @@ shapes_tools: 20	:QuadTree Structure to Shapes
 shapes_tools: 21	:Polar to Cartesian Coordinates
 shapes_tools: 22	:Generate Shapes
 shapes_tools: 23	:Convert Vertex Type (2D/3D)
+shapes_tools: 24	:Merge Tables
 
 
 statistics_points

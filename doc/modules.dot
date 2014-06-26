@@ -1,5 +1,6 @@
 digraph modules {
 	rankdir = LR;
+	"pointcloud_viewer" -> "Point Cloud Viewer";
 	"grid_spline" -> "Thin Plate Spline (Global)";
 	"grid_spline" -> "Thin Plate Spline (Local)";
 	"grid_spline" -> "Thin Plate Spline (TIN)";
@@ -35,7 +36,7 @@ digraph modules {
 	"shapes_points" -> "Convert Table to Points";
 	"shapes_points" -> "Count Points in Polygons";
 	"shapes_points" -> "Create Point Grid";
-	"shapes_points" -> "Distance Matrix";
+	"shapes_points" -> "Point Distances";
 	"shapes_points" -> "Fit N Points to shape";
 	"shapes_points" -> "Convert Lines to Points";
 	"shapes_points" -> "Add Coordinates to points";
@@ -128,6 +129,11 @@ digraph modules {
 	"ta_channels" -> "Valley Depth";
 	"shapes_transect" -> "Transect through polygon shapefile";
 	"docs_html" -> "SVG Interactive Map";
+	"garden_3d_viewer" -> "TIN Viewer";
+	"garden_3d_viewer" -> "Point Cloud Viewer";
+	"garden_3d_viewer" -> "3D Shapes Viewer";
+	"garden_3d_viewer" -> "Globe Viewer for Grids";
+	"garden_3d_viewer" -> "Multiple Grids Viewer";
 	"db_pgsql" -> "List PostgreSQL Connections";
 	"db_pgsql" -> "Connect to PostgreSQL";
 	"db_pgsql" -> "Disconnect from PostgreSQL";
@@ -170,6 +176,7 @@ digraph modules {
 	"shapes_polygons" -> "Update";
 	"shapes_polygons" -> "Identity";
 	"shapes_polygons" -> "Add Point Attributes to Polygons";
+	"shapes_polygons" -> "Flatten Polygon Layer";
 	"shapes_grid" -> "Add Grid Values to Points";
 	"shapes_grid" -> "Add Grid Values to Shapes";
 	"shapes_grid" -> "Grid Statistics for Polygons";
@@ -223,6 +230,10 @@ digraph modules {
 	"pj_proj4" -> "Change Longitudinal Range for Grids";
 	"pj_proj4" -> "Latitude/Longitude Graticule";
 	"pj_proj4" -> "Coordinate Reference System Picker";
+	"pj_proj4" -> "Tissot's Indicatrix";
+	"pj_proj4" -> "Geographic Coordinate Grids";
+	"pj_proj4" -> "Coordinate Transformation (Point Cloud List)";
+	"pj_proj4" -> "Coordinate Transformation (Point Cloud)";
 	"io_esri_e00" -> "Import ESRI E00 File";
 	"io_gps" -> "GPX to shapefile";
 	"io_gps" -> "GPSBabel";
@@ -282,6 +293,15 @@ digraph modules {
 	"contrib_perego" -> "Destriping";
 	"contrib_perego" -> "Destriping with Mask";
 	"contrib_perego" -> "Directional Average";
+	"statistics_kriging" -> "Ordinary Kriging";
+	"statistics_kriging" -> "Ordinary Kriging (Global)";
+	"statistics_kriging" -> "Universal Kriging";
+	"statistics_kriging" -> "Universal Kriging (Global)";
+	"statistics_kriging" -> "Variogram (Dialog))";
+	"statistics_kriging" -> "Ordinary Kriging";
+	"statistics_kriging" -> "Ordinary Kriging (Global)";
+	"statistics_kriging" -> "Universal Kriging";
+	"statistics_kriging" -> "Universal Kriging (Global)";
 	"tin_tools" -> "Grid to TIN";
 	"tin_tools" -> "Grid to TIN (Surface Specific Points)";
 	"tin_tools" -> "Shapes to TIN";
@@ -289,6 +309,7 @@ digraph modules {
 	"tin_tools" -> "Gradient";
 	"tin_tools" -> "Flow Accumulation (Trace)";
 	"tin_tools" -> "Flow Accumulation (Parallel)";
+	"tin_viewer" -> "TIN Viewer";
 	"grid_calculus" -> "Grid Normalisation";
 	"grid_calculus" -> "Grid Calculator";
 	"grid_calculus" -> "Grid Volume";
@@ -346,6 +367,7 @@ digraph modules {
 	"ta_morphometry" -> "Fuzzy Landform Element Classification";
 	"io_grid_image" -> "Export Image (bmp, jpg, pcx, png, tif)";
 	"io_grid_image" -> "Import Image (bmp, jpg, png, tif, gif, pnm, xpm)";
+	"io_grid_image" -> "Export Grid to KML";
 	"climate_tools" -> "Multi Level to Surface Interpolation";
 	"climate_tools" -> "Multi Level to Points Interpolation";
 	"climate_tools" -> "Earth's Orbital Parameters";
@@ -357,6 +379,7 @@ digraph modules {
 	"io_grid_grib2" -> "Import GRIB2 record";
 	"io_virtual" -> "Create Virtual Point Cloud Dataset";
 	"io_virtual" -> "Get Subset from Virtual Point Cloud";
+	"io_virtual" -> "Create Tileshape from Virtual Point Cloud";
 	"io_shapes" -> "Export GStat Shapes";
 	"io_shapes" -> "Import GStat Shapes";
 	"io_shapes" -> "Export Shapes to XYZ";
@@ -418,6 +441,8 @@ digraph modules {
 	"statistics_grid" -> "Meridional Grid Statistics";
 	"statistics_grid" -> "Save Grid Statistics to Table";
 	"io_shapes_dxf" -> "Import DXF Files";
+	"imagery_photogrammetry" -> "Resection (Terrestrial)";
+	"imagery_photogrammetry" -> "Colorisation (PC)";
 	"ta_profiles" -> "Cross Profiles";
 	"ta_profiles" -> "Profiles from Lines";
 	"ta_profiles" -> "Profile from points";
@@ -429,6 +454,8 @@ digraph modules {
 	"grid_visualisation" -> "Color Triangle Composite";
 	"grid_visualisation" -> "Histogram Surface";
 	"grid_visualisation" -> "Aspect-Slope Grid";
+	"grid_visualisation" -> "Terrain Map View";
+	"grid_visualisation" -> "Split RGB Composite";
 	"shapes_lines" -> "Convert Polygons to Lines";
 	"shapes_lines" -> "Convert Points to Line(s)";
 	"shapes_lines" -> "Line Properties";
@@ -471,7 +498,7 @@ digraph modules {
 	"pointcloud_tools" -> "Cluster Analysis for Point Clouds";
 	"pointcloud_tools" -> "Merge Point Clouds";
 	"shapes_tools" -> "Create New Shapes Layer";
-	"shapes_tools" -> "Merge Shapes Layers";
+	"shapes_tools" -> "Merge Layers";
 	"shapes_tools" -> "Select by Attributes... (Numerical Expression)";
 	"shapes_tools" -> "Select by Attributes... (String Expression)";
 	"shapes_tools" -> "Select by Location...";
@@ -492,6 +519,7 @@ digraph modules {
 	"shapes_tools" -> "Polar to Cartesian Coordinates";
 	"shapes_tools" -> "Generate Shapes";
 	"shapes_tools" -> "Convert Vertex Type (2D/3D)";
+	"shapes_tools" -> "Merge Tables";
 	"statistics_points" -> "Variogram";
 	"statistics_points" -> "Variogram Cloud";
 	"statistics_points" -> "Variogram Surface";

@@ -1,3 +1,4 @@
+pointcloud_viewer
 grid_spline
 grid_calculus_bsl
 io_grid
@@ -11,6 +12,7 @@ ta_channels
 shapes_transect
 docs_html
 io_gdal
+garden_3d_viewer
 db_pgsql
 io_table
 shapes_polygons
@@ -28,7 +30,9 @@ ta_hydrology
 imagery_tools
 db_odbc
 contrib_perego
+statistics_kriging
 tin_tools
+tin_viewer
 grid_calculus
 sim_ecosystems_hugget
 garden_webservices
@@ -49,6 +53,7 @@ sim_erosion
 table_calculus
 statistics_grid
 io_shapes_dxf
+imagery_photogrammetry
 ta_profiles
 grid_visualisation
 shapes_lines

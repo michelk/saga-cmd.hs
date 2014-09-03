@@ -37,6 +37,7 @@ io_grid: 11	:Import Erdas LAN/GIS
 io_grid: 12	:Import Grid from Table
 io_grid: 13	:Import WRF Geogrid Binary Format
 io_grid: 14	:Export WRF Geogrid Binary Format
+io_grid: 15	:Import Building Sketches from CityGML
 
 
 grid_gridding
@@ -252,6 +253,7 @@ shapes_polygons: 18	:Update
 shapes_polygons: 19	:Identity
 shapes_polygons: 20	:Add Point Attributes to Polygons
 shapes_polygons: 21	:Flatten Polygon Layer
+shapes_polygons: 22	:Shared Polygon Edges
 
 
 shapes_grid
@@ -396,6 +398,7 @@ imagery_tools: 6	:Colour Normalized Spectral Sharpening
 imagery_tools: 7	:Principle Components Based Image Sharpening
 imagery_tools: 8	:Top of Atmosphere Reflectance
 imagery_tools: 9	:Automated Cloud Cover Assessment
+imagery_tools: 10	:Landsat Import with Options
 
 
 db_odbc
@@ -658,6 +661,7 @@ table_calculus: 6	:Cluster Analysis
 table_calculus: 7	:Principle Components Analysis
 table_calculus: 8	:Fill Gaps in Records
 table_calculus: 11	:Find Field of Extreme Value
+table_calculus: 12	:Minimum Redundancy Feature Selection
 
 
 statistics_grid

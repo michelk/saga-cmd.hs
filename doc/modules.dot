@@ -25,6 +25,7 @@ digraph modules {
 	"io_grid" -> "Import Grid from Table";
 	"io_grid" -> "Import WRF Geogrid Binary Format";
 	"io_grid" -> "Export WRF Geogrid Binary Format";
+	"io_grid" -> "Import Building Sketches from CityGML";
 	"grid_gridding" -> "Shapes to Grid";
 	"grid_gridding" -> "Inverse Distance Weighted";
 	"grid_gridding" -> "Nearest Neighbour";
@@ -177,6 +178,7 @@ digraph modules {
 	"shapes_polygons" -> "Identity";
 	"shapes_polygons" -> "Add Point Attributes to Polygons";
 	"shapes_polygons" -> "Flatten Polygon Layer";
+	"shapes_polygons" -> "Shared Polygon Edges";
 	"shapes_grid" -> "Add Grid Values to Points";
 	"shapes_grid" -> "Add Grid Values to Shapes";
 	"shapes_grid" -> "Grid Statistics for Polygons";
@@ -273,6 +275,7 @@ digraph modules {
 	"imagery_tools" -> "Principle Components Based Image Sharpening";
 	"imagery_tools" -> "Top of Atmosphere Reflectance";
 	"imagery_tools" -> "Automated Cloud Cover Assessment";
+	"imagery_tools" -> "Landsat Import with Options";
 	"db_odbc" -> "Connect to ODBC Source";
 	"db_odbc" -> "Disconnect from ODBC Source";
 	"db_odbc" -> "Commit/Rollback Transaction";
@@ -426,6 +429,7 @@ digraph modules {
 	"table_calculus" -> "Principle Components Analysis";
 	"table_calculus" -> "Fill Gaps in Records";
 	"table_calculus" -> "Find Field of Extreme Value";
+	"table_calculus" -> "Minimum Redundancy Feature Selection";
 	"statistics_grid" -> "Fast Representativeness";
 	"statistics_grid" -> "Residual Analysis (Grid)";
 	"statistics_grid" -> "Representativeness (Grid)";

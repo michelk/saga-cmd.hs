@@ -5,7 +5,7 @@ import           Data.Maybe (fromMaybe, fromJust)
 import           GHC.IO.Exception
 import           Gis.Saga.Types
 import           Gis.Saga.Utils
-import           System.Cmd (system)
+import           System.Process (system)
 import           System.Posix.Temp (mkdtemp)
 import           System.FilePath.Posix (replaceDirectory, joinPath)
 import           System.Directory (getTemporaryDirectory)
@@ -14,7 +14,7 @@ import           System.Directory (getTemporaryDirectory)
 progName :: String
 progName = "saga_cmd"
 
- -- | Call saga with a specific configuration
+-- | Call saga with a specific configuration
 doSaga :: SagaCmd -> IO FilePath
 doSaga (SagaCmd lib mod (kIn, kOut) ps maybePre maybePost fOut fIn) = do
    pre fIn fOut

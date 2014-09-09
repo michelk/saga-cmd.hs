@@ -9,12 +9,12 @@ sIoDB :: SagaIoCmdDB
 sIoDB = M.fromList [
   ("xyzGridToGrid", (
       SagaCmd "io_grid" "6" ("FILENAME","GRID") -- library, module, input-,output-parameters
-              (M.fromList [     -- ^ parameters: sagaPipe-par, saga_cmd-par, default
+              (M.fromList [     --  parameters: sagaPipe-par, saga_cmd-par, default
                    ("cs",  ("CELLSIZE"  , "1"))
                   ,("sep", ("SEPARATOR" , "space"))
                   ])
               Nothing Nothing   -- pre-, post-processing
-      , ".sgrd"                 -- ^ output-file extension
+      , ".sgrd"                 --  output-file extension
       )
   )
   ,("lasToPtCld", (

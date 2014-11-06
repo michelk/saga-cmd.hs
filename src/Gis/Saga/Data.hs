@@ -43,23 +43,23 @@ sIoDB = M.fromList [
   ,("gridPolyClip", (
        SagaCmd "shapes_grid" "7" ("INPUT","OUTPUT")
        (M.fromList [
-           ("poly" , ("POLYGONS"  , ""))
+           ("poly" , ("POLYGONS"  , "1"))
            ]) Nothing Nothing, "_polyClip.sgrd"))
   ,("gridTifHillshade", (
        SagaCmd "io_grid_image" "0" ("GRID","FILE")
        (M.fromList [
            ("pal" ,  ("COL_PALETTE", "2"))
-          ,("colRev",("COL_REVERT" , ""))
+          ,("colRev",("COL_REVERT" , "1"))
           ,("min",("STRETCH_MIN" , "0"))
           ,("max",("STRETCH_MAX" , "1.571"))
           --,("stddev",("STDDEV"   , "2"))
-          ,("col",("COLOURING"   , "2"))
+          --,("col",("COLOURING"   , "2"))
            ]) Nothing Nothing, ".tif"))
   ,("gridTifTerrain", (
        SagaCmd "io_grid_image" "0" ("GRID","FILE")
        (M.fromList [
            ("pal" ,  ("COL_PALETTE", "23"))
-          --,("colRev",("COL_REVERT" , ""))
+          --,("colRev",("COL_REVERT" , "1"))
           ,("min",("STRETCH_MIN" , "0"))
           ,("max",("STRETCH_MAX" , "100"))
           --,("stddev",("STDDEV"   , "2"))

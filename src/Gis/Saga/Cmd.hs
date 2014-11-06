@@ -37,15 +37,17 @@ saga ::
     -> [(String,String)]        -- ^ Parameter key-value
     -> IO ExitCode              -- ^ Output-file
 saga lib mod params =
-    system $ unwords [
+ do putStrLn cmd
+    system cmd
+  where
+    renderParams = map renderPara
+    renderPara (k,v) = "-" ++ k ++ "=" ++ v
+    cmd = unwords [
         progName
        ,lib
        ,mod
        ,unwords . renderParams  $ params
        ]
-  where
-    renderParams = map renderPara
-    renderPara (k,v) = "-" ++ k ++ " " ++ v
 
 
 -- | adjust default parameters with the ones given on the command-line

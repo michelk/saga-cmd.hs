@@ -1,6 +1,6 @@
 pointcloud_viewer
 --------------------------------
-pointcloud_viewer: 0	:Point Cloud Viewer
+pointcloud_viewer: 0	:[deprecated] Point Cloud Viewer
 
 
 grid_spline
@@ -98,7 +98,7 @@ grid_tools: 7	:Close Gaps
 grid_tools: 8	:Grid Buffer
 grid_tools: 9	:Threshold Buffer
 grid_tools: 10	:Grid Proximity Buffer
-grid_tools: 11	:Convert Data Storage Type
+grid_tools: 11	:Change Data Storage
 grid_tools: 12	:Change Grid Values
 grid_tools: 15	:Reclassify Grid Values
 grid_tools: 17	:Crop to Data
@@ -144,18 +144,18 @@ statistics_regression
 statistics_regression: 0	:Regression Analysis (Points/Grid)
 statistics_regression: 1	:Multiple Regression Analysis (Points/Grids)
 statistics_regression: 2	:Polynomial Regression
-statistics_regression: 3	:Geographically Weighted Regression
-statistics_regression: 4	:Geographically Weighted Regression (Points/Grid)
-statistics_regression: 5	:Geographically Weighted Multiple Regression
-statistics_regression: 6	:GWR Gridding (Points/Grids)
-statistics_regression: 7	:Geographically Weighted Multiple Regression (Points)
+statistics_regression: 3	:GWR for Single Predictor (Gridded Model Output)
+statistics_regression: 4	:GWR for Single Predictor Grid
+statistics_regression: 5	:GWR for Multiple Predictors (Gridded Model Output)
+statistics_regression: 6	:GWR for Multiple Predictor Grids
+statistics_regression: 7	:GWR for Multiple Predictors
 statistics_regression: 8	:Multiple Regression Analysis (Grid/Grids)
 statistics_regression: 9	:Polynomial Trend from Grids
 statistics_regression: 10	:Trend Analysis
 statistics_regression: 11	:Trend Analysis (Shapes)
 statistics_regression: 12	:Multiple Linear Regression Analysis
 statistics_regression: 13	:Multiple Linear Regression Analysis (Shapes)
-statistics_regression: 14	:GWR Grid Downscaling
+statistics_regression: 14	:GWR for Grid Downscaling
 
 
 ta_channels
@@ -188,7 +188,6 @@ io_gdal: 2	:GDAL: Export Raster to GeoTIFF
 io_gdal: 3	:OGR: Import Vector Data
 io_gdal: 4	:OGR: Export Vector Data
 io_gdal: 5	:OGR: Export Shapes to KML
-io_gdal: 6	:GDAL: Import NetCDF
 
 
 garden_3d_viewer
@@ -316,14 +315,14 @@ pj_proj4: 1	:Coordinate Transformation (Shapes List)
 pj_proj4: 2	:Coordinate Transformation (Shapes)
 pj_proj4: 3	:Coordinate Transformation (Grid List)
 pj_proj4: 4	:Coordinate Transformation (Grid)
-pj_proj4: 5	:Proj.4 (Command Line Arguments, Shapes)
-pj_proj4: 6	:Proj.4 (Dialog, Shapes)
-pj_proj4: 7	:Proj.4 (Command Line Arguments, Grid)
-pj_proj4: 8	:Proj.4 (Dialog, Grid)
-pj_proj4: 9	:Proj.4 (Command Line Arguments, List of Shapes Layers)
-pj_proj4: 10	:Proj.4 (Dialog, List of Shapes Layers)
-pj_proj4: 11	:Proj.4 (Command Line Arguments, List of Grids)
-pj_proj4: 12	:Proj.4 (Dialog, List of Grids)
+pj_proj4: 5	:[deprecated] Proj.4 (Command Line Arguments, Shapes)
+pj_proj4: 6	:[deprecated] Proj.4 (Dialog, Shapes)
+pj_proj4: 7	:[deprecated] Proj.4 (Command Line Arguments, Grid)
+pj_proj4: 8	:[deprecated] Proj.4 (Dialog, Grid)
+pj_proj4: 9	:[deprecated] Proj.4 (Command Line Arguments, List of Shapes Layers)
+pj_proj4: 10	:[deprecated] Proj.4 (Dialog, List of Shapes Layers)
+pj_proj4: 11	:[deprecated] Proj.4 (Command Line Arguments, List of Grids)
+pj_proj4: 12	:[deprecated] Proj.4 (Dialog, List of Grids)
 pj_proj4: 13	:Change Longitudinal Range for Grids
 pj_proj4: 14	:Latitude/Longitude Graticule
 pj_proj4: 15	:Coordinate Reference System Picker
@@ -365,7 +364,7 @@ sim_fire_spreading: 1	:Simulation
 
 ta_hydrology
 --------------------------------
-ta_hydrology: 0	:Catchment Area (Parallel)
+ta_hydrology: 0	:Catchment Area (Top-Down)
 ta_hydrology: 1	:Catchment Area (Recursive)
 ta_hydrology: 2	:Catchment Area (Flow Tracing)
 ta_hydrology: 4	:Upslope Area
@@ -399,6 +398,13 @@ imagery_tools: 7	:Principle Components Based Image Sharpening
 imagery_tools: 8	:Top of Atmosphere Reflectance
 imagery_tools: 9	:Automated Cloud Cover Assessment
 imagery_tools: 10	:Landsat Import with Options
+
+
+docs_pdf
+--------------------------------
+docs_pdf: 0	:Shapes Report
+docs_pdf: 1	:Shapes Summary Report
+docs_pdf: 2	:Terrain Path Cross Sections
 
 
 db_odbc
@@ -436,10 +442,10 @@ statistics_kriging: 1	:Ordinary Kriging (Global)
 statistics_kriging: 2	:Universal Kriging
 statistics_kriging: 3	:Universal Kriging (Global)
 statistics_kriging: 4	:Variogram (Dialog))
-statistics_kriging: 5	:Ordinary Kriging
-statistics_kriging: 6	:Ordinary Kriging (Global)
-statistics_kriging: 7	:Universal Kriging
-statistics_kriging: 8	:Universal Kriging (Global)
+statistics_kriging: 5	:[deprecated] Ordinary Kriging
+statistics_kriging: 6	:[deprecated] Ordinary Kriging (Global)
+statistics_kriging: 7	:[deprecated] Universal Kriging
+statistics_kriging: 8	:[deprecated] Universal Kriging (Global)
 
 
 tin_tools
@@ -455,7 +461,7 @@ tin_tools: 6	:Flow Accumulation (Parallel)
 
 tin_viewer
 --------------------------------
-tin_viewer: 0	:TIN Viewer
+tin_viewer: 0	:[deprecated] TIN Viewer
 
 
 grid_calculus
@@ -493,11 +499,6 @@ garden_webservices
 garden_webservices: 0	:Import a Map via Web Map Service (WMS)
 
 
-imagery_rga
---------------------------------
-imagery_rga: 0	:Fast Region Growing Algorithm
-
-
 garden_learn_to_program
 --------------------------------
 garden_learn_to_program: 0	:01: My first module
@@ -521,7 +522,7 @@ imagery_segmentation
 imagery_segmentation: 0	:Watershed Segmentation
 imagery_segmentation: 1	:Grid Skeletonization
 imagery_segmentation: 2	:Seed Generation
-imagery_segmentation: 3	:Simple Region Growing
+imagery_segmentation: 3	:Seeded Region Growing
 
 
 sim_hydrology
@@ -591,6 +592,7 @@ io_virtual
 io_virtual: 0	:Create Virtual Point Cloud Dataset
 io_virtual: 1	:Get Subset from Virtual Point Cloud
 io_virtual: 2	:Create Tileshape from Virtual Point Cloud
+io_virtual: 4	:Get Grid from Virtual Point Cloud
 
 
 io_shapes
@@ -662,6 +664,7 @@ table_calculus: 7	:Principle Components Analysis
 table_calculus: 8	:Fill Gaps in Records
 table_calculus: 11	:Find Field of Extreme Value
 table_calculus: 12	:Minimum Redundancy Feature Selection
+table_calculus: 14	:Cluster Analysis
 
 
 statistics_grid

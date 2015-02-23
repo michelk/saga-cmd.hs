@@ -27,8 +27,11 @@ sIoDB = M.fromList [
                    ])
        Nothing Nothing ,".sgrd"))
   ,("gridFillGaps", (
-       SagaCmd "grid_spline" "5" ("GRIDPOINTS","GRID_GRID")
-       (M.fromList [("grdFlT", ("TARGET", "1"))])
+       SagaCmd "grid_spline" "5" ("GRID","TARGET_OUT_GRID")
+       (M.fromList [
+                    ("grdFlT",    ("TARGET_DEFINITION", "1"))
+                   --,("grdFlTtmpl", ("TARGET_TEMPLATE", out))  -- currently broken
+                   ])
        (Just copyGrid) Nothing, "_filled.sgrd"))
   ,("gridHillshade", (
        SagaCmd "ta_lighting" "0" ("ELEVATION","SHADE")

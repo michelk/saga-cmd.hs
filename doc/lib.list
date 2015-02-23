@@ -28,6 +28,7 @@ pj_georeference
 sim_fire_spreading
 ta_hydrology
 imagery_tools
+docs_pdf
 db_odbc
 contrib_perego
 statistics_kriging
@@ -36,7 +37,6 @@ tin_viewer
 grid_calculus
 sim_ecosystems_hugget
 garden_webservices
-imagery_rga
 garden_learn_to_program
 imagery_segmentation
 sim_hydrology

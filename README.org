@@ -130,7 +130,12 @@
 ** Example
 *** Source-Target
    #+BEGIN_SRC sh :exports code :eval never
-       sagaPipe --from xyz-grid --to grid-filled-hillshade-tif --parameters sep=tabulator:cs=0.5 -o dem_hillshade.tif dem.xyz
+     sagaPipe \
+         --from xyz-grid \
+         --to grid-filled-hillshade-tif \
+         --parameters sep=tabulator:cs=0.5 \
+         -o dem_hillshade.tif \
+         dem.xyz
    #+END_SRC
 
    If =-o= hadn't been specified, in the directory of the input-file, the follwing grids would have been created:

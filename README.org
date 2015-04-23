@@ -1,6 +1,6 @@
 #+TITLE: bindings-saga-cmd: Wrapping =saga_cmd= to chain GIS-Data conversion
 #+AUTHOR: Michel Kuhlmann *TK Consult AG*
-- Travis: [[https://travis-ci.org/michelk/bindings-saga-cmd.svg?branch=master]]
+- Travis: [[https://travis-ci.org/michelk/bindings-saga-cmd.hs.svg?branch=master]]
 - Hackage: [[https://img.shields.io/hackage/v/tmpl.svg?style=flat]]
 * Description
   Haskell Library to wrap =saga_cmd=.
@@ -121,7 +121,7 @@
    The pathways are visualized below
 
    #+BEGIN_SRC sh :exports results :results graphics :file doc/figures/chains.png
-      $HOME/.cabal/bin/sagaPipe -d | dot -Tpng > doc/figures/chains.png
+      sagaPipe -d | dot -Tpng > doc/figures/chains.png
    #+END_SRC
 
    #+RESULTS:

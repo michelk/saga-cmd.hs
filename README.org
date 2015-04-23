@@ -1,20 +1,7 @@
-#+TITLE: Wrapping =saga_cmd= to chain GIS-Data conversion
+#+TITLE: bindings-saga-cmd: Wrapping =saga_cmd= to chain GIS-Data conversion
 #+AUTHOR: Michel Kuhlmann *TK Consult AG*
-* setup                                                            :noexport:
-#+OPTIONS: toc:nil
-#+NAME: setup
-#+BEGIN_SRC emacs-lisp :results silent :exports none
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (dot . t)
-     (haskell . t)
-     (sh . t)))
-#+END_SRC
-#+NAME: markdown-export
-#+BEGIN_SRC emacs-lisp :results silent :exports none
-  (org-md-export-to-markdown)
-#+END_SRC
+- Travis: [[https://travis-ci.org/michelk/bindings-saga-cmd.svg?branch=master]]
+- Hackage: [[https://img.shields.io/hackage/v/tmpl.svg?style=flat]]
 * Description
   Haskell Library to wrap =saga_cmd=.
 
@@ -37,27 +24,31 @@
 ** Implemented modules
 
    #+BEGIN_SRC sh :exports results :colnames yes :rownames yes
-     $HOME/.cabal/bin/sagaPipe -m
+     sagaPipe -m
    #+END_SRC
 
    #+RESULTS:
-   | Command          | (cmdPar,sagaPar,default)                                           | sagaLib          | sagaModule | defaultSuffix      |
-   | gdalGrid         | NA                                                                 | io_gdal          |          0 | .sgrd              |
-   | gridClassToPoly  | (all,CLASS_ALL,0):(id,CLASS_ID,1):(split,SPLIT,0)                  | shapes_grid      |          6 | _polygons.shp      |
-   | gridClassifyFlat | (method,METHOD,2):(table,RETAB,reclassify.txt)                     | grid_tools       |         15 | _reclassified.sgrd |
-   | gridContour      | (d,ZSTEP,1):(max,ZMAX,10000):(min,ZMIN,0)                          | shapes_grid      |          5 | _contour.sgrd      |
-   | gridFillGaps     | (grdFlT,TARGET,1)                                                  | grid_spline      |          5 | _filled.sgrd       |
-   | gridHillshade    | NA                                                                 | ta_lighting      |          0 | _hillshade.sgrd    |
-   | gridPolyClip     | (poly,POLYGONS,)                                                   | shapes_grid      |          7 | _polyClip.sgrd     |
-   | gridSlope        | (aspect,ASPECT,aspect)                                             | ta_morphometry   |          0 | _slope.sgrd        |
-   | gridTifGdal      | NA                                                                 | io_gdal          |          2 | .tif               |
-   | gridTifHillshade | (col,COL_PALETTE,2):(colRev,COL_REVERT,)                           | io_grid_image    |          0 | .tif               |
-   | gridXyz          | NA                                                                 | io_grid          |          5 | .xyz               |
-   | lasToPtCld       | NA                                                                 | io_shapes_las    |          1 | .spc               |
-   | polyDissolve     | (f1,FIELD_1,1):(f2,FIELD_1,-1):(f3,FIELD_1,-1):(method,DISSOLVE,0) | shapes_polygons  |          5 | _disollved.shp     |
-   | ptCldToGrid      | (cs,CELLSIZE,1)                                                    | pointcloud_tools |          4 | .sgrd              |
-   | xyzGridToGrid    | (cs,CELLSIZE,1):(sep,SEPARATOR,space)                              | io_grid          |          6 | .sgrd              |
-   |                  |                                                                    |                  |            |                    |
+   | Command          | (cmdPar,sagaPar,default)                                                              | sagaLib          | sagaModule | defaultSuffix      |
+   |------------------+---------------------------------------------------------------------------------------+------------------+------------+--------------------|
+   | ascGrd           | NA                                                                                    | io_grid          |          1 | .sgrd              |
+   | gdalGrid         | NA                                                                                    | io_gdal          |          0 | .sgrd              |
+   | gridClassToPoly  | (all,CLASS_ALL,0):(id,CLASS_ID,1):(split,SPLIT,0)                                     | shapes_grid      |          6 | _polygons.shp      |
+   | gridClassifyFlat | (method,METHOD,2):(table,RETAB,reclassify.txt)                                        | grid_tools       |         15 | _reclassified.sgrd |
+   | gridContour      | (d,ZSTEP,1):(max,ZMAX,10000):(min,ZMIN,0)                                             | shapes_grid      |          5 | _contour.sgrd      |
+   | gridEsriAsc      | NA                                                                                    | io_grid          |          0 | .asc               |
+   | gridFillGaps     | (grdFlT,TARGET_DEFINITION,1)                                                          | grid_spline      |          5 | _filled.sgrd       |
+   | gridHillshade    | NA                                                                                    | ta_lighting      |          0 | _hillshade.sgrd    |
+   | gridPolyClip     | (poly,POLYGONS,1)                                                                     | shapes_grid      |          7 | _polyClip.sgrd     |
+   | gridSlope        | (aspect,ASPECT,aspect)                                                                | ta_morphometry   |          0 | _slope.sgrd        |
+   | gridTifGdal      | NA                                                                                    | io_gdal          |          2 | .tif               |
+   | gridTifHillshade | (colRev,COL_REVERT,1):(max,STRETCH_MAX,1.571):(min,STRETCH_MIN,0):(pal,COL_PALETTE,2) | io_grid_image    |          0 | .tif               |
+   | gridTifTerrain   | (col,COLOURING,2):(max,STRETCH_MAX,100):(min,STRETCH_MIN,0):(pal,COL_PALETTE,23)      | io_grid_image    |          0 | .tif               |
+   | gridXyz          | (header,CAPTION,0):(na,EX_NODATA,1)                                                   | io_grid          |          5 | .xyz               |
+   | lasToPtCld       | NA                                                                                    | io_shapes_las    |          1 | .spc               |
+   | polyDissolve     | (f1,FIELD_1,1):(f2,FIELD_1,-1):(f3,FIELD_1,-1):(method,DISSOLVE,0)                    | shapes_polygons  |          5 | _disollved.shp     |
+   | ptCldToGrid      | (cs,CELLSIZE,1)                                                                       | pointcloud_tools |          4 | .sgrd              |
+   | xyzGridToGrid    | (cs,CELLSIZE,1):(sep,SEPARATOR,space)                                                 | io_grid          |          6 | .sgrd              |
+   |                  |                                                                                       |                  |            |                    |
 
 * Installation
 ** Saga And haskell-platform
@@ -167,7 +158,6 @@
 ** =sagaTopo=
    Wrapper-program to create topographic maps from =sgrd=-files
 
-
 * Development
 
    In order to extend functionality, the follwing steps are necessary
@@ -181,7 +171,7 @@
 
 ** Find the module
 #+BEGIN_SRC sh
-  cd saga-cmd-wrapper/do
+  cd saga-cmd-wrapper/doc
   ./search <keyword> 
 #+END_SRC
 
@@ -191,7 +181,6 @@
    - Add pathway node
 ** Documentation
    - Edit =README.org=
-   - Export it to markdown (=M-x org-md-export-to-markdown=)
 
 * ToDo
   - extend library-commands

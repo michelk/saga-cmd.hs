@@ -22,9 +22,7 @@ sIoDB = M.fromList [
        (M.fromList []) Nothing Nothing , ".spc"))
   ,("ptCldToGrid", (
        SagaCmd "pointcloud_tools" "4" ("POINTS","GRID")
-       (M.fromList [
-                   ("cs",  ("CELLSIZE"  , "1"))
-                   ])
+       (M.fromList [("cs",  ("CELLSIZE"  , "1"))])
        Nothing Nothing ,".sgrd"))
   ,("gridFillGaps", (
        SagaCmd "grid_spline" "5" ("GRID","TARGET_OUT_GRID")
@@ -72,6 +70,14 @@ sIoDB = M.fromList [
        SagaCmd "io_gdal" "2" ("GRIDS","FILE")
        (M.fromList [
            ]) Nothing Nothing, ".tif"))
+  ,("gridEsriAsc", (
+       SagaCmd "io_grid" "0" ("GRID","FILE")
+       (M.fromList [
+              ]) Nothing Nothing, ".asc"))
+  ,("ascGrd", (
+       SagaCmd "io_grid" "1" ("FILE","GRID")
+       (M.fromList [
+              ]) Nothing Nothing, ".sgrd"))
   ,("gdalGrid", (
        SagaCmd "io_gdal" "0" ("FILES", "GRIDS")
        (M.fromList [
@@ -79,6 +85,8 @@ sIoDB = M.fromList [
   ,("gridXyz", (
          SagaCmd "io_grid" "5" ("GRIDS","FILENAME")
          (M.fromList [
+           ("header",("CAPTION"  , "0"))
+          ,("na",("EX_NODATA"  , "1"))
              ]) Nothing Nothing, ".xyz"))
   ,("polyDissolve", (
          SagaCmd "shapes_polygons" "5" ("POLYGONS","DISSOLVED")

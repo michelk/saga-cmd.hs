@@ -132,21 +132,31 @@ sIoDB = M.fromList [
 -- | Pathsway nodes with input and output commands
 sNodes :: NodeMap
 sNodes =
-  M.fromList [
-    ("las", ([], ["lasToPtCld"]))
-   ,("gdal", ([], ["gdalGrid"]))
-   ,("ptc", (["lasToPtCld"], ["ptCldToGrid"]))
-   ,("grid", (["ptCldToGrid", "xyzGridToGrid", "gdalGrid"],
-      ["gridFillGaps", "gridTifGdal", "gridPolyClip"
-      ,"gridSlope", "gridClassToPoly", "gridClassifyFlat"]))
-   ,("xyz-grid", ([], ["xyzGridToGrid"]))
-   ,("grid-filled", (["gridFillGaps"],
-      ["gridHillshade", "gridXyz", "gridContour"]))
-   ,("grid-filled-hillshade", (["gridHillshade"], ["gridTifHillshade"]))
-   ,("grid-filled-hillshade-tif", (["gridTifHillshade"], []))
-   ,("grid-hillshade", (["gridHillshade"], ["gridTifHillshade"]))
-   ,("grid-hillshade-tif", (["gridTifHillshade"], []))
-   ,("grid-filled-xyz", (["gridXyz"], []))
-   ,("grid-filled-contour", (["gridContour"], []))
-   ,("grid-polygonClip", (["gridPolyClip"], []))
-  ]
+  M.fromList
+    [("las",([],["lasToPtCld"]))
+    ,("gdal",([],["gdalGrid"]))
+    ,("ptc",(["lasToPtCld"],["ptCldToGrid"]))
+    ,("grid"
+     ,(["ptCldToGrid","xyzGridToGrid","gdalGrid","ascGrd"]
+      ,["gridFillGaps"
+       ,"gridTifGdal"
+       ,"gridPolyClip"
+       ,"gridSlope"
+       ,"gridClassToPoly"
+       ,"gridClassifyFlat"
+       ,"gridEsriAsc"
+       ,"gridTifTerrain"
+       ,"gridXyz"
+       ,"gridHillshade"]))
+    ,("xyz-grid",([],["xyzGridToGrid"]))
+    ,("grid-filled",(["gridFillGaps"],["gridHillshade","gridXyz","gridContour"]))
+    ,("grid-filled-hillshade",(["gridHillshade"],["gridTifHillshade"]))
+    ,("grid-filled-hillshade-tif",(["gridTifHillshade"],[]))
+    ,("grid-hillshade",(["gridHillshade"],["gridTifHillshade"]))
+    ,("grid-hillshade-tif",(["gridTifHillshade"],[]))
+    ,("grid-filled-xyz",(["gridXyz"],[]))
+    ,("grid-filled-contour",(["gridContour"],[]))
+    ,("grid-polygonClip",(["gridPolyClip"],[]))
+    ,("grid-terrain-tif",(["gridTifTerrain"],[]))
+    ,("grid-esri-asc",(["gridEsriAsc"],[]))
+    ,("esri-asc",([],["ascGrd"]))]

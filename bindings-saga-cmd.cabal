@@ -1,5 +1,5 @@
 name:                bindings-saga-cmd
-version:             0.1.1.0
+version:             0.1.1.1
 synopsis:            Wrapping saga_cmd
 description:         A simple wrapper around the command-line version of the GIS-program saga
 homepage:            https://github.com/michelk/bindings-saga-cmd.hs

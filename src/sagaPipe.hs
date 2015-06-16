@@ -14,7 +14,6 @@ import Data.Maybe (fromJust, fromMaybe)
 import System.Environment (getArgs, withArgs)
 import System.Exit (exitSuccess)
 
-
 main :: IO ()
 main = do
     args <- getArgs
@@ -39,7 +38,7 @@ main = do
 
 _PROGRAM_NAME, _PROGRAM_VERSION, _PROGRAM_INFO, _PROGRAM_ABOUT, _COPYRIGHT :: String
 _PROGRAM_NAME    = "sagaPipe"
-_PROGRAM_VERSION = "0.1.0.0"
+_PROGRAM_VERSION = "0.1.1.1"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
 _COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
 _PROGRAM_ABOUT   = "Convert Digital Elevation Models (DEM) to diffent formats"

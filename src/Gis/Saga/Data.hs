@@ -35,7 +35,7 @@ sIoDB = M.fromList [
        SagaCmd "ta_lighting" "0" ("ELEVATION","SHADE")
        (M.fromList []) Nothing Nothing , "_hillshade.sgrd"))
   ,("gridContour", (
-       SagaCmd "shapes_grid" "5" ("INPUT","CONTOUR")
+       SagaCmd "shapes_grid" "5" ("GRID","CONTOUR")
        (M.fromList [
             ("min" , ("ZMIN"  , "0"))
            ,("max" , ("ZMAX" , "10000"))

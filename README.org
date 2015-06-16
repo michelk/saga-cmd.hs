@@ -29,7 +29,6 @@
 
    #+RESULTS:
    | Command          | (cmdPar,sagaPar,default)                                                              | sagaLib          | sagaModule | defaultSuffix      |
-   |------------------+---------------------------------------------------------------------------------------+------------------+------------+--------------------|
    | ascGrd           | NA                                                                                    | io_grid          |          1 | .sgrd              |
    | gdalGrid         | NA                                                                                    | io_gdal          |          0 | .sgrd              |
    | gridClassToPoly  | (all,CLASS_ALL,0):(id,CLASS_ID,1):(split,SPLIT,0)                                     | shapes_grid      |          6 | _polygons.shp      |

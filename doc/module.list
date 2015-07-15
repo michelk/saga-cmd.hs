@@ -5,13 +5,13 @@ pointcloud_viewer: 0	:[deprecated] Point Cloud Viewer
 
 grid_spline
 --------------------------------
-grid_spline: 0	:Thin Plate Spline (Global)
-grid_spline: 1	:Thin Plate Spline (Local)
+grid_spline: 1	:Thin Plate Spline
 grid_spline: 2	:Thin Plate Spline (TIN)
 grid_spline: 3	:B-Spline Approximation
 grid_spline: 4	:Multilevel B-Spline Interpolation
 grid_spline: 5	:Multilevel B-Spline Interpolation (from Grid)
 grid_spline: 6	:Cubic Spline Approximation
+grid_spline: 7	:Multilevel B-Spline Interpolation for Categories
 
 
 grid_calculus_bsl
@@ -38,6 +38,7 @@ io_grid: 12	:Import Grid from Table
 io_grid: 13	:Import WRF Geogrid Binary Format
 io_grid: 14	:Export WRF Geogrid Binary Format
 io_grid: 15	:Import Building Sketches from CityGML
+io_grid: 16	:Import, Clip and Resample Grids
 
 
 grid_gridding
@@ -116,6 +117,7 @@ grid_tools: 28	:Shrink and Expand
 grid_tools: 29	:Close Gaps with Stepwise Resampling
 grid_tools: 30	:Transpose Grids
 grid_tools: 31	:Clip Grids
+grid_tools: 32	:Select Grid from List
 
 
 table_tools
@@ -128,7 +130,7 @@ table_tools: 4	:Join Attributes from a Table (Shapes)
 table_tools: 5	:Change Date Format
 table_tools: 6	:Change Time Format
 table_tools: 7	:Change Field Type
-table_tools: 8	:Append Rows from Table
+table_tools: 8	:Append Fields from another Table
 table_tools: 9	:Change Color Format
 table_tools: 10	:Replace Text
 table_tools: 11	:Delete Fields
@@ -137,25 +139,27 @@ table_tools: 16	:Delete Selection
 table_tools: 17	:Invert Selection
 table_tools: 18	:Select by Numerical Expression
 table_tools: 19	:Select by String Expression
+table_tools: 20	:Add Indicator Fields for Categories
 
 
 statistics_regression
 --------------------------------
-statistics_regression: 0	:Regression Analysis (Points/Grid)
-statistics_regression: 1	:Multiple Regression Analysis (Points/Grids)
+statistics_regression: 0	:Regression Analysis (Points and Predictor Grid)
+statistics_regression: 1	:Multiple Regression Analysis (Points and Predictor Grids)
 statistics_regression: 2	:Polynomial Regression
 statistics_regression: 3	:GWR for Single Predictor (Gridded Model Output)
 statistics_regression: 4	:GWR for Single Predictor Grid
 statistics_regression: 5	:GWR for Multiple Predictors (Gridded Model Output)
 statistics_regression: 6	:GWR for Multiple Predictor Grids
 statistics_regression: 7	:GWR for Multiple Predictors
-statistics_regression: 8	:Multiple Regression Analysis (Grid/Grids)
+statistics_regression: 8	:Multiple Regression Analysis (Grid and Predictor Grids)
 statistics_regression: 9	:Polynomial Trend from Grids
 statistics_regression: 10	:Trend Analysis
 statistics_regression: 11	:Trend Analysis (Shapes)
 statistics_regression: 12	:Multiple Linear Regression Analysis
 statistics_regression: 13	:Multiple Linear Regression Analysis (Shapes)
 statistics_regression: 14	:GWR for Grid Downscaling
+statistics_regression: 15	:Zonal Multiple Regression Analysis (Points and Predictor Grids)
 
 
 ta_channels
@@ -265,6 +269,7 @@ shapes_grid: 4	:Grid Values to Points (randomly)
 shapes_grid: 5	:Contour Lines from Grid
 shapes_grid: 6	:Vectorising Grid Classes
 shapes_grid: 7	:Clip Grid with Polygon
+shapes_grid: 8	:Grid Statistics for Points
 shapes_grid: 9	:Local Minima and Maxima
 shapes_grid: 10	:Grid System Extent
 shapes_grid: 11	:Clip Grid with Rectangle
@@ -306,6 +311,7 @@ grid_analysis: 16	:Fragmentation (Alternative)
 grid_analysis: 17	:Fragmentation Classes from Density and Connectivity
 grid_analysis: 18	:Accumulation Functions
 grid_analysis: 19	:IMCORR 
+grid_analysis: 20	:Soil Texture Classification for Tables
 
 
 pj_proj4
@@ -330,6 +336,8 @@ pj_proj4: 16	:Tissot's Indicatrix
 pj_proj4: 17	:Geographic Coordinate Grids
 pj_proj4: 18	:Coordinate Transformation (Point Cloud List)
 pj_proj4: 19	:Coordinate Transformation (Point Cloud)
+pj_proj4: 20	:Geographic Distances
+pj_proj4: 21	:Geographic Distances (Pair of Coordinates)
 
 
 io_esri_e00
@@ -354,6 +362,7 @@ pj_georeference: 1	:Rectify Grid
 pj_georeference: 2	:Warping Shapes
 pj_georeference: 4	:Direct Georeferencing of Airborne Photographs
 pj_georeference: 5	:Define Georeference for Grids
+pj_georeference: 6	:World File from Flight and Camera Settings
 
 
 sim_fire_spreading
@@ -364,9 +373,9 @@ sim_fire_spreading: 1	:Simulation
 
 ta_hydrology
 --------------------------------
-ta_hydrology: 0	:Catchment Area (Top-Down)
-ta_hydrology: 1	:Catchment Area (Recursive)
-ta_hydrology: 2	:Catchment Area (Flow Tracing)
+ta_hydrology: 0	:Flow Accumulation (Top-Down)
+ta_hydrology: 1	:Flow Accumulation (Recursive)
+ta_hydrology: 2	:Flow Accumulation (Flow Tracing)
 ta_hydrology: 4	:Upslope Area
 ta_hydrology: 6	:Flow Path Length
 ta_hydrology: 7	:Slope Length
@@ -374,7 +383,7 @@ ta_hydrology: 10	:Cell Balance
 ta_hydrology: 13	:Edge Contamination
 ta_hydrology: 15	:SAGA Wetness Index
 ta_hydrology: 16	:Lake Flood
-ta_hydrology: 18	:Catchment Area (Mass-Flux Method)
+ta_hydrology: 18	:Flow Accumulation (Mass-Flux Method)
 ta_hydrology: 19	:Flow Width and Specific Catchment Area
 ta_hydrology: 20	:Topographic Wetness Index (TWI)
 ta_hydrology: 21	:Stream Power Index
@@ -438,14 +447,10 @@ contrib_perego: 7	:Directional Average
 statistics_kriging
 --------------------------------
 statistics_kriging: 0	:Ordinary Kriging
-statistics_kriging: 1	:Ordinary Kriging (Global)
+statistics_kriging: 1	:Simple Kriging
 statistics_kriging: 2	:Universal Kriging
-statistics_kriging: 3	:Universal Kriging (Global)
-statistics_kriging: 4	:Variogram (Dialog))
-statistics_kriging: 5	:[deprecated] Ordinary Kriging
-statistics_kriging: 6	:[deprecated] Ordinary Kriging (Global)
-statistics_kriging: 7	:[deprecated] Universal Kriging
-statistics_kriging: 8	:[deprecated] Universal Kriging (Global)
+statistics_kriging: 3	:Regression Kriging
+statistics_kriging: 4	:Variogram (Dialog)
 
 
 tin_tools
@@ -472,7 +477,7 @@ grid_calculus: 2	:Grid Volume
 grid_calculus: 3	:Grid Difference
 grid_calculus: 4	:Function
 grid_calculus: 5	:Geometric Figures
-grid_calculus: 6	:Random Terrain Generation
+grid_calculus: 6	:Random Terrain
 grid_calculus: 7	:Random Field
 grid_calculus: 8	:Grids Sum
 grid_calculus: 9	:Grids Product
@@ -497,6 +502,12 @@ sim_ecosystems_hugget: 2	:03: Spatially Distributed Simulation of Soil Nitrogen 
 garden_webservices
 --------------------------------
 garden_webservices: 0	:Import a Map via Web Map Service (WMS)
+
+
+imagery_maxent
+--------------------------------
+imagery_maxent: 0	:Maximum Entropy Classifcation
+imagery_maxent: 1	:Maximum Entropy Presence Prediction
 
 
 garden_learn_to_program
@@ -531,6 +542,7 @@ sim_hydrology: 0	:Soil Moisture Content
 sim_hydrology: 1	:Overland Flow 
 sim_hydrology: 2	:TOPMODEL
 sim_hydrology: 3	:Water Retention Capacity
+sim_hydrology: 4	:Diffuse Pollution Risk
 
 
 ta_morphometry
@@ -561,6 +573,7 @@ ta_morphometry: 22	:Terrain Surface Classification
 ta_morphometry: 23	:Morphometric Features
 ta_morphometry: 24	:Valley and Ridge Detection (Top Hat Approach)
 ta_morphometry: 25	:Fuzzy Landform Element Classification
+ta_morphometry: 26	:Upslope and Downslope Curvature
 
 
 io_grid_image
@@ -578,8 +591,9 @@ climate_tools: 2	:Earth's Orbital Parameters
 climate_tools: 3	:Annual Course of Daily Insolation
 climate_tools: 4	:Daily Insolation over Latitude
 climate_tools: 5	:Monthly Global by Latitude
-climate_tools: 6	:PET (after Hargreave)
+climate_tools: 6	:PET (after Hargreaves, Table)
 climate_tools: 7	:Daily to Hourly PET
+climate_tools: 8	:PET (after Hargreaves, Grid)
 
 
 io_grid_grib2
@@ -593,6 +607,7 @@ io_virtual: 0	:Create Virtual Point Cloud Dataset
 io_virtual: 1	:Get Subset from Virtual Point Cloud
 io_virtual: 2	:Create Tileshape from Virtual Point Cloud
 io_virtual: 4	:Get Grid from Virtual Point Cloud
+io_virtual: 6	:Remove Overlap from Virtual Point Cloud Tiles
 
 
 io_shapes
@@ -630,11 +645,12 @@ garden_fractals: 5	:Gaussian Landscapes
 
 imagery_classification
 --------------------------------
-imagery_classification: 0	:Supervised Classification
+imagery_classification: 0	:Supervised Classification for Grids
 imagery_classification: 1	:Cluster Analysis for Grids
 imagery_classification: 2	:Change Detection
 imagery_classification: 3	:Decision Tree
-imagery_classification: 4	:Supervised Classification for Polygons
+imagery_classification: 4	:Supervised Classification for Shapes
+imagery_classification: 5	:Supervised Classification for Tables
 
 
 ta_preprocessor
@@ -664,7 +680,8 @@ table_calculus: 7	:Principle Components Analysis
 table_calculus: 8	:Fill Gaps in Records
 table_calculus: 11	:Find Field of Extreme Value
 table_calculus: 12	:Minimum Redundancy Feature Selection
-table_calculus: 14	:Cluster Analysis
+table_calculus: 14	:Cluster Analysis (Shapes)
+table_calculus: 15	:Field Statistics
 
 
 statistics_grid
@@ -715,6 +732,7 @@ grid_visualisation: 6	:Histogram Surface
 grid_visualisation: 7	:Aspect-Slope Grid
 grid_visualisation: 8	:Terrain Map View
 grid_visualisation: 9	:Split RGB Composite
+grid_visualisation: 10	:Select Look-up Table for Grid Visualization
 
 
 shapes_lines
@@ -726,6 +744,7 @@ shapes_lines: 3	:Line-Polygon Intersection
 shapes_lines: 4	:Line Simplification
 shapes_lines: 5	:Line Dissolve
 shapes_lines: 6	:Split Lines with Lines
+shapes_lines: 7	:Line Smoothing
 
 
 ta_lighting
@@ -803,6 +822,7 @@ shapes_tools: 21	:Polar to Cartesian Coordinates
 shapes_tools: 22	:Generate Shapes
 shapes_tools: 23	:Convert Vertex Type (2D/3D)
 shapes_tools: 24	:Merge Tables
+shapes_tools: 25	:Land Use Scenario Generator
 
 
 statistics_points

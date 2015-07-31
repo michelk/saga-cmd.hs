@@ -109,9 +109,13 @@ sIoDB = M.fromList [
   ,("gridClassifyFlat", (
          SagaCmd "grid_tools" "15" ("INPUT","RESULT")
          (M.fromList [
-            ("method" ,("METHOD" , "2")) -- 1: range
+            ("method" ,("METHOD" , "0")) -- 1: range
                                          -- 2: simple table
-           ,("table" ,("RETAB" , "reclassify.txt"))
+                                         -- 0: single
+           ,("table" ,("RETAB" , "reclassify.txt")) -- method = 2
+           ,("old" ,("OLD" , "0.0"))  -- method = 0
+           ,("new" ,("NEW" , "1.0"))  -- method = 0
+           ,("nodata" ,("RESULT_NODATA_VALUE" , "-99999.0"))
          ])
          (Just (\_ _ -> writeReclassifyTableFlatSlope "reclassify.txt"))
          (Just (\_ _ -> removeFile "reclassify.txt"))

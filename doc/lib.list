@@ -64,4 +64,5 @@ grid_filter
 pointcloud_tools
 shapes_tools
 statistics_points
+sim_rivflow
 sim_cellular_automata

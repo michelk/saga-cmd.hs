@@ -24,13 +24,17 @@ sIoDB = M.fromList [
        SagaCmd "pointcloud_tools" "4" ("POINTS","GRID")
        (M.fromList [("cs",  ("CELLSIZE"  , "1"))])
        Nothing Nothing ,".sgrd"))
+  ,("gridFillGapsSpline", (
+    SagaCmd "grid_spline" "5" ("GRID","TARGET_OUT_GRID")
+    (M.fromList [
+                 ("grdFlT",    ("TARGET_DEFINITION", "1"))
+                --,("grdFlTtmpl", ("TARGET_TEMPLATE", out))  -- currently broken
+                ])
+    (Just copyGrid) Nothing, "_filled.sgrd"))
   ,("gridFillGaps", (
-       SagaCmd "grid_spline" "5" ("GRID","TARGET_OUT_GRID")
-       (M.fromList [
-                    ("grdFlT",    ("TARGET_DEFINITION", "1"))
-                   --,("grdFlTtmpl", ("TARGET_TEMPLATE", out))  -- currently broken
-                   ])
-       (Just copyGrid) Nothing, "_filled.sgrd"))
+    SagaCmd "grid_tools" "25" ("GRID","CLOSED")
+    (M.fromList [])
+    Nothing Nothing, "_filled.sgrd"))
   ,("gridHillshade", (
        SagaCmd "ta_lighting" "0" ("ELEVATION","SHADE")
        (M.fromList []) Nothing Nothing , "_hillshade.sgrd"))
@@ -40,7 +44,7 @@ sIoDB = M.fromList [
             ("min" , ("ZMIN"  , "0"))
            ,("max" , ("ZMAX" , "10000"))
            ,("d",    ("ZSTEP" , "1"))
-           ]) Nothing Nothing, "_contour.sgrd"))
+           ]) Nothing Nothing, "_contour.shp"))
   ,("gridPolyClip", (
        SagaCmd "shapes_grid" "7" ("INPUT","OUTPUT")
        (M.fromList [
@@ -124,7 +128,7 @@ sIoDB = M.fromList [
          SagaCmd "shapes_grid" "6" ("GRID","POLYGONS")
          (M.fromList [
            ("id",    ("CLASS_ID" , "1")) -- class identifier
-          ,("all",   ("CLASS_ALL" , "0")) -- 0: one single class specified by class identifier
+          ,("all",   ("CLASS_ALL" , "1")) -- 0: one single class specified by class identifier
                                           -- 1: all classes
           ,("split",  ("SPLIT" , "0")) -- 0: one single (multi-)polygon object
                                        -- 1: each island as separated polygon
@@ -142,7 +146,8 @@ sNodes =
     ,("ptc",(["lasToPtCld"],["ptCldToGrid"]))
     ,("grid"
      ,(["ptCldToGrid","xyzGridToGrid","gdalGrid","ascGrd"]
-      ,["gridFillGaps"
+      ,["gridFillGapsSpline"
+       ,"gridFillGaps"
        ,"gridTifGdal"
        ,"gridPolyClip"
        ,"gridSlope"
@@ -153,7 +158,7 @@ sNodes =
        ,"gridXyz"
        ,"gridHillshade"]))
     ,("xyz-grid",([],["xyzGridToGrid"]))
-    ,("grid-filled",(["gridFillGaps"],["gridHillshade","gridXyz","gridContour"]))
+    ,("grid-filled",(["gridFillGaps", "gridFillGapsSpline"],["gridHillshade","gridXyz","gridContour"]))
     ,("grid-filled-hillshade",(["gridHillshade"],["gridTifHillshade"]))
     ,("grid-filled-hillshade-tif",(["gridTifHillshade"],[]))
     ,("grid-hillshade",(["gridHillshade"],["gridTifHillshade"]))

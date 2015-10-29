@@ -1,4 +1,4 @@
-all: modules.png
+all: modules.svg
 
 lib.list : 
 	saga_cmd | grep "^\-" | sed 's/^- //' > $@
@@ -20,6 +20,10 @@ modules.dot : module.list
 		< $< >> $@ 
 	echo "}" >> $@
 
-modules.png : modules.dot
-	dot  -Tpng $< -o $@
+modules.svg : modules.dot
+	dot  -Tsvg $< -o $@
 
+.PHONY: clean
+
+clean:
+	rm -f module.list lib.list modules.dot modules.png

@@ -4,3 +4,5 @@ dist/
 .*.swp
 @eaDir
 Thumbs.db
+.stack-work/
+TAGS

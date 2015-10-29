@@ -312,6 +312,7 @@ grid_analysis: 17	:Fragmentation Classes from Density and Connectivity
 grid_analysis: 18	:Accumulation Functions
 grid_analysis: 19	:IMCORR 
 grid_analysis: 20	:Soil Texture Classification for Tables
+grid_analysis: 21	:Diversity of Categories
 
 
 pj_proj4
@@ -569,7 +570,7 @@ ta_morphometry: 18	:Topographic Position Index (TPI)
 ta_morphometry: 19	:TPI Based Landform Classification
 ta_morphometry: 20	:Terrain Surface Texture
 ta_morphometry: 21	:Terrain Surface Convexity
-ta_morphometry: 22	:Terrain Surface Classification
+ta_morphometry: 22	:Terrain Surface Classification (Iwahashi and Pike)
 ta_morphometry: 23	:Morphometric Features
 ta_morphometry: 24	:Valley and Ridge Detection (Top Hat Approach)
 ta_morphometry: 25	:Fuzzy Landform Element Classification
@@ -581,6 +582,7 @@ io_grid_image
 io_grid_image: 0	:Export Image (bmp, jpg, pcx, png, tif)
 io_grid_image: 1	:Import Image (bmp, jpg, png, tif, gif, pnm, xpm)
 io_grid_image: 2	:Export Grid to KML
+io_grid_image: 3	:Import Grids from KML
 
 
 climate_tools
@@ -745,6 +747,7 @@ shapes_lines: 4	:Line Simplification
 shapes_lines: 5	:Line Dissolve
 shapes_lines: 6	:Split Lines with Lines
 shapes_lines: 7	:Line Smoothing
+shapes_lines: 8	:Split Lines at Points
 
 
 ta_lighting
@@ -779,6 +782,7 @@ grid_filter: 12	:Geodesic Morphological Reconstruction
 grid_filter: 13	:Binary Erosion-Reconstruction
 grid_filter: 14	:Connectivity Analysis
 grid_filter: 15	:Sieving Classes
+grid_filter: 16	:Wombling (Edge Detection)
 
 
 pointcloud_tools
@@ -795,6 +799,7 @@ pointcloud_tools: 9	:Point Cloud Thinning (simple)
 pointcloud_tools: 10	:Point Cloud Attribute Calculator
 pointcloud_tools: 11	:Cluster Analysis for Point Clouds
 pointcloud_tools: 12	:Merge Point Clouds
+pointcloud_tools: 13	:Point Cloud from Table
 
 
 shapes_tools
@@ -832,6 +837,14 @@ statistics_points: 1	:Variogram Cloud
 statistics_points: 2	:Variogram Surface
 statistics_points: 3	:Minimum Distance Analysis
 statistics_points: 4	:Spatial Point Pattern Analysis
+
+
+sim_rivflow
+--------------------------------
+sim_rivflow: 0	:RiverBasin
+sim_rivflow: 1	:LandFlow Version 1.0 (build 3.5.1b)
+sim_rivflow: 3	:RiverGridGeneration
+sim_rivflow: 4	:GridCombination
 
 
 sim_cellular_automata

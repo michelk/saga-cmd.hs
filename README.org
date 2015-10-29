@@ -24,30 +24,32 @@
 ** Implemented modules
 
    #+BEGIN_SRC sh :exports results :colnames yes :rownames yes
-     sagaPipe -m
+     $HOME/.local/bin/sagaPipe -m
    #+END_SRC
 
    #+RESULTS:
-   | Command          | (cmdPar,sagaPar,default)                                                              | sagaLib          | sagaModule | defaultSuffix      |
-   | ascGrd           | NA                                                                                    | io_grid          |          1 | .sgrd              |
-   | gdalGrid         | NA                                                                                    | io_gdal          |          0 | .sgrd              |
-   | gridClassToPoly  | (all,CLASS_ALL,0):(id,CLASS_ID,1):(split,SPLIT,0)                                     | shapes_grid      |          6 | _polygons.shp      |
-   | gridClassifyFlat | (method,METHOD,2):(table,RETAB,reclassify.txt)                                        | grid_tools       |         15 | _reclassified.sgrd |
-   | gridContour      | (d,ZSTEP,1):(max,ZMAX,10000):(min,ZMIN,0)                                             | shapes_grid      |          5 | _contour.sgrd      |
-   | gridEsriAsc      | NA                                                                                    | io_grid          |          0 | .asc               |
-   | gridFillGaps     | (grdFlT,TARGET_DEFINITION,1)                                                          | grid_spline      |          5 | _filled.sgrd       |
-   | gridHillshade    | NA                                                                                    | ta_lighting      |          0 | _hillshade.sgrd    |
-   | gridPolyClip     | (poly,POLYGONS,1)                                                                     | shapes_grid      |          7 | _polyClip.sgrd     |
-   | gridSlope        | (aspect,ASPECT,aspect)                                                                | ta_morphometry   |          0 | _slope.sgrd        |
-   | gridTifGdal      | NA                                                                                    | io_gdal          |          2 | .tif               |
-   | gridTifHillshade | (colRev,COL_REVERT,1):(max,STRETCH_MAX,1.571):(min,STRETCH_MIN,0):(pal,COL_PALETTE,2) | io_grid_image    |          0 | .tif               |
-   | gridTifTerrain   | (col,COLOURING,2):(max,STRETCH_MAX,100):(min,STRETCH_MIN,0):(pal,COL_PALETTE,23)      | io_grid_image    |          0 | .tif               |
-   | gridXyz          | (header,CAPTION,0):(na,EX_NODATA,1)                                                   | io_grid          |          5 | .xyz               |
-   | lasToPtCld       | NA                                                                                    | io_shapes_las    |          1 | .spc               |
-   | polyDissolve     | (f1,FIELD_1,1):(f2,FIELD_1,-1):(f3,FIELD_1,-1):(method,DISSOLVE,0)                    | shapes_polygons  |          5 | _disollved.shp     |
-   | ptCldToGrid      | (cs,CELLSIZE,1)                                                                       | pointcloud_tools |          4 | .sgrd              |
-   | xyzGridToGrid    | (cs,CELLSIZE,1):(sep,SEPARATOR,space)                                                 | io_grid          |          6 | .sgrd              |
-   |                  |                                                                                       |                  |            |                    |
+   | Command            | (cmdPar,sagaPar,default)                                                                                         | sagaLib          | sagaModule | defaultSuffix      |
+   |--------------------+------------------------------------------------------------------------------------------------------------------+------------------+------------+--------------------|
+   | ascGrd             | NA                                                                                                               | io_grid          |          1 | .sgrd              |
+   | gdalGrid           | NA                                                                                                               | io_gdal          |          0 | .sgrd              |
+   | gridClassToPoly    | (all,CLASS_ALL,1):(id,CLASS_ID,1):(split,SPLIT,0)                                                                | shapes_grid      |          6 | _polygons.shp      |
+   | gridClassifyFlat   | (method,METHOD,0):(new,NEW,1.0):(nodata,RESULT_NODATA_VALUE,-99999.0):(old,OLD,0.0):(table,RETAB,reclassify.txt) | grid_tools       |         15 | _reclassified.sgrd |
+   | gridContour        | (d,ZSTEP,1):(max,ZMAX,10000):(min,ZMIN,0)                                                                        | shapes_grid      |          5 | _contour.shp       |
+   | gridEsriAsc        | NA                                                                                                               | io_grid          |          0 | .asc               |
+   | gridFillGaps       | NA                                                                                                               | grid_tools       |         25 | _filled.sgrd       |
+   | gridFillGapsSpline | (grdFlT,TARGET_DEFINITION,1)                                                                                     | grid_spline      |          5 | _filled.sgrd       |
+   | gridHillshade      | NA                                                                                                               | ta_lighting      |          0 | _hillshade.sgrd    |
+   | gridPolyClip       | (poly,POLYGONS,1)                                                                                                | shapes_grid      |          7 | _polyClip.sgrd     |
+   | gridSlope          | (aspect,ASPECT,aspect)                                                                                           | ta_morphometry   |          0 | _slope.sgrd        |
+   | gridTifGdal        | NA                                                                                                               | io_gdal          |          2 | .tif               |
+   | gridTifHillshade   | (colRev,COL_REVERT,1):(max,STRETCH_MAX,1.571):(min,STRETCH_MIN,0):(pal,COL_PALETTE,2)                            | io_grid_image    |          0 | .tif               |
+   | gridTifTerrain     | (col,COLOURING,2):(max,STRETCH_MAX,100):(min,STRETCH_MIN,0):(pal,COL_PALETTE,23)                                 | io_grid_image    |          0 | .tif               |
+   | gridXyz            | (header,CAPTION,0):(na,EX_NODATA,1)                                                                              | io_grid          |          5 | .xyz               |
+   | lasToPtCld         | NA                                                                                                               | io_shapes_las    |          1 | .spc               |
+   | polyDissolve       | (f1,FIELD_1,1):(f2,FIELD_1,-1):(f3,FIELD_1,-1):(method,DISSOLVE,0)                                               | shapes_polygons  |          5 | _disollved.shp     |
+   | ptCldToGrid        | (cs,CELLSIZE,1)                                                                                                  | pointcloud_tools |          4 | .sgrd              |
+   | xyzGridToGrid      | (cs,CELLSIZE,1):(sep,SEPARATOR,space)                                                                            | io_grid          |          6 | .sgrd              |
+   |                    |                                                                                                                  |                  |            |                    |
 
 * Installation
 ** Saga And haskell-platform
@@ -71,25 +73,25 @@
    #+BEGIN_SRC sh :eval never
        git clone https://www.github.com/michelk/bindings-saga-cmd.hs.git
        cd bindings-saga-cmd.hs
-       cabal update && cabal install
+       stack install
    #+END_SRC
 
    The exectuables are usually installed into =$HOME/.cabal/bin=; to
    use them you have to put them into your search path. Put this into
    your =$HOME/.bashrc=:
    #+BEGIN_SRC sh :eval never
-     export PATH="$PATH:$HOME/.cabal/bin"
+     export PATH="$PATH:$HOME/.local/bin"
    #+END_SRC
 
 * =sagaPipe=
 ** Usage
    #+BEGIN_SRC sh :results verbatim
-   $HOME/.cabal/bin/sagaPipe --help
+   $HOME/.local/bin/sagaPipe --help
    #+END_SRC
 
    #+RESULTS:
    #+begin_example
-   sagaPipe version 0.1.0.0, GPL licensed; written by Michel Kuhlmann 2013
+   sagaPipe version 0.1.1.1, GPL licensed; written by Michel Kuhlmann 2013
 
    sagaPipe [OPTIONS] [DEM-input-file]
      Convert Digital Elevation Models (DEM) to diffent formats
@@ -108,6 +110,7 @@
      -n --nodes            Show implemented nodes
      -? --help             Display help message
      -V --version          Print version information
+        --numeric-version  Print just the version number
 #+end_example
 
    =sagaPipe= lets you chain =saga_cmd= commands. The program could be
@@ -120,7 +123,7 @@
    The pathways are visualized below
 
    #+BEGIN_SRC sh :exports results :results graphics :file doc/figures/chains.png
-      sagaPipe -d | dot -Tpng > doc/figures/chains.png
+      $HOME/.local/bin/sagaPipe -d | dot -Tpng > doc/figures/chains.png
    #+END_SRC
 
    #+RESULTS:
@@ -175,7 +178,7 @@
 
 ** Find the module
 #+BEGIN_SRC sh
-  cd saga-cmd-wrapper/doc
+  cd doc
   ./search <keyword> 
 #+END_SRC
 

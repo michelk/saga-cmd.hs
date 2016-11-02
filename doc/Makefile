@@ -1,7 +1,7 @@
 all: modules.svg
 
 lib.list : 
-	saga_cmd | grep "^\-" | sed 's/^- //' > $@
+	saga_cmd | grep "^ *-" | sed 's/^ *- //' > $@
 
 module.list :  lib.list
 	rm -f $@

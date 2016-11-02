@@ -1,7 +1,7 @@
 #+TITLE: bindings-saga-cmd: Wrapping =saga_cmd= to chain GIS-Data conversion
 #+AUTHOR: Michel Kuhlmann *TK Consult AG*
 - Travis: [[https://travis-ci.org/michelk/bindings-saga-cmd.hs.svg?branch=master]]
-- Hackage: [[https://img.shields.io/hackage/v/tmpl.svg?style=flat]]
+- Hackage: [[https://img.shields.io/hackage/v/bindings-saga-cmd.hs.svg?style=flat]]
 * Description
   Haskell Library to wrap =saga_cmd=.
 

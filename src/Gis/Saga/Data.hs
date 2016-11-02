@@ -128,7 +128,7 @@ sIoDB = M.fromList [
          SagaCmd "shapes_grid" "6" ("GRID","POLYGONS")
          (M.fromList [
            ("id",    ("CLASS_ID" , "1")) -- class identifier
-          ,("all",   ("CLASS_ALL" , "1")) -- 0: one single class specified by class identifier
+          ,("all",   ("CLASS_ALL", "0")) -- 0: one single class specified by class identifier
                                           -- 1: all classes
           ,("split",  ("SPLIT" , "0")) -- 0: one single (multi-)polygon object
                                        -- 1: each island as separated polygon

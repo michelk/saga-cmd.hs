@@ -20,6 +20,11 @@ sIoDB = M.fromList [
   ,("lasToPtCld", (
        SagaCmd "io_shapes_las" "1" ("FILE", "POINTS")
        (M.fromList []) Nothing Nothing , ".spc"))
+  ,("xyzToPtCld", (
+       SagaCmd "io_shapes" "16" ("FILE", "POINTS")
+       (M.fromList [
+                    ("sep", ("SEPARATOR" , "space"))
+                   ]) Nothing Nothing , ".spc"))
   ,("ptCldToGrid", (
        SagaCmd "pointcloud_tools" "4" ("POINTS","GRID")
        (M.fromList [("cs",  ("CELLSIZE"  , "1"))])
@@ -157,7 +162,7 @@ sNodes =
        ,"gridTifTerrain"
        ,"gridXyz"
        ,"gridHillshade"]))
-    ,("xyz-grid",([],["xyzGridToGrid"]))
+    ,("xyz-grid",([],["xyzGridToGrid","xyzToPtCld"]))
     ,("grid-filled",(["gridFillGaps", "gridFillGapsSpline"],["gridHillshade","gridXyz","gridContour"]))
     ,("grid-filled-hillshade",(["gridHillshade"],["gridTifHillshade"]))
     ,("grid-filled-hillshade-tif",(["gridTifHillshade"],[]))

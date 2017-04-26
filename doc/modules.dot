@@ -1,5 +1,3 @@
 digraph modules {
 	rankdir = LR;
-	"grid_analysis" -> "Feature Tracking";
-	"sim_hydrology" -> "Kinematic Wave D8";
 }

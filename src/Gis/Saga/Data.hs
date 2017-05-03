@@ -23,7 +23,7 @@ sIoDB = M.fromList [
   ,("xyzToPtCld", (
        SagaCmd "io_shapes" "16" ("FILE", "POINTS")
        (M.fromList [
-                    ("sep", ("SEPARATOR" , "space"))
+                    ("sep", ("FIELDSEP" , "space"))
                    ]) Nothing Nothing , ".spc"))
   ,("ptCldToGrid", (
        SagaCmd "pointcloud_tools" "4" ("POINTS","GRID")

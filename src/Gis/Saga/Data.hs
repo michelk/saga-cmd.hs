@@ -27,7 +27,10 @@ sIoDB = M.fromList [
                    ]) Nothing Nothing , ".spc"))
   ,("ptCldToGrid", (
        SagaCmd "pointcloud_tools" "4" ("POINTS","GRID")
-       (M.fromList [("cs",  ("CELLSIZE"  , "1"))])
+       (M.fromList [
+           ("cs",  ("CELLSIZE"  , "1"))
+          ,("aggr",  ("AGGREGATION"  , "2"))
+           ])
        Nothing Nothing ,".sgrd"))
   ,("gridFillGapsSpline", (
     SagaCmd "grid_spline" "5" ("GRID","TARGET_OUT_GRID")
@@ -100,11 +103,7 @@ sIoDB = M.fromList [
   ,("polyDissolve", (
          SagaCmd "shapes_polygons" "5" ("POLYGONS","DISSOLVED")
          (M.fromList [
-           ("method" ,("DISSOLVE" , "0")) -- 0: polygons with same attribute value
-                                         -- 1: all polygons
-                                         -- 2: polygons with same attribute value (keep inner boundaries)
-                                         -- 3: all polygons (keep inner boundaries)
-          ,("f1",("FIELD_1"  , "1"))
+           ("f1",("FIELD_1"  , "-1"))
           ,("f2",("FIELD_1"  , "-1"))
           ,("f3",("FIELD_1"  , "-1"))
          ])

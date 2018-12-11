@@ -1,8 +1,8 @@
-name:                bindings-saga-cmd
+name:                saga-cmd
 version:             0.1.1.1
 synopsis:            Wrapping saga_cmd
 description:         A simple wrapper around the command-line version of the GIS-program saga
-homepage:            https://github.com/michelk/bindings-saga-cmd.hs
+homepage:            https://github.com/michelk/saga-cmd.hs
 
 license:             GPL-3
 license-file:        LICENSE
@@ -14,7 +14,7 @@ cabal-version:       >=1.8
 
 source-repository head
   type:     git
-  location: https://github.com/michelk/bindings-saga-cmd.hs
+  location: https://github.com/michelk/saga-cmd.hs
 
 library
   exposed-modules:   Gis.Saga.Types
@@ -24,12 +24,14 @@ library
                      Gis.Saga.LUT
                      Gis.Saga.Doc
                      Gis.Saga.Node
+                     Gis.Saga.Commands
   build-depends:     base >=4.3 && < 5,
                      filepath,
                      process,
                      containers,
                      directory,
-                     unix
+                     unix,
+                     turtle
   hs-source-dirs:    src
 
 executable sagaPipe
@@ -42,7 +44,14 @@ executable sagaPipe
                      containers,
                      directory,
                      unix,
-                     bindings-saga-cmd
+                     saga-cmd
+  hs-source-dirs:    src
+
+executable shpPrepMeshing
+  main-is:           shpPrepMeshing.hs
+  build-depends:     base
+                    ,saga-cmd
+                    ,turtle
   hs-source-dirs:    src
 
 executable sagaTopo
@@ -55,11 +64,11 @@ executable sagaTopo
                      containers,
                      directory,
                      unix,
-                     bindings-saga-cmd
+                     saga-cmd
   hs-source-dirs:    src
 
 executable sagaLut
   main-is:           sagaLut.hs
   build-depends:     base  >=4.3 && < 5,
-                     bindings-saga-cmd
+                     saga-cmd
   hs-source-dirs:    src

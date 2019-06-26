@@ -104,8 +104,8 @@ sIoDB = M.fromList [
          SagaCmd "shapes_polygons" "5" ("POLYGONS","DISSOLVED")
          (M.fromList [
            ("f1",("FIELD_1"  , "-1"))
-          ,("f2",("FIELD_1"  , "-1"))
-          ,("f3",("FIELD_1"  , "-1"))
+          ,("f2",("FIELD_2"  , "-1"))
+          ,("f3",("FIELD_3"  , "-1"))
          ])
          Nothing Nothing, "_disollved.shp"))
   ,("gridSlope", (

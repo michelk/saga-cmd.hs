@@ -1,3 +1,20 @@
 digraph modules {
 	rankdir = LR;
+	"garden_learn_to_program " -> " My first tool";
+	"garden_learn_to_program " -> " Pixel by pixel operations with two grids";
+	"garden_learn_to_program " -> " Direct neighbours";
+	"garden_learn_to_program " -> " Direct neighbours - more...";
+	"garden_learn_to_program " -> " Direct neighbours - slope and aspect";
+	"garden_learn_to_program " -> " Extended neighbourhoods";
+	"garden_learn_to_program " -> " Extended neighbourhoods - catchment areas (trace flow)";
+	"garden_learn_to_program " -> " Extended neighbourhoods - catchment areas (parallel)";
+	"garden_learn_to_program " -> " Extended neighbourhoods - catchment areas (recursive)";
+	"garden_learn_to_program " -> " Dynamic Simulation - Life";
+	"garden_learn_to_program " -> " Dynamic Simulation - Soil Nitrogen Dynamics";
+	"garden_learn_to_program " -> " First steps with shapes";
+	"garden_learn_to_program " -> " Reprojecting a shapes layer";
+	"garden_learn_to_program " -> " Vectorising channel lines";
+	"sim_ecosystems_hugget " -> " A Simple Litter System";
+	"sim_ecosystems_hugget " -> " Carbon Cycle Simulation for Terrestrial Biomass";
+	"sim_ecosystems_hugget " -> " Spatially Distributed Simulation of Soil Nitrogen Dynamics";
 }

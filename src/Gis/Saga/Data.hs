@@ -97,8 +97,8 @@ sIoDB = M.fromList [
   ,("gridXyz", (
          SagaCmd "io_grid" "5" ("GRIDS","FILENAME")
          (M.fromList [
-           ("header",("CAPTION"  , "0"))
-          ,("na",("EX_NODATA"  , "1"))
+           ("header",("HEADER"  , "0"))
+          ,("na",("NODATA"  , "0"))
              ]) Nothing Nothing, ".xyz"))
   ,("polyDissolve", (
          SagaCmd "shapes_polygons" "5" ("POLYGONS","DISSOLVED")

@@ -8,7 +8,7 @@ module.list :  lib.list
 	for l in $$(cat $<); do \
 		echo $$l >> $@ ;\
 		echo "--------------------------------" >> $@ ;\
-		saga_cmd $$l | grep -E "^ [0-9]+" \
+		saga_cmd $$l | grep -E "^ \[[0-9]+" \
 		| awk -v l=$$l '{print l, ":",$$0}' \
 			>> $@ ;\
 		echo "\n" >> $@ ;\

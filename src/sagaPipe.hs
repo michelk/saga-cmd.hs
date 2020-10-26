@@ -38,10 +38,10 @@ main = do
 
 _PROGRAM_NAME, _PROGRAM_VERSION, _PROGRAM_INFO, _PROGRAM_ABOUT, _COPYRIGHT :: String
 _PROGRAM_NAME    = "sagaPipe"
-_PROGRAM_VERSION = "0.1.1.1"
+_PROGRAM_VERSION = "0.2"
 _PROGRAM_INFO    = _PROGRAM_NAME ++ " version " ++ _PROGRAM_VERSION
-_COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2013"
-_PROGRAM_ABOUT   = "Convert Digital Elevation Models (DEM) to diffent formats"
+_COPYRIGHT       = "GPL licensed; written by Michel Kuhlmann 2020"
+_PROGRAM_ABOUT   = "Wrapper for saga_cmd"
 
 -- | Data structure for command line options.
 data Opt = Opt

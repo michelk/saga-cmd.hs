@@ -1,4 +1,3 @@
-climate
 climate_tools
 contrib_perego
 db_odbc
@@ -18,14 +17,13 @@ grid_gridding
 grid_spline
 grid_tools
 grid_visualisation
-imagery
+grids_tools
 imagery_classification
 imagery_maxent
 imagery_photogrammetry
 imagery_segmentation
 imagery_svm
 imagery_tools
-imagery_vigra
 io_esri_e00
 io_gdal
 io_gps
@@ -48,8 +46,11 @@ shapes_transect
 sim_cellular_automata
 sim_ecosystems_hugget
 sim_erosion
+sim_fire_spreading
+sim_geomorphology
 sim_hydrology
 sim_ihacres
+sim_landscape_evolution
 sim_qm_of_esp
 sim_rivflow
 statistics_grid
@@ -66,8 +67,5 @@ ta_profiles
 ta_slope_stability
 table_calculus
 table_tools
-terrain_analysis
 tin_tools
 tin_viewer
-toolchains
-tta_tools

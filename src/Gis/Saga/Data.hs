@@ -11,7 +11,7 @@ sIoDB = M.fromList [
       SagaCmd "io_grid" "6" ("FILENAME","GRID") -- library, module, input-,output-parameters
               (M.fromList [     --  parameters: sagaPipe-par, saga_cmd-par, default
                    ("cs",  ("CELLSIZE"  , "1"))
-                  ,("sep", ("SEPARATOR" , "space"))
+                  ,("sep", ("SEPARATOR" , "1")) -- 1: space, 2: ',', 3: ';' 4: tabulator
                   ])
               Nothing Nothing   -- pre-, post-processing
       , ".sgrd"                 --  output-file extension
@@ -19,12 +19,12 @@ sIoDB = M.fromList [
   )
   ,("lasToPtCld", (
        SagaCmd "io_shapes_las" "1" ("FILE", "POINTS")
-       (M.fromList []) Nothing Nothing , ".spc"))
+       (M.fromList []) Nothing Nothing , ".sg-pts"))
   ,("xyzToPtCld", (
        SagaCmd "io_shapes" "16" ("FILE", "POINTS")
        (M.fromList [
-                    ("sep", ("FIELDSEP" , "space"))
-                   ]) Nothing Nothing , ".spc"))
+                    ("sep", ("SEPARATOR" , "1")) -- 0: tab, 1: space, 2: comma
+                   ]) Nothing Nothing , ".sg-pts"))
   ,("ptCldToGrid", (
        SagaCmd "pointcloud_tools" "4" ("POINTS","GRID")
        (M.fromList [
@@ -97,8 +97,7 @@ sIoDB = M.fromList [
   ,("gridXyz", (
          SagaCmd "io_grid" "5" ("GRIDS","FILENAME")
          (M.fromList [
-           ("header",("CAPTION"  , "0"))
-          ,("na",("EX_NODATA"  , "1"))
+           ("header",("HEADER"  , "0"))
              ]) Nothing Nothing, ".xyz"))
   ,("polyDissolve", (
          SagaCmd "shapes_polygons" "5" ("POLYGONS","DISSOLVED")

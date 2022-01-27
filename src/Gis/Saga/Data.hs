@@ -19,7 +19,7 @@ sIoDB = M.fromList [
   )
   ,("lasToPtCld", (
        SagaCmd "io_shapes_las" "1" ("FILE", "POINTS")
-       (M.fromList []) Nothing Nothing , ".sg-pts"))
+       M.empty Nothing Nothing , ".sg-pts"))
   ,("xyzToPtCld", (
        SagaCmd "io_shapes" "16" ("FILE", "POINTS")
        (M.fromList [
@@ -41,11 +41,11 @@ sIoDB = M.fromList [
     (Just copyGrid) Nothing, "_filled.sgrd"))
   ,("gridFillGaps", (
     SagaCmd "grid_tools" "25" ("GRID","CLOSED")
-    (M.fromList [])
+    M.empty
     Nothing Nothing, "_filled.sgrd"))
   ,("gridHillshade", (
        SagaCmd "ta_lighting" "0" ("ELEVATION","SHADE")
-       (M.fromList []) Nothing Nothing , "_hillshade.sgrd"))
+       M.empty Nothing Nothing , "_hillshade.sgrd"))
   ,("gridContour", (
        SagaCmd "shapes_grid" "5" ("GRID","CONTOUR")
        (M.fromList [
@@ -80,20 +80,16 @@ sIoDB = M.fromList [
            ]) Nothing Nothing, ".tif"))
   ,("gridTifGdal", (
        SagaCmd "io_gdal" "2" ("GRIDS","FILE")
-       (M.fromList [
-           ]) Nothing Nothing, ".tif"))
+       M.empty Nothing Nothing, ".tif"))
   ,("gridEsriAsc", (
        SagaCmd "io_grid" "0" ("GRID","FILE")
-       (M.fromList [
-              ]) Nothing Nothing, ".asc"))
+       M.empty Nothing Nothing, ".asc"))
   ,("ascGrd", (
        SagaCmd "io_grid" "1" ("FILE","GRID")
-       (M.fromList [
-              ]) Nothing Nothing, ".sgrd"))
+       M.empty Nothing Nothing, ".sgrd"))
   ,("gdalGrid", (
        SagaCmd "io_gdal" "0" ("FILES", "GRIDS")
-       (M.fromList [
-           ]) Nothing Nothing, ".sgrd"))
+       M.empty Nothing Nothing, ".sgrd"))
   ,("gridXyz", (
          SagaCmd "io_grid" "5" ("GRIDS","FILENAME")
          (M.fromList [

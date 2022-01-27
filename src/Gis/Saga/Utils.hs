@@ -6,7 +6,7 @@ import System.Directory (copyFile, renameFile)
 import Text.Printf (printf)
 
 defaultCmdPars :: SagaCmd -> [(String,String)]
-defaultCmdPars (SagaCmd {sParas = ps}) =
+defaultCmdPars SagaCmd {sParas = ps} =
     map (\(k,(_,v)) -> (k,v)) (M.toList ps)
 
 -- | Copy a grid data-set

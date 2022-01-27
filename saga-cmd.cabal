@@ -1,5 +1,5 @@
 name:                saga-cmd
-version:             0.1.1.1
+version:             0.3
 synopsis:            Wrapping saga_cmd
 description:         A simple wrapper around the command-line version of the GIS-program saga
 homepage:            https://github.com/michelk/saga-cmd.hs
